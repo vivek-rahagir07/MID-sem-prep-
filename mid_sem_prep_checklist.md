@@ -125,20 +125,37 @@
 
 ## 📊 Exam 4: Data Analytics (DA) (8 Oct)
 
-### 1. Data Understanding & Exploratory Analysis (EDA)
-- [ ] **Data Analytics Life Cycle & Types** (Descriptive, Diagnostic, Predictive, Prescriptive analytics)
-- [ ] **Data Cleaning & Preprocessing** (Missing values imputation, outlier detection via IQR & Z-score)
-- [ ] **EDA & Visualization** (Summary statistics, histograms, box plots, scatter plots, correlation heatmaps)
+### Module 1: Introduction to Data Analytics and Python (5h: 3Th + 2 Lab | CO1 & CO2)
+- [ ] **Data Analytics Concepts & Applications** (Core definition, role in decision making, business applications; Descriptive, Diagnostic, Predictive, Prescriptive analytics)
+- [ ] **Data Science Lifecycle** (Problem definition, data acquisition/collection, data prep/cleaning, EDA, model building, validation & deployment)
+- [ ] **Types of Data** (Structured, semi-structured, unstructured; qualitative [nominal, ordinal] vs quantitative [discrete, continuous] measurement scales)
+- [ ] **Python Basics for Analytics** (Variables, primitive data types, control flow if/else & loops, functions, lambda expressions, list comprehensions)
+- [ ] **Python File Handling** (File modes 'r', 'w', 'a', reading/writing text & CSV files, `with open(...) as f` context manager, file cursor methods)
+- [ ] **Jupyter Notebook Environment** (Cell execution modes, command vs edit mode shortcuts, markdown syntax, kernel management, running shell commands)
 
-### 2. Statistical Foundations & Probability
-- [ ] **Measures of Central Tendency & Dispersion** (Mean, median, mode, variance, standard deviation, skewness)
-- [ ] **Probability Distributions** (Binomial, Poisson, Normal / Gaussian distribution, Standard Normal Z-table, Central Limit Theorem)
-- [ ] **Hypothesis Testing** (Null $H_0$ vs Alternative $H_1$, Type I & II errors, p-value, Z-test, t-test, Chi-square)
+### Module 2: Data Collection and Manipulation (7h: 4Th + 3 Lab | CO1, CO2 & CO3)
+- [ ] **Data Collection, Preparation & Importing Datasets** (Importing datasets with Pandas `read_csv`, `read_excel`, `read_json`; dataset inspection `.head()`, `.info()`, `.describe()`, `.shape`)
+- [ ] **Pandas Series & DataFrames Architecture** (1D Series vs 2D DataFrame structures, index manipulation, row/column slicing, label indexing `.loc` vs integer indexing `.iloc`)
+- [ ] **Data Cleaning & Missing Value Handling** (Detecting missing values `.isna()`, `.isnull().sum()`, removal strategies `.dropna()`, imputation strategies `.fillna()` with mean/median/mode, forward/backward fill)
+- [ ] **Data Filtering & Sorting** (Conditional filtering with boolean masks, compound conditions `&`, `|`, `~`, `.query()` method, `.sort_values()` and `.sort_index()`)
+- [ ] **Grouping & Aggregation (GroupBy)** (Split-Apply-Combine methodology, `.groupby()`, multiple aggregations with `.agg()`, pivot tables `pd.pivot_table()`)
+- [ ] **Merging, Joining & Concatenation** (Combining datasets: `pd.merge()` with inner, outer, left, right joins; `pd.concat()` along rows `axis=0` and columns `axis=1`, handling duplicate keys)
+- [ ] **Data Transformation Techniques** (Mapping and replacements `.map()`, `.replace()`, `.apply()`, type casting `.astype()`, string operations `.str`, date parsing `pd.to_datetime()`)
 
-### 3. Predictive Modeling & Regression
-- [ ] **Linear Regression** (Ordinary Least Squares, slope/intercept, $R^2$ and Adjusted $R^2$)
-- [ ] **Logistic Regression & Classification** (Sigmoid function, confusion matrix, precision, recall, F1-score, ROC-AUC)
-- [ ] **Clustering & Dimensionality Reduction** (K-Means algorithm, Elbow method, PCA concept)
+### Module 3: Numerical Computing with NumPy (7h: 4Th + 3 Lab | CO1, CO2 & CO3)
+- [ ] **Python Data Structures vs NumPy Arrays** (Limitations of Python lists, memory layout, cache efficiency, vectorization speedups, `ndarray` object attributes `.ndim`, `.shape`, `.dtype`)
+- [ ] **NumPy Arrays: Creation, Indexing & Slicing** (Array creation `np.array`, `np.zeros`, `np.ones`, `np.arange`, `np.linspace`, `np.eye`; multi-dimensional indexing, slicing, boolean masking, fancy indexing)
+- [ ] **Matrix Operations & Broadcasting Rules** (Element-wise arithmetic, matrix multiplication `np.dot`, `np.matmul`, `@` operator, transpose `.T`, inverse `np.linalg.inv()`, broadcasting rules across dimensions)
+- [ ] **Mathematical & Statistical Functions in NumPy** (Universal functions `ufuncs`, aggregation along axes: `np.sum`, `np.mean`, `np.median`, `np.std`, `np.var`, `np.min`, `np.max`, `np.cumsum` with `axis=0` vs `axis=1`)
+- [ ] **Feature Engineering with NumPy** (Min-Max normalization, Z-score standardization, log transformations `np.log1p`, percentile clipping `np.clip` for outlier suppression, polynomial feature generation)
+
+### Module 4: Exploratory Data Analysis and Visualization (CO1, CO2 & CO3)
+- [ ] **Exploratory Data Analysis (EDA) & Descriptive Statistics** (EDA workflow, summary statistics, measures of central tendency: mean, median, mode, trimmed mean; assessing skewness and distribution shape)
+- [ ] **Population, Sample & Measures of Variability** (Population vs sample concepts, degrees of freedom `n-1`, range, Interquartile Range `IQR = Q3 - Q1`, variance, standard deviation, Box Plot outlier rules)
+- [ ] **Hypothesis Testing & Significance** (Null hypothesis $H_0$ vs Alternative $H_1$, significance level $lpha$, Type I vs Type II errors, p-value decision rules, one-sample & two-sample t-tests, Z-test, Chi-square independence test)
+- [ ] **Correlation Analysis & Covariance** (Covariance formula, Pearson linear correlation coefficient $r \in [-1, 1]$, Spearman rank correlation, correlation matrix, distinguishing correlation from causation)
+- [ ] **Data Visualization using Matplotlib** (Figure and Axes object hierarchy, `plt.subplots()`, line plots, scatter plots, bar charts, histograms, customizing labels, legends, grid, saving figures `plt.savefig`)
+- [ ] **Advanced Statistical Visualization with Seaborn** (Seaborn themes, distribution plots `histplot`, `kdeplot`; categorical plots `boxplot`, `violinplot`, `countplot`; correlation heatmaps `sns.heatmap` with `annot=True`, pair plots `sns.pairplot`, regression plots `sns.regplot`)
 
 ---
 

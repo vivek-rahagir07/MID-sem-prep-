@@ -1959,10 +1959,13 @@ const FORMULA_CHEATSHEETS = {
         { title: "Circular Queue Modulo Math", formula: "Rear = (Rear + 1) % Capacity  |  Front = (Front + 1) % Capacity", desc: "Full check: (Rear + 1) % Capacity == Front. Overcomes false overflow in linear queues." }
     ],
     da: [
-        { title: "Standard Normal Z-Score", formula: "Z = (X - μ) / σ", desc: "Transforms any normal distribution into standard normal N(0, 1) for Z-table lookup." },
-        { title: "IQR Outlier Detection", formula: "IQR = Q3 - Q1  |  Outliers: X < Q1 - 1.5*IQR  or  X > Q3 + 1.5*IQR", desc: "Extreme outliers use 3.0 * IQR. Box plot whiskers extend to 1.5 * IQR." },
-        { title: "Simple Linear Regression Slope", formula: "β1 = Cov(X,Y) / Var(X) = Σ(x - x̄)(y - ȳ) / Σ(x - x̄)^2", desc: "Intercept: β0 = ȳ - β1 * x̄. Coefficient of determination R^2 = SSR / SST." },
-        { title: "Classification Metrics", formula: "Precision = TP / (TP + FP)  |  Recall = TP / (TP + FN)  |  F1 = 2*P*R / (P + R)", desc: "Accuracy = (TP + TN) / Total. Use F1-score when classes are imbalanced." }
+        { title: "Pandas Indexing & Selection (.loc vs .iloc)", formula: "df.loc[row_label, col_label]  |  df.iloc[row_idx, col_idx]", desc: ".loc is label-based (endpoints inclusive). .iloc is integer position-based 0..n-1 (endpoint exclusive)." },
+        { title: "Missing Data Imputation & GroupBy", formula: "df['col'] = df['col'].fillna(df['col'].mean())  |  df.groupby('cat').agg({'val': ['mean', 'count']})", desc: "Use mean for normal data, median for skewed data/outliers. groupby() applies the Split-Apply-Combine pattern." },
+        { title: "NumPy Matrix Multiplication & Dot Product", formula: "C = A @ B  (or np.matmul(A, B))  |  np.dot(u, v) = Σ(u_i * v_i)", desc: "Inner dimensions must match: (m x k) @ (k x n) -> (m x n). Broadcasting stretches dimensions of size 1." },
+        { title: "IQR Outlier Detection & 5-Number Summary", formula: "IQR = Q3 - Q1  |  Outliers: X < Q1 - 1.5*IQR  or  X > Q3 + 1.5*IQR", desc: "5-Number Summary: Min, Q1 (25th%), Median/Q2 (50th%), Q3 (75th%), Max. Extreme outliers: 3.0 * IQR." },
+        { title: "Z-Score Standardization vs Min-Max Normalization", formula: "Z = (X - μ) / σ  |  X_norm = (X - X_min) / (X_max - X_min)", desc: "Standardization yields mean=0, std=1. Min-Max scales strictly between [0, 1]." },
+        { title: "Pearson Correlation Coefficient (r)", formula: "r = Σ(x - x̄)(y - ȳ) / [ √Σ(x - x̄)^2 * √Σ(y - ȳ)^2 ] = Cov(X,Y) / (σ_x * σ_y)", desc: "Measures linear correlation: r ∈ [-1, 1]. r = 0 means no linear correlation (use Spearman for monotonic relations)." },
+        { title: "Hypothesis Testing (t-Score & p-Value)", formula: "t = (x̄ - μ0) / (s / √n)  |  Reject H0 if p-value < α (usually 0.05)", desc: "Type I error (α): Rejecting true H0. Type II error (β): Failing to reject false H0. Power = 1 - β." }
     ],
     java: [
         { title: "String Pool vs Heap Object", formula: "String s1 = \"abc\"; (Pool) vs String s2 = new String(\"abc\"); (Heap)", desc: "s1 == s2 is false (different references), but s1.equals(s2) is true (identical contents)." },
@@ -2172,27 +2175,47 @@ const SYLLABUS_DATA = [
         glow: "rgba(37, 99, 235, 0.2)",
         modules: [
             {
-                name: "1. Data Understanding & Exploratory Analysis (EDA)",
+                name: "Module 1: Introduction to Data Analytics and Python (5h: 3Th + 2 Lab | CO1 & CO2)",
                 topics: [
-                    { id: "da-intro-lifecycle", title: "Data Analytics Life Cycle & Types", desc: "Descriptive, Diagnostic, Predictive, and Prescriptive analytics; data preprocessing steps.", minutes: 20, highYield: false },
-                    { id: "da-data-types-cleaning", title: "Data Types & Data Cleaning", desc: "Structured, semi-structured, unstructured; handling missing values, imputation techniques, outlier detection (IQR, Z-score).", minutes: 25, highYield: true },
-                    { id: "da-eda-visualization", title: "Exploratory Data Analysis & Visualization", desc: "Summary statistics, histograms, box plots, scatter plots, correlation heatmaps, feature distributions.", minutes: 25, highYield: true }
+                    { id: "da-concepts-apps", title: "Data Analytics Concepts & Applications", desc: "Core definition, role in decision making, business applications; Descriptive, Diagnostic, Predictive, Prescriptive analytics.", minutes: 25, highYield: true },
+                    { id: "da-data-science-lifecycle", title: "Data Science Lifecycle", desc: "Stages: Problem definition, data acquisition/collection, data prep/cleaning, EDA, model building, validation & deployment.", minutes: 25, highYield: true },
+                    { id: "da-types-of-data", title: "Types of Data (Structured / Unstructured, Quantitative / Qualitative)", desc: "Structured, semi-structured, unstructured; qualitative (nominal, ordinal) vs quantitative (discrete, continuous) measurement scales.", minutes: 25, highYield: true },
+                    { id: "da-python-basics", title: "Python Basics for Analytics", desc: "Variables, primitive data types (int, float, str, bool), operators, control structures (if/else, for, while loops), functions, lambda expressions, list comprehensions.", minutes: 30, highYield: true },
+                    { id: "da-file-handling", title: "Python File Handling", desc: "File modes ('r', 'w', 'a'), reading/writing text & CSV files, context manager (with open(...) as f), cursor positioning (.seek(), .tell()).", minutes: 25, highYield: false },
+                    { id: "da-jupyter-notebook", title: "Jupyter Notebook Environment", desc: "Cell execution modes (code vs markdown), command vs edit mode shortcuts, kernel restart/interrupt, exporting notebooks, running shell commands.", minutes: 20, highYield: false }
                 ]
             },
             {
-                name: "2. Statistical Foundations & Probability",
+                name: "Module 2: Data Collection and Manipulation (7h: 4Th + 3 Lab | CO1, CO2 & CO3)",
                 topics: [
-                    { id: "da-descriptive-stats", title: "Measures of Central Tendency & Dispersion", desc: "Mean, median, mode, variance, standard deviation, skewness, kurtosis, quartiles.", minutes: 25, highYield: true },
-                    { id: "da-probability-distributions", title: "Probability Distributions", desc: "Discrete (Binomial, Poisson) and Continuous (Normal / Gaussian distribution, Standard Normal Z-table, Central Limit Theorem).", minutes: 30, highYield: true },
-                    { id: "da-hypothesis-testing", title: "Hypothesis Testing & Significance", desc: "Null hypothesis (H0) vs Alternative (H1), Type I and Type II errors, p-value interpretation, Z-test, t-test, Chi-square test.", minutes: 35, highYield: true }
+                    { id: "da-collection-prep-import", title: "Data Collection, Preparation & Importing Datasets", desc: "Data gathering methods, importing datasets using Pandas (read_csv, read_excel, read_json), inspecting data (.head(), .tail(), .info(), .describe(), .shape).", minutes: 25, highYield: true },
+                    { id: "da-pandas-series-dataframe", title: "Pandas Series & DataFrames", desc: "1D Series vs 2D DataFrame structures, index manipulation, row/column slicing, label indexing (.loc) vs integer indexing (.iloc).", minutes: 30, highYield: true },
+                    { id: "da-data-cleaning-missing", title: "Data Cleaning & Missing Value Handling", desc: "Detecting missing values (.isna(), .isnull().sum()), removal strategies (.dropna()), imputation strategies (.fillna() with mean, median, mode, forward/backward fill).", minutes: 35, highYield: true },
+                    { id: "da-filtering-sorting", title: "Data Filtering & Sorting", desc: "Conditional filtering with boolean masks, compound conditions (&, |, ~), query() method, sorting values (.sort_values(by=..., ascending=...)) and index.", minutes: 25, highYield: true },
+                    { id: "da-grouping-aggregation", title: "Grouping & Aggregation (GroupBy)", desc: "Split-Apply-Combine methodology, .groupby(), multiple aggregations with .agg(['mean', 'std', 'count']), pivot tables (pd.pivot_table()).", minutes: 35, highYield: true },
+                    { id: "da-merging-joining", title: "Merging, Joining & Concatenation", desc: "Combining datasets: pd.merge() with inner, outer, left, right joins; pd.concat() along rows (axis=0) and columns (axis=1), handling duplicate keys.", minutes: 30, highYield: true },
+                    { id: "da-data-transformation", title: "Data Transformation Techniques", desc: "Mapping and replacements (.map(), .replace()), custom function application (.apply(), .applymap()), type casting (.astype()), string operations (.str), date parsing (pd.to_datetime()).", minutes: 30, highYield: true }
                 ]
             },
             {
-                name: "3. Predictive Modeling & Regression",
+                name: "Module 3: Numerical Computing with NumPy (7h: 4Th + 3 Lab | CO1, CO2 & CO3)",
                 topics: [
-                    { id: "da-linear-regression", title: "Simple & Multiple Linear Regression", desc: "Least squares estimation, slope & intercept formula, R-squared and Adjusted R-squared, assumptions of regression.", minutes: 35, highYield: true },
-                    { id: "da-logistic-classification", title: "Classification & Logistic Regression", desc: "Sigmoid function, odds ratio, decision boundary, confusion matrix, precision, recall, F1-score, ROC-AUC curve.", minutes: 35, highYield: true },
-                    { id: "da-clustering-dim-reduction", title: "Clustering & Dimensionality Reduction", desc: "K-Means clustering algorithm (Elbow method), Hierarchical clustering, PCA (Principal Component Analysis) concepts.", minutes: 30, highYield: true }
+                    { id: "da-python-ds-vs-numpy", title: "Python Data Structures vs NumPy Arrays", desc: "Limitations of Python lists, memory layout, cache efficiency, vectorization speedups, ndarray object attributes (.ndim, .shape, .size, .dtype).", minutes: 25, highYield: false },
+                    { id: "da-numpy-arrays-indexing", title: "NumPy Arrays: Creation, Indexing & Slicing", desc: "Array creation (np.array, np.zeros, np.ones, np.arange, np.linspace, np.eye), multi-dimensional indexing, slicing syntax, boolean indexing, fancy integer indexing.", minutes: 30, highYield: true },
+                    { id: "da-matrix-operations", title: "Matrix Operations & Broadcasting", desc: "Element-wise arithmetic (+, -, *, /), matrix multiplication (np.dot, np.matmul, @ operator), transpose (.T), broadcasting rules across mismatched dimensions.", minutes: 35, highYield: true },
+                    { id: "da-math-stat-functions", title: "Mathematical & Statistical Functions in NumPy", desc: "Universal functions (ufuncs), aggregation along axes: np.sum, np.mean, np.median, np.std, np.var, np.min, np.max, np.cumsum (axis=0 vs axis=1).", minutes: 25, highYield: true },
+                    { id: "da-feature-engineering-numpy", title: "Feature Engineering with NumPy", desc: "Min-Max normalization, Z-score standardization, log transformations (np.log1p), percentile clipping (np.clip) for outlier suppression, polynomial feature generation.", minutes: 30, highYield: true }
+                ]
+            },
+            {
+                name: "Module 4: Exploratory Data Analysis and Visualization (CO1, CO2 & CO3)",
+                topics: [
+                    { id: "da-eda-descriptive-stats", title: "Exploratory Data Analysis (EDA) & Descriptive Statistics", desc: "EDA workflow, summary statistics, measures of central tendency (mean, median, mode, trimmed mean), assessing skewness and distribution shape.", minutes: 25, highYield: true },
+                    { id: "da-population-sample-variability", title: "Population, Sample & Measures of Variability", desc: "Population vs sample concepts, degrees of freedom (n-1), range, Interquartile Range (IQR = Q3 - Q1), variance, standard deviation, Box Plot outlier rules.", minutes: 30, highYield: true },
+                    { id: "da-hypothesis-testing", title: "Hypothesis Testing & Significance", desc: "Null hypothesis (H0) vs Alternative (H1), significance level (α), Type I vs Type II errors, p-value decision rules, one-sample & two-sample t-tests, Z-test, Chi-square independence test.", minutes: 35, highYield: true },
+                    { id: "da-correlation-analysis", title: "Correlation Analysis & Covariance", desc: "Covariance formula, Pearson linear correlation coefficient (r), Spearman rank correlation, correlation matrix, distinguishing correlation from causation.", minutes: 30, highYield: true },
+                    { id: "da-visualization-matplotlib", title: "Data Visualization using Matplotlib", desc: "Figure and Axes object hierarchy, plt.subplots(), line plots, scatter plots, bar charts, histograms, customizing labels, legends, grid, ticks, and saving figures (plt.savefig).", minutes: 30, highYield: true },
+                    { id: "da-visualization-seaborn", title: "Advanced Statistical Visualization with Seaborn", desc: "Seaborn styling/themes, distribution plots (histplot, kdeplot), categorical plots (boxplot, violinplot, countplot), correlation heatmaps (sns.heatmap with annot), pair plots (sns.pairplot), regression plots (sns.regplot).", minutes: 35, highYield: true }
                 ]
             }
         ]
