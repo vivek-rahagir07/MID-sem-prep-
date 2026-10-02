@@ -11,8 +11,8 @@
     <!-- Main Stylesheet -->
     <style>
 /* ==========================================================================
-   MID-SEM EXAM PREP TRACKER - ULTRA POLISHED UI/UX DESIGN SYSTEM
-   Clean White Aesthetic with Modern Micro-interactions & Accessible Contrast
+   MID-SEM EXAM PREP TRACKER - MASTER-TIER UI/UX DESIGN SYSTEM
+   Modern Notion/Linear Clean Aesthetic, High-Yield Tags, Sticky Nav & Cheatsheets
    ========================================================================== */
 
 :root {
@@ -157,7 +157,7 @@ header {
     z-index: 100;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.94);
     border-bottom: 1px solid var(--border-subtle);
     padding: 0.75rem 2rem;
     display: flex;
@@ -169,7 +169,7 @@ header {
 }
 
 [data-theme="dark"] header {
-    background: rgba(9, 13, 22, 0.92);
+    background: rgba(9, 13, 22, 0.94);
     box-shadow: 0 1px 15px rgba(0, 0, 0, 0.3);
 }
 
@@ -228,7 +228,7 @@ header {
     flex-wrap: wrap;
 }
 
-/* Reusable Button System */
+/* Button System */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -287,6 +287,23 @@ header {
     color: #ffffff;
 }
 
+.btn-cheatsheet {
+    background: #f0fdf4;
+    color: #15803d;
+    border-color: #bbf7d0;
+}
+
+.btn-cheatsheet:hover {
+    background: #dcfce7;
+    border-color: #86efac;
+}
+
+[data-theme="dark"] .btn-cheatsheet {
+    background: rgba(22, 101, 52, 0.2);
+    color: #4ade80;
+    border-color: rgba(74, 222, 128, 0.3);
+}
+
 .btn-danger {
     color: #ef4444;
     border-color: #fecaca;
@@ -303,13 +320,71 @@ header {
 }
 
 /* ==========================================================================
-   APP CONTAINER
+   APP CONTAINER & STICKY SUBJECT JUMP NAV
    ========================================================================== */
 
 .app-container {
     max-width: 1400px;
-    margin: 1.5rem auto;
+    margin: 1.25rem auto;
     padding: 0 1.5rem;
+}
+
+.sticky-sub-nav {
+    position: sticky;
+    top: 61px;
+    z-index: 90;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 0.45rem 0.6rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    overflow-x: auto;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+}
+
+[data-theme="dark"] .sticky-sub-nav {
+    background: rgba(9, 13, 22, 0.95);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+}
+
+.sticky-sub-nav::-webkit-scrollbar {
+    height: 4px;
+}
+.sticky-sub-nav::-webkit-scrollbar-thumb {
+    background: var(--border-hover);
+    border-radius: var(--radius-full);
+}
+
+.nav-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.76rem;
+    font-weight: 700;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all var(--transition-fast);
+}
+
+.nav-pill-btn:hover {
+    color: var(--text-main);
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+}
+
+.nav-pill-btn.active-pill {
+    background: #eef2ff;
+    border-color: #6366f1;
+    color: #4f46e5;
 }
 
 /* ==========================================================================
@@ -320,8 +395,8 @@ header {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
-    padding: 1.25rem 1.4rem;
-    margin-bottom: 1.75rem;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.5rem;
     box-shadow: var(--card-shadow);
 }
 
@@ -329,7 +404,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.9rem;
+    margin-bottom: 0.85rem;
     gap: 1rem;
     flex-wrap: wrap;
 }
@@ -386,7 +461,7 @@ header {
     background: var(--bg-subtle);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 0.85rem;
+    padding: 0.8rem;
     cursor: pointer;
     transition: all var(--transition-fast);
     position: relative;
@@ -443,10 +518,10 @@ header {
 }
 
 .timeline-subject-name {
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     font-weight: 700;
     line-height: 1.25;
-    margin-bottom: 0.45rem;
+    margin-bottom: 0.4rem;
     color: var(--text-main);
     white-space: nowrap;
     overflow: hidden;
@@ -461,6 +536,103 @@ header {
 }
 
 /* ==========================================================================
+   BATTLE STATION HERO CARD & STUDY PACER
+   ========================================================================== */
+
+.battle-station-banner {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 60%, #db2777 100%);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem 1.75rem;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    box-shadow: 0 10px 30px -5px rgba(79, 70, 229, 0.35);
+}
+
+.battle-left {
+    flex: 1;
+    min-width: 280px;
+}
+
+.battle-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.battle-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 0.35rem;
+}
+
+.battle-subtitle {
+    font-size: 0.84rem;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.battle-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.battle-stat-box {
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-md);
+    padding: 0.65rem 1rem;
+    text-align: center;
+}
+
+.battle-stat-box .val {
+    font-size: 1.3rem;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.battle-stat-box .lbl {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.btn-battle-action {
+    background: #ffffff;
+    color: #4f46e5;
+    font-weight: 800;
+    font-size: 0.84rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all var(--transition-fast);
+}
+
+.btn-battle-action:hover {
+    background: #f8fafc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
    DASHBOARD HERO: OVERALL STATS + POMODORO SPRINT TIMER
    ========================================================================== */
 
@@ -468,7 +640,7 @@ header {
     display: grid;
     grid-template-columns: 1.25fr 1fr;
     gap: 1.25rem;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
 }
 
 @media (max-width: 992px) {
@@ -481,7 +653,7 @@ header {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
-    padding: 1.4rem;
+    padding: 1.35rem;
     box-shadow: var(--card-shadow);
     display: flex;
     flex-direction: column;
@@ -504,20 +676,20 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
     gap: 0.75rem;
     flex-wrap: wrap;
 }
 
 .readiness-title h2 {
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     font-weight: 800;
     letter-spacing: -0.02em;
     color: var(--text-main);
 }
 
 .readiness-title p {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-secondary);
     margin-top: 0.15rem;
 }
@@ -528,12 +700,12 @@ header {
     gap: 0.65rem;
     background: var(--bg-subtle);
     border: 1px solid var(--border-subtle);
-    padding: 0.35rem 1rem;
+    padding: 0.35rem 0.95rem;
     border-radius: var(--radius-full);
 }
 
 .percentage-gauge .gauge-value {
-    font-size: 1.6rem;
+    font-size: 1.55rem;
     font-weight: 800;
     font-family: 'JetBrains Mono', monospace;
     background: var(--brand-gradient);
@@ -542,7 +714,7 @@ header {
 }
 
 .master-progress-wrap {
-    margin-bottom: 1.15rem;
+    margin-bottom: 1.1rem;
 }
 
 .progress-info-row {
@@ -575,15 +747,15 @@ header {
 
 .stat-tiles-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
-    gap: 0.65rem;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 0.6rem;
 }
 
 .stat-tile {
     background: var(--bg-subtle);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 0.6rem 0.65rem;
+    padding: 0.55rem 0.65rem;
     text-align: center;
     transition: all var(--transition-fast);
 }
@@ -595,7 +767,7 @@ header {
 }
 
 .stat-tile .num {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 800;
     font-family: 'JetBrains Mono', monospace;
     margin-bottom: 0.1rem;
@@ -603,7 +775,7 @@ header {
 }
 
 .stat-tile .lbl {
-    font-size: 0.66rem;
+    font-size: 0.65rem;
     font-weight: 600;
     color: var(--text-muted);
     text-transform: uppercase;
@@ -618,7 +790,7 @@ header {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
-    padding: 1.4rem;
+    padding: 1.35rem;
     box-shadow: var(--card-shadow);
     display: flex;
     flex-direction: column;
@@ -641,11 +813,11 @@ header {
 
 .timer-display {
     text-align: center;
-    margin: 0.75rem 0;
+    margin: 0.6rem 0;
 }
 
 .timer-digits {
-    font-size: 2.6rem;
+    font-size: 2.5rem;
     font-weight: 800;
     font-family: 'JetBrains Mono', monospace;
     color: #4f46e5;
@@ -659,12 +831,12 @@ header {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    margin-top: 0.25rem;
+    margin-top: 0.2rem;
 }
 
 .timer-controls {
     display: flex;
-    gap: 0.45rem;
+    gap: 0.4rem;
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -675,16 +847,16 @@ header {
 
 .subject-cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 0.85rem;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
 }
 
 .subject-mini-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 1rem;
+    padding: 0.95rem;
     box-shadow: var(--card-shadow);
     cursor: pointer;
     transition: all var(--transition-normal);
@@ -712,11 +884,11 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.35rem;
 }
 
 .sub-card-title {
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     font-weight: 700;
     line-height: 1.3;
     color: var(--text-main);
@@ -727,20 +899,20 @@ header {
 }
 
 .sub-card-pct {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 800;
     font-family: 'JetBrains Mono', monospace;
 }
 
 .sub-exam-date-pill {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    padding: 0.15rem 0.5rem;
+    padding: 0.15rem 0.45rem;
     border-radius: var(--radius-full);
     background: var(--bg-subtle);
     border: 1px solid var(--border-subtle);
     display: inline-block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.45rem;
     color: var(--text-secondary);
 }
 
@@ -749,7 +921,7 @@ header {
     background: #e2e8f0;
     border-radius: var(--radius-full);
     overflow: hidden;
-    margin-bottom: 0.45rem;
+    margin-bottom: 0.4rem;
 }
 
 [data-theme="dark"] .sub-card-track {
@@ -766,7 +938,7 @@ header {
 .sub-card-meta {
     display: flex;
     justify-content: space-between;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--text-secondary);
 }
 
@@ -783,7 +955,7 @@ header {
     align-items: center;
     justify-content: space-between;
     gap: 0.85rem;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
     flex-wrap: wrap;
     box-shadow: var(--card-shadow);
 }
@@ -871,7 +1043,7 @@ header {
    ========================================================================== */
 
 .subject-section {
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
@@ -881,7 +1053,7 @@ header {
 }
 
 .subject-header {
-    padding: 1rem 1.4rem;
+    padding: 0.95rem 1.35rem;
     background: var(--bg-subtle);
     border-bottom: 1px solid var(--border-subtle);
     display: flex;
@@ -918,7 +1090,7 @@ header {
 }
 
 .subject-header-title h3 {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: var(--text-main);
     display: flex;
@@ -938,24 +1110,50 @@ header {
 }
 
 .sub-meta-info {
-    font-size: 0.75rem;
+    font-size: 0.74rem;
     color: var(--text-secondary);
 }
 
 .subject-header-meta {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.85rem;
 }
 
 .subject-score-badge {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
-    font-size: 0.84rem;
-    padding: 0.28rem 0.7rem;
+    font-size: 0.82rem;
+    padding: 0.25rem 0.65rem;
     border-radius: var(--radius-full);
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
+}
+
+.btn-open-cheatsheet {
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 0.28rem 0.65rem;
+    border-radius: var(--radius-full);
+    border: 1px solid #bbf7d0;
+    background: #f0fdf4;
+    color: #15803d;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all var(--transition-fast);
+}
+
+.btn-open-cheatsheet:hover {
+    background: #dcfce7;
+    transform: translateY(-1px);
+}
+
+[data-theme="dark"] .btn-open-cheatsheet {
+    background: rgba(22, 101, 52, 0.2);
+    color: #4ade80;
+    border-color: rgba(74, 222, 128, 0.3);
 }
 
 .chevron-icon {
@@ -1103,7 +1301,37 @@ header {
     font-weight: 600;
     line-height: 1.35;
     color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
     transition: all var(--transition-fast);
+}
+
+.badge-high-yield {
+    font-size: 0.65rem;
+    font-weight: 800;
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    padding: 0.1rem 0.4rem;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+[data-theme="dark"] .badge-high-yield {
+    background: rgba(185, 28, 28, 0.2);
+    color: #fca5a5;
+    border-color: rgba(252, 165, 165, 0.3);
+}
+
+.badge-minutes {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
 }
 
 .topic-row.status-done .topic-heading {
@@ -1212,7 +1440,74 @@ header {
 }
 
 /* ==========================================================================
-   MODAL & TOAST
+   FORMULA CHEATSHEET MODAL
+   ========================================================================== */
+
+.cheatsheet-dialog {
+    max-width: 780px !important;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.cheatsheet-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-top: 1rem;
+}
+
+.formula-card {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    transition: all var(--transition-fast);
+}
+
+.formula-card:hover {
+    background: var(--bg-surface);
+    border-color: var(--border-hover);
+}
+
+.formula-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.45rem;
+}
+
+.formula-card-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.formula-code-block {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.84rem;
+    color: #4f46e5;
+    font-weight: 600;
+    margin-bottom: 0.45rem;
+    overflow-x: auto;
+}
+
+[data-theme="dark"] .formula-code-block {
+    color: #a5b4fc;
+    background: #0b101b;
+}
+
+.formula-card-desc {
+    font-size: 0.77rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   NOTES MODAL & TOAST
    ========================================================================== */
 
 .modal-backdrop {
@@ -1349,16 +1644,9 @@ header {
     display: none;
 }
 
-/* Sound Mute Button Style */
-.btn-sound {
-    font-size: 0.8rem;
-}
-
-/* ==========================================================================
-   PRINT STYLES
-   ========================================================================== */
+/* Print Styles */
 @media print {
-    header, .header-toolbar, .filter-controls-bar, .timer-card, .timeline-cards-row, .icon-action-btn, .status-picker, .add-custom-topic-btn, .toast-notice {
+    header, .sticky-sub-nav, .header-toolbar, .filter-controls-bar, .timer-card, .timeline-cards-row, .icon-action-btn, .status-picker, .add-custom-topic-btn, .toast-notice {
         display: none !important;
     }
     body {
@@ -1377,6 +1665,9 @@ header {
 </style>
 </head>
 <body>
+
+    <!-- Canvas for Confetti Milestone Celebrations -->
+    <canvas id="confettiCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;"></canvas>
 
     <!-- Header Navigation -->
     <header>
@@ -1421,7 +1712,38 @@ header {
         </div>
     </header>
 
+    <!-- Sticky Subject Quick-Jump Bar -->
+    <nav class="sticky-sub-nav" id="stickySubNav">
+        <!-- Rendered dynamically -->
+    </nav>
+
     <main class="app-container">
+
+        <!-- 🎯 NEXT EXAM BATTLE STATION BANNER -->
+        <section class="battle-station-banner">
+            <div class="battle-left">
+                <div class="battle-tag">🎯 CURRENT MISSION &bull; FIRST EXAM</div>
+                <div class="battle-title">Linear Algebra &amp; Differential Equations (LA&amp;DE)</div>
+                <div class="battle-subtitle">Exam on <strong>October 5, 2026</strong> &bull; Complete Matrices, Vector Spaces &amp; ODEs to lock in your foundation</div>
+            </div>
+            <div class="battle-right">
+                <div class="battle-stat-box">
+                    <div class="val" id="battleLadeDone">0/15</div>
+                    <div class="lbl">LA&amp;DE Mastered</div>
+                </div>
+                <div class="battle-stat-box">
+                    <div class="val" id="battleHoursLeft">0h</div>
+                    <div class="lbl">Est. Study Left</div>
+                </div>
+                <div class="battle-stat-box">
+                    <div class="val" id="battleDailyTarget">5 topics/day</div>
+                    <div class="lbl">Target Velocity</div>
+                </div>
+                <button class="btn btn-urgent" onclick="scrollToSubjectSection('lade')" style="background:#ffffff; color:#4f46e5; font-weight:800; border:none; padding:0.65rem 1.15rem; box-shadow:0 4px 14px rgba(0,0,0,0.18); cursor:pointer;">
+                    Jump to LA&amp;DE &rarr;
+                </button>
+            </div>
+        </section>
 
         <!-- 🗓️ CHRONOLOGICAL EXAM SCHEDULE TIMELINE -->
         <section class="exam-schedule-banner">
@@ -1432,7 +1754,7 @@ header {
                 </h3>
                 <div style="display: flex; gap: 0.45rem; flex-wrap: wrap;">
                     <button class="btn btn-urgent" onclick="handleFilterClick('next_exam', null)">
-                        🚨 Focus Next Exam (LA&DE - 5 Oct)
+                        🚨 Focus Next Exam (LA&amp;DE - 5 Oct)
                     </button>
                     <button class="btn" onclick="toggleExpandAllSubjects()">
                         ↔️ Expand / Collapse All
@@ -1529,7 +1851,7 @@ header {
 
             <div class="chips-wrap">
                 <div class="filter-chip active" onclick="handleFilterClick('all', this)">All Checkpoints</div>
-                <div class="filter-chip urgent-chip" onclick="handleFilterClick('next_exam', this)">🚨 LA&DE (5 Oct)</div>
+                <div class="filter-chip urgent-chip" onclick="handleFilterClick('next_exam', this)">🚨 LA&amp;DE (5 Oct)</div>
                 <div class="filter-chip" onclick="handleFilterClick('pending', this)">Pending</div>
                 <div class="filter-chip" onclick="handleFilterClick('in_progress', this)">In Progress</div>
                 <div class="filter-chip" onclick="handleFilterClick('done', this)">Completed</div>
@@ -1568,6 +1890,25 @@ header {
         </div>
     </div>
 
+    <!-- Formula Cheatsheets Modal Drawer -->
+    <div class="modal-backdrop" id="cheatsheetModalDialog">
+        <div class="modal-dialog cheatsheet-dialog">
+            <div class="modal-header-row">
+                <div>
+                    <h3 id="cheatsheetTitle">📖 Quick Formula Cheatsheet</h3>
+                    <p>High-yield exam definitions, theorems, formulas &amp; algorithms</p>
+                </div>
+                <button class="btn-close-modal" onclick="closeCheatsheetModal()" title="Close">&times;</button>
+            </div>
+            <div class="cheatsheet-grid" id="cheatsheetGrid">
+                <!-- Dynamically populated from FORMULA_CHEATSHEETS -->
+            </div>
+            <div class="modal-buttons-row">
+                <button class="btn btn-primary" onclick="closeCheatsheetModal()">Got it</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div class="toast-notice" id="toastNotice">
         <svg width="18" height="18" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -1575,17 +1916,16 @@ header {
     </div>
 
     <!-- Scripts -->
-    
     <script>
 /**
- * Mid-Semester Preparation Syllabus Data Model
+ * Mid-Semester Preparation Syllabus & High-Yield Knowledge Model
  * Sorted by Exact Exam Schedule:
  * 1. LA&DE (Linear Algebra & Diff Equations) - Oct 5
  * 2. Discrete Mathematics - Oct 6
  * 3. DSA (Data Structures & Algorithms) - Oct 7
  * 4. DA (Data Analytics) - Oct 8
- * 5. Java (OOPs) - Oct 9
- * 6. Digital Logic Design (DLD) - Oct 9
+ * 5. Java (OOPs) - Oct 9 (Morning)
+ * 6. Digital Logic Design (DLD) - Oct 9 (Afternoon)
  */
 
 const EXAM_SCHEDULE = [
@@ -1593,9 +1933,49 @@ const EXAM_SCHEDULE = [
     { id: "discrete", name: "Discrete Mathematics", code: "DM", date: "2026-10-06", dateDisplay: "6 Oct", time: "09:00", color: "#7c3aed" },
     { id: "dsa", name: "Data Structures & Algos", code: "DSA", date: "2026-10-07", dateDisplay: "7 Oct", time: "09:00", color: "#059669" },
     { id: "da", name: "Data Analytics (DA)", code: "DA", date: "2026-10-08", dateDisplay: "8 Oct", time: "09:00", color: "#2563eb" },
-    { id: "java", name: "Java (OOPs)", code: "OOPS", date: "2026-10-09", dateDisplay: "9 Oct", time: "09:00", color: "#d97706" },
-    { id: "dld", name: "Digital Logic Design", code: "DLD", date: "2026-10-09", dateDisplay: "9 Oct", time: "14:00", color: "#0284c7" }
+    { id: "java", name: "Java (OOPs)", code: "OOPS", date: "2026-10-09", dateDisplay: "9 Oct (Morning)", time: "09:00", color: "#d97706" },
+    { id: "dld", name: "Digital Logic Design", code: "DLD", date: "2026-10-09", dateDisplay: "9 Oct (Afternoon)", time: "14:00", color: "#0284c7" }
 ];
+
+const FORMULA_CHEATSHEETS = {
+    lade: [
+        { title: "Characteristic Polynomial & Eigenvalues", formula: "det(A - λI) = 0", desc: "Eigenvectors satisfy (A - λI)v = 0. Trace(A) = sum of eigenvalues, Det(A) = product of eigenvalues." },
+        { title: "Matrix Diagonalization", formula: "P^(-1) * A * P = D", desc: "Matrix A is diagonalizable iff A has n linearly independent eigenvectors. Columns of P are eigenvectors; D is diagonal." },
+        { title: "Rank-Nullity Theorem", formula: "dim(Ker T) + dim(Range T) = dim(V)", desc: "Nullity(A) + Rank(A) = Number of columns in A." },
+        { title: "Markov Steady-State Vector", formula: "P * q = q  with  sum(q_i) = 1", desc: "Find eigenvector corresponding to λ = 1 and normalize so elements sum to 1." },
+        { title: "System of Linear Differential Equations", formula: "x'(t) = A * x(t)", desc: "General solution: x(t) = c1*e^(λ1*t)*v1 + c2*e^(λ2*t)*v2 + ... + cn*e^(λn*t)*vn." }
+    ],
+    discrete: [
+        { title: "Bézout's Identity & Extended Euclidean", formula: "s*a + t*b = gcd(a, b)", desc: "Integers s and t exist and can be computed via reverse substitutions of Euclidean division algorithm." },
+        { title: "Fermat's Little Theorem", formula: "a^(p-1) ≡ 1 (mod p)  [if p is prime, gcd(a,p)=1]", desc: "Corollary: a^p ≡ a (mod p) for every integer a. Used in modular exponentiation & cryptography." },
+        { title: "Linear Recurrence (Distinct Roots)", formula: "a_n = α1 * (r1)^n + α2 * (r2)^n", desc: "For characteristic equation r^2 - c1*r - c2 = 0 with distinct roots r1 ≠ r2." },
+        { title: "Linear Recurrence (Repeated Roots)", formula: "a_n = (α1 + α2 * n) * (r)^n", desc: "When characteristic equation has repeated root r1 = r2 = r." },
+        { title: "Properties of Relations", formula: "Reflexive: (a,a)∈R | Sym: (a,b)∈R => (b,a)∈R | Trans: (a,b),(b,c)∈R => (a,c)∈R", desc: "Equivalence = Reflexive + Symmetric + Transitive. Poset = Reflexive + Antisymmetric + Transitive." }
+    ],
+    dsa: [
+        { title: "Array Address Formulas (1-Based/0-Based)", formula: "RMO: Base + [i * n + j] * w  |  CMO: Base + [j * m + i] * w", desc: "RMO stores row after row; CMO stores column after column. w is byte size of element." },
+        { title: "Sorting Comparison & Bounds", formula: "Merge Sort: O(n log n) [Stable, O(n) space] | Quick Sort: O(n log n) avg, O(n^2) worst [In-place]", desc: "Decision tree lower bound for comparison sort is Ω(n log n). Insertion sort is O(n) best for nearly-sorted data." },
+        { title: "Binary Search Recurrence", formula: "T(n) = T(n/2) + O(1) => O(log n)", desc: "Array must be sorted. Mid calculation: mid = low + (high - low) / 2 to prevent overflow." },
+        { title: "Circular Queue Modulo Math", formula: "Rear = (Rear + 1) % Capacity  |  Front = (Front + 1) % Capacity", desc: "Full check: (Rear + 1) % Capacity == Front. Overcomes false overflow in linear queues." }
+    ],
+    da: [
+        { title: "Standard Normal Z-Score", formula: "Z = (X - μ) / σ", desc: "Transforms any normal distribution into standard normal N(0, 1) for Z-table lookup." },
+        { title: "IQR Outlier Detection", formula: "IQR = Q3 - Q1  |  Outliers: X < Q1 - 1.5*IQR  or  X > Q3 + 1.5*IQR", desc: "Extreme outliers use 3.0 * IQR. Box plot whiskers extend to 1.5 * IQR." },
+        { title: "Simple Linear Regression Slope", formula: "β1 = Cov(X,Y) / Var(X) = Σ(x - x̄)(y - ȳ) / Σ(x - x̄)^2", desc: "Intercept: β0 = ȳ - β1 * x̄. Coefficient of determination R^2 = SSR / SST." },
+        { title: "Classification Metrics", formula: "Precision = TP / (TP + FP)  |  Recall = TP / (TP + FN)  |  F1 = 2*P*R / (P + R)", desc: "Accuracy = (TP + TN) / Total. Use F1-score when classes are imbalanced." }
+    ],
+    java: [
+        { title: "String Pool vs Heap Object", formula: "String s1 = \"abc\"; (Pool) vs String s2 = new String(\"abc\"); (Heap)", desc: "s1 == s2 is false (different references), but s1.equals(s2) is true (identical contents)." },
+        { title: "Overloading vs Overriding", formula: "Overloading: same class, diff params (Compile-time) | Overriding: subclass, same signature (Runtime)", desc: "Static methods cannot be overridden (method hiding). Return type change alone is invalid for overloading." },
+        { title: "Static Block & Constructor Order", formula: "Static Blocks -> Instance Init Blocks -> Constructor", desc: "Static members belong to class, loaded once when class is loaded into JVM memory." }
+    ],
+    dld: [
+        { title: "De Morgan's Laws", formula: "(A · B)' = A' + B'   and   (A + B)' = A' · B'", desc: "NAND gate is equivalent to Bubbled OR. NOR gate is equivalent to Bubbled AND." },
+        { title: "BCD Addition Correction Rule", formula: "If Sum > 9 or Carry = 1, Add 0110 (6)", desc: "Corrects 4-bit binary adder output back into valid BCD decimal digit representation." },
+        { title: "Binary to Gray Code Conversion", formula: "G_MSB = B_MSB  |  G_i = B_(i+1) ⊕ B_i", desc: "Gray to Binary: B_MSB = G_MSB | B_i = B_(i+1) ⊕ G_i. Unit distance code." },
+        { title: "2's Complement Representation", formula: "2's Comp = 1's Comp + 1 = 2^n - N", desc: "Subtraction A - B is performed as A + (2's complement of B). Discard end carry." }
+    ]
+};
 
 const SYLLABUS_DATA = [
     {
@@ -1611,52 +1991,52 @@ const SYLLABUS_DATA = [
             {
                 name: "1. Systems of Linear Equations & Elimination",
                 topics: [
-                    { id: "la-matrix-rep", title: "Linear Systems & Matrix Representation", desc: "Coefficient matrix, augmented matrix [A|b], consistency conditions and solution types." },
-                    { id: "la-ref-gauss", title: "Row Echelon Form (REF), Rank & Gauss Elimination", desc: "Elementary row operations, leading entries (pivots), rank calculation, forward Gaussian elimination." },
-                    { id: "la-rref-gauss-jordan", title: "Reduced Row Echelon Form (RREF) & Gauss-Jordan", desc: "Unique RREF, Gauss-Jordan elimination, matrix inversion [A | I] -> [I | A^-1]." },
-                    { id: "la-homogeneous", title: "Homogeneous Systems of Linear Equations", desc: "Ax = 0, always consistent, trivial vs non-trivial solutions, free variables and nullity." },
-                    { id: "la-non-homogeneous", title: "Non-Homogeneous Systems & Solution Sets", desc: "General solution x = x_p + x_h (particular + null space solution), Rouché-Capelli rank theorem." }
+                    { id: "la-matrix-rep", title: "Linear Systems & Matrix Representation", desc: "Coefficient matrix, augmented matrix [A|b], consistency conditions and solution types.", minutes: 20, highYield: true },
+                    { id: "la-ref-gauss", title: "Row Echelon Form (REF), Rank & Gauss Elimination", desc: "Elementary row operations, leading entries (pivots), rank calculation, forward Gaussian elimination.", minutes: 25, highYield: true },
+                    { id: "la-rref-gauss-jordan", title: "Reduced Row Echelon Form (RREF) & Gauss-Jordan", desc: "Unique RREF, Gauss-Jordan elimination, matrix inversion [A | I] -> [I | A^-1].", minutes: 30, highYield: true },
+                    { id: "la-homogeneous", title: "Homogeneous Systems of Linear Equations", desc: "Ax = 0, always consistent, trivial vs non-trivial solutions, free variables and nullity.", minutes: 20, highYield: true },
+                    { id: "la-non-homogeneous", title: "Non-Homogeneous Systems & Solution Sets", desc: "General solution x = x_p + x_h (particular + null space solution), Rouché-Capelli rank theorem.", minutes: 20, highYield: false }
                 ]
             },
             {
                 name: "2. Applications of Linear Systems",
                 topics: [
-                    { id: "la-app-resources-chem", title: "Resource Allocation & Balancing Chemical Reactions", desc: "Setting up simultaneous equations for multi-variable raw material constraints and stoichiometry." },
-                    { id: "la-app-networks-circuits", title: "Network Analysis & Electrical Networks", desc: "Flow conservation at network junctions (traffic flow), Kirchhoff's Current Law (KCL) and Voltage Law (KVL)." },
-                    { id: "la-app-leontief", title: "Linear Economic Models (Leontief Input-Output)", desc: "Production vectors, internal consumption matrix C, external demand vector d, solving (I - C)x = d." }
+                    { id: "la-app-resources-chem", title: "Resource Allocation & Balancing Chemical Reactions", desc: "Setting up simultaneous equations for multi-variable raw material constraints and stoichiometry.", minutes: 20, highYield: false },
+                    { id: "la-app-networks-circuits", title: "Network Analysis & Electrical Networks", desc: "Flow conservation at network junctions (traffic flow), Kirchhoff's Current Law (KCL) and Voltage Law (KVL).", minutes: 25, highYield: true },
+                    { id: "la-app-leontief", title: "Linear Economic Models (Leontief Input-Output)", desc: "Production vectors, internal consumption matrix C, external demand vector d, solving (I - C)x = d.", minutes: 25, highYield: false }
                 ]
             },
             {
                 name: "3. Eigenvalues, Eigenvectors & Diagonalization",
                 topics: [
-                    { id: "la-eigen-intro", title: "Introduction to Eigenvalues & Eigenvectors", desc: "Definition Av = λv (v ≠ 0), characteristic polynomial det(A - λI) = 0, trace and det relations." },
-                    { id: "la-eigen-nxn", title: "Eigenvalues & Eigenvectors of n x n Matrices", desc: "Finding eigenspaces Null(A - λI), Algebraic Multiplicity (AM) vs Geometric Multiplicity (GM)." },
-                    { id: "la-similar-diagonalization", title: "Similar Matrices & Matrix Diagonalization", desc: "Similarity transform B = P^-1 A P, conditions for diagonalizability (n linearly independent eigenvectors)." }
+                    { id: "la-eigen-intro", title: "Introduction to Eigenvalues & Eigenvectors", desc: "Definition Av = λv (v ≠ 0), characteristic polynomial det(A - λI) = 0, trace and det relations.", minutes: 30, highYield: true },
+                    { id: "la-eigen-nxn", title: "Eigenvalues & Eigenvectors of n x n Matrices", desc: "Finding eigenspaces Null(A - λI), Algebraic Multiplicity (AM) vs Geometric Multiplicity (GM).", minutes: 35, highYield: true },
+                    { id: "la-similar-diagonalization", title: "Similar Matrices & Matrix Diagonalization", desc: "Similarity transform B = P^-1 A P, conditions for diagonalizability (n linearly independent eigenvectors).", minutes: 35, highYield: true }
                 ]
             },
             {
                 name: "4. Dynamical Systems & Differential Equations",
                 topics: [
-                    { id: "la-markov-chains", title: "Markov Chains & Steady-State Vectors", desc: "Stochastic transition matrices (column sums = 1), state vectors x_k, regular Markov chains, finding steady-state vector Pq = q." },
-                    { id: "la-population-growth", title: "Population Growth Models", desc: "Leslie matrix models for age-structured populations, dominant eigenvalue determining long-term growth." },
-                    { id: "la-diff-eqs-systems", title: "Systems of Linear Differential Equations", desc: "Vector differential equation x'(t) = A x(t), decoupling using eigenvalues/eigenvectors, general solution formula." },
-                    { id: "la-discrete-dyn-systems", title: "Discrete Linear Dynamical Systems", desc: "State evolution x_{k+1} = A x_k, attractor/sink (|λ| < 1), repeller/source (|λ| > 1), saddle point behavior." }
+                    { id: "la-markov-chains", title: "Markov Chains & Steady-State Vectors", desc: "Stochastic transition matrices (column sums = 1), state vectors x_k, regular Markov chains, finding steady-state vector Pq = q.", minutes: 30, highYield: true },
+                    { id: "la-population-growth", title: "Population Growth Models", desc: "Leslie matrix models for age-structured populations, dominant eigenvalue determining long-term growth.", minutes: 25, highYield: false },
+                    { id: "la-diff-eqs-systems", title: "Systems of Linear Differential Equations", desc: "Vector differential equation x'(t) = A x(t), decoupling using eigenvalues/eigenvectors, general solution formula.", minutes: 35, highYield: true },
+                    { id: "la-discrete-dyn-systems", title: "Discrete Linear Dynamical Systems", desc: "State evolution x_{k+1} = A x_k, attractor/sink (|λ| < 1), repeller/source (|λ| > 1), saddle point behavior.", minutes: 25, highYield: false }
                 ]
             },
             {
                 name: "5. Vector Spaces, Basis & Dimension",
                 topics: [
-                    { id: "la-vector-spaces-subspaces", title: "Vector Spaces & Subspaces", desc: "10 vector space axioms, subspace test (contains 0, closed under vector addition and scalar multiplication)." },
-                    { id: "la-span-independence", title: "Spanning Sets & Linear Independence", desc: "Span{v1, ..., vk}, testing linear independence (c1*v1 + ... + ck*vk = 0 implies only ci = 0)." },
-                    { id: "la-basis-dimension", title: "Basis and Dimension", desc: "Basis as a minimal spanning set and maximal independent set, dimension of vector spaces." }
+                    { id: "la-vector-spaces-subspaces", title: "Vector Spaces & Subspaces", desc: "10 vector space axioms, subspace test (contains 0, closed under vector addition and scalar multiplication).", minutes: 25, highYield: true },
+                    { id: "la-span-independence", title: "Spanning Sets & Linear Independence", desc: "Span{v1, ..., vk}, testing linear independence (c1*v1 + ... + ck*vk = 0 implies only ci = 0).", minutes: 25, highYield: true },
+                    { id: "la-basis-dimension", title: "Basis and Dimension", desc: "Basis as a minimal spanning set and maximal independent set, dimension of vector spaces.", minutes: 30, highYield: true }
                 ]
             },
             {
                 name: "6. Linear Transformations",
                 topics: [
-                    { id: "la-linear-transformations", title: "Linear Transformations & Properties", desc: "Mapping T: V -> W, linearity criteria T(u+v) = T(u)+T(v) and T(cu) = cT(u), zero vector preservation." },
-                    { id: "la-kernel-range-rank-nullity", title: "Kernel, Range & Rank-Nullity Theorem", desc: "Ker(T) = {v | T(v)=0}, Range(T), Dimension Theorem: dim(Ker(T)) + dim(Range(T)) = dim(V)." },
-                    { id: "la-matrix-linear-trans", title: "Matrix of a Linear Transformation", desc: "Standard matrix [T], coordinate vectors relative to arbitrary bases B and B', change of basis matrix." }
+                    { id: "la-linear-transformations", title: "Linear Transformations & Properties", desc: "Mapping T: V -> W, linearity criteria T(u+v) = T(u)+T(v) and T(cu) = cT(u), zero vector preservation.", minutes: 25, highYield: true },
+                    { id: "la-kernel-range-rank-nullity", title: "Kernel, Range & Rank-Nullity Theorem", desc: "Ker(T) = {v | T(v)=0}, Range(T), Dimension Theorem: dim(Ker(T)) + dim(Range(T)) = dim(V).", minutes: 35, highYield: true },
+                    { id: "la-matrix-linear-trans", title: "Matrix of a Linear Transformation", desc: "Standard matrix [T], coordinate vectors relative to arbitrary bases B and B', change of basis matrix.", minutes: 30, highYield: true }
                 ]
             }
         ]
@@ -1674,34 +2054,34 @@ const SYLLABUS_DATA = [
             {
                 name: "Module: Relations",
                 topics: [
-                    { id: "dm-relations-properties", title: "Relations & Properties (Sec 9.1)", desc: "Reflexive (∀a: aRa), Symmetric (aRb -> bRa), Antisymmetric (aRb & bRa -> a=b), Transitive; composite relations S ∘ R, powers R^n." },
-                    { id: "dm-matrix-digraph", title: "Matrix & Digraph Representations (Sec 9.3)", desc: "0-1 boolean matrices, digraphs, checking properties visually, boolean matrix product for composite relations." },
-                    { id: "dm-equivalence-relations", title: "Equivalence Relations, Classes & Partitions (Sec 9.5)", desc: "Equivalence (Reflexive + Symmetric + Transitive), equivalence classes [a], partitions of a set." },
-                    { id: "dm-poset-hasse", title: "Partial Orderings, Posets & Hasse Diagrams (Sec 9.6)", desc: "Poset (Reflexive + Antisymmetric + Transitive), comparable vs incomparable elements, total order, lexicographic order." },
-                    { id: "dm-hasse-extremals", title: "Hasse Diagram Extremal Elements (Sec 9.6)", desc: "Maximal and minimal elements, greatest element (maximum) vs least element (minimum), upper/lower bounds, LUB & GLB." }
+                    { id: "dm-relations-properties", title: "Relations & Properties (Sec 9.1)", desc: "Reflexive (∀a: aRa), Symmetric (aRb -> bRa), Antisymmetric (aRb & bRa -> a=b), Transitive; composite relations S ∘ R, powers R^n.", minutes: 25, highYield: true },
+                    { id: "dm-matrix-digraph", title: "Matrix & Digraph Representations (Sec 9.3)", desc: "0-1 boolean matrices, digraphs, checking properties visually, boolean matrix product for composite relations.", minutes: 25, highYield: true },
+                    { id: "dm-equivalence-relations", title: "Equivalence Relations, Classes & Partitions (Sec 9.5)", desc: "Equivalence (Reflexive + Symmetric + Transitive), equivalence classes [a], partitions of a set.", minutes: 25, highYield: true },
+                    { id: "dm-poset-hasse", title: "Partial Orderings, Posets & Hasse Diagrams (Sec 9.6)", desc: "Poset (Reflexive + Antisymmetric + Transitive), comparable vs incomparable elements, total order, lexicographic order.", minutes: 30, highYield: true },
+                    { id: "dm-hasse-extremals", title: "Hasse Diagram Extremal Elements (Sec 9.6)", desc: "Maximal and minimal elements, greatest element (maximum) vs least element (minimum), upper/lower bounds, LUB & GLB.", minutes: 30, highYield: true }
                 ]
             },
             {
                 name: "Module: Induction and Recursion",
                 topics: [
-                    { id: "dm-weak-induction", title: "First (Weak) Mathematical Induction (Sec 5.1)", desc: "Basis step P(1), Inductive hypothesis P(k), Inductive step P(k) -> P(k+1); proofs for sums and inequalities." },
-                    { id: "dm-strong-induction", title: "Second (Strong) Mathematical Induction (Sec 5.2)", desc: "Basis step, Inductive hypothesis [P(1) ∧ ... ∧ P(k)] -> P(k+1); Well-Ordering Property." },
-                    { id: "dm-recursion-funcs", title: "Recursively Defined Functions (Sec 5.3)", desc: "Base case and recursive rule, Fibonacci sequence definition, recursively defined sets and structural induction." },
-                    { id: "dm-recurrence-homo", title: "Linear Recurrence: Homogeneous Solutions (Sec 8.2)", desc: "Characteristic equation: Case 1 (real distinct roots: a_n = α1*r1^n + α2*r2^n); Case 2 (real repeated roots: a_n = (α1 + α2*n)*r^n)." },
-                    { id: "dm-recurrence-nonhomo", title: "Linear Recurrence: Non-Homogeneous Solutions (Sec 8.2)", desc: "General solution a_n = a_n^(h) + a_n^(p); Case i: F(n)=const; Case ii: F(n)=c*a^n; Case iii: F(n)=polynomial." }
+                    { id: "dm-weak-induction", title: "First (Weak) Mathematical Induction (Sec 5.1)", desc: "Basis step P(1), Inductive hypothesis P(k), Inductive step P(k) -> P(k+1); proofs for sums and inequalities.", minutes: 25, highYield: true },
+                    { id: "dm-strong-induction", title: "Second (Strong) Mathematical Induction (Sec 5.2)", desc: "Basis step, Inductive hypothesis [P(1) ∧ ... ∧ P(k)] -> P(k+1); Well-Ordering Property.", minutes: 25, highYield: true },
+                    { id: "dm-recursion-funcs", title: "Recursively Defined Functions (Sec 5.3)", desc: "Base case and recursive rule, Fibonacci sequence definition, recursively defined sets and structural induction.", minutes: 20, highYield: false },
+                    { id: "dm-recurrence-homo", title: "Linear Recurrence: Homogeneous Solutions (Sec 8.2)", desc: "Characteristic equation: Case 1 (real distinct roots: a_n = α1*r1^n + α2*r2^n); Case 2 (real repeated roots: a_n = (α1 + α2*n)*r^n).", minutes: 35, highYield: true },
+                    { id: "dm-recurrence-nonhomo", title: "Linear Recurrence: Non-Homogeneous Solutions (Sec 8.2)", desc: "General solution a_n = a_n^(h) + a_n^(p); Case i: F(n)=const; Case ii: F(n)=c*a^n; Case iii: F(n)=polynomial.", minutes: 35, highYield: true }
                 ]
             },
             {
                 name: "Module: Number Theory & Cryptography",
                 topics: [
-                    { id: "dm-divisibility-modulo", title: "Divisibility Theorems & Modular Arithmetic (Sec 4.1)", desc: "Divisibility rules (a|b, a|c -> a|(sb+tc)), division algorithm: a = dq + r (0 <= r < d), a div d and a mod d." },
-                    { id: "dm-primes-fta", title: "Primes, Fundamental Theorem & Mersenne Primes (Sec 4.3)", desc: "Unique prime factorization, Mersenne primes (2^p - 1), infinitude of primes." },
-                    { id: "dm-gcd-euclidean", title: "GCD, LCM & Euclidean Algorithm (Sec 4.3)", desc: "Relation gcd(a,b)*lcm(a,b) = a*b, Euclidean division algorithm steps to systematically compute GCD." },
-                    { id: "dm-bezout-theorem", title: "Bézout's Theorem & Extended Euclidean (Sec 4.3)", desc: "Finding integers s and t such that sa + tb = gcd(a,b), expressing gcd as a linear combination." },
-                    { id: "dm-linear-congruence", title: "Linear Congruence Equations & Inverses (Sec 4.4)", desc: "Finding modular inverse of a modulo m using Bézout; solving single linear congruence ax ≡ b (mod m)." },
-                    { id: "dm-crt-flt", title: "Chinese Remainder Theorem & Fermat's Little Theorem (Sec 4.4)", desc: "CRT simultaneous congruences formula with pairwise coprime moduli; Fermat's Little Theorem (a^(p-1) ≡ 1 mod p); pseudoprimes." },
-                    { id: "dm-congruence-apps", title: "Applications of Congruences (Sec 4.5)", desc: "Hashing functions h(k)=k mod m, PRNGs (Linear Congruential Method), parity check bits, UPC, ISBN-10, USPS, ISSN." },
-                    { id: "dm-cryptography", title: "Classical Cryptography (Sec 4.6)", desc: "Caesar cipher, Shift cipher f(p)=(p+k) mod 26, Affine cipher f(p)=(ap+b) mod 26 with gcd(a,26)=1, Transposition block ciphers." }
+                    { id: "dm-divisibility-modulo", title: "Divisibility Theorems & Modular Arithmetic (Sec 4.1)", desc: "Divisibility rules (a|b, a|c -> a|(sb+tc)), division algorithm: a = dq + r (0 <= r < d), a div d and a mod d.", minutes: 20, highYield: true },
+                    { id: "dm-primes-fta", title: "Primes, Fundamental Theorem & Mersenne Primes (Sec 4.3)", desc: "Unique prime factorization, Mersenne primes (2^p - 1), infinitude of primes.", minutes: 20, highYield: false },
+                    { id: "dm-gcd-euclidean", title: "GCD, LCM & Euclidean Algorithm (Sec 4.3)", desc: "Relation gcd(a,b)*lcm(a,b) = a*b, Euclidean division algorithm steps to systematically compute GCD.", minutes: 25, highYield: true },
+                    { id: "dm-bezout-theorem", title: "Bézout's Theorem & Extended Euclidean (Sec 4.3)", desc: "Finding integers s and t such that sa + tb = gcd(a,b), expressing gcd as a linear combination.", minutes: 30, highYield: true },
+                    { id: "dm-linear-congruence", title: "Linear Congruence Equations & Inverses (Sec 4.4)", desc: "Finding modular inverse of a modulo m using Bézout; solving single linear congruence ax ≡ b (mod m).", minutes: 35, highYield: true },
+                    { id: "dm-crt-flt", title: "Chinese Remainder Theorem & Fermat's Little Theorem (Sec 4.4)", desc: "CRT simultaneous congruences formula with pairwise coprime moduli; Fermat's Little Theorem (a^(p-1) ≡ 1 mod p); pseudoprimes.", minutes: 35, highYield: true },
+                    { id: "dm-congruence-apps", title: "Applications of Congruences (Sec 4.5)", desc: "Hashing functions h(k)=k mod m, PRNGs (Linear Congruential Method), parity check bits, UPC, ISBN-10, USPS, ISSN.", minutes: 25, highYield: false },
+                    { id: "dm-cryptography", title: "Classical Cryptography (Sec 4.6)", desc: "Caesar cipher, Shift cipher f(p)=(p+k) mod 26, Affine cipher f(p)=(ap+b) mod 26 with gcd(a,26)=1, Transposition block ciphers.", minutes: 25, highYield: true }
                 ]
             }
         ]
@@ -1719,64 +2099,64 @@ const SYLLABUS_DATA = [
             {
                 name: "1. Foundations & Classification",
                 topics: [
-                    { id: "dsa-intro", title: "Motivation & Need for Data Structures", desc: "Role of DS in efficient searching, indexing, memory optimization, and algorithmic throughput." },
-                    { id: "dsa-classification", title: "Classification of Data Structures", desc: "Primitive vs Non-Primitive; Linear (Arrays, Stacks, Queues, Linked Lists) vs Non-Linear (Trees, Graphs); Static vs Dynamic." }
+                    { id: "dsa-intro", title: "Motivation & Need for Data Structures", desc: "Role of DS in efficient searching, indexing, memory optimization, and algorithmic throughput.", minutes: 15, highYield: false },
+                    { id: "dsa-classification", title: "Classification of Data Structures", desc: "Primitive vs Non-Primitive; Linear (Arrays, Stacks, Queues, Linked Lists) vs Non-Linear (Trees, Graphs); Static vs Dynamic.", minutes: 15, highYield: false }
                 ]
             },
             {
                 name: "2. Algorithm Analysis & Asymptotic Notations",
                 topics: [
-                    { id: "dsa-algo-notion", title: "Brief Idea of Algorithms & Properties", desc: "Algorithmic properties: Finiteness, Definiteness, Input, Output, Feasibility/Effectiveness." },
-                    { id: "dsa-complexity", title: "Time and Space Complexity Analysis", desc: "Counting fundamental operations, auxiliary memory space, worst-case, average-case, and best-case performance." },
-                    { id: "dsa-asymptotic", title: "Asymptotic Notations", desc: "Formal mathematical definitions of Big-O (O), Big-Omega (Ω), Big-Theta (Θ), small-o (o), and small-omega (ω)." }
+                    { id: "dsa-algo-notion", title: "Brief Idea of Algorithms & Properties", desc: "Algorithmic properties: Finiteness, Definiteness, Input, Output, Feasibility/Effectiveness.", minutes: 15, highYield: false },
+                    { id: "dsa-complexity", title: "Time and Space Complexity Analysis", desc: "Counting fundamental operations, auxiliary memory space, worst-case, average-case, and best-case performance.", minutes: 25, highYield: true },
+                    { id: "dsa-asymptotic", title: "Asymptotic Notations", desc: "Formal mathematical definitions of Big-O (O), Big-Omega (Ω), Big-Theta (Θ), small-o (o), and small-omega (ω).", minutes: 30, highYield: true }
                 ]
             },
             {
                 name: "3. Arrays & Memory Layout",
                 topics: [
-                    { id: "dsa-arrays-1d-2d", title: "1-D and 2-D Arrays", desc: "Contiguous memory layout, base address, index computation, cache locality benefits." },
-                    { id: "dsa-ordering-formulas", title: "Multi-Dimensional Array Address Calculations", desc: "Row-Major Ordering (RMO): Base + [i * n + j] * size; Column-Major Ordering (CMO): Base + [j * m + i] * size." }
+                    { id: "dsa-arrays-1d-2d", title: "1-D and 2-D Arrays", desc: "Contiguous memory layout, base address, index computation, cache locality benefits.", minutes: 20, highYield: false },
+                    { id: "dsa-ordering-formulas", title: "Multi-Dimensional Array Address Calculations", desc: "Row-Major Ordering (RMO): Base + [i * n + j] * size; Column-Major Ordering (CMO): Base + [j * m + i] * size.", minutes: 30, highYield: true }
                 ]
             },
             {
                 name: "4. Searching Algorithms",
                 topics: [
-                    { id: "dsa-linear-search", title: "Linear Search", desc: "Sequential examination, worst-case O(n), best-case O(1), suitable for unsorted data." },
-                    { id: "dsa-binary-search", title: "Binary Search", desc: "Divide and conquer on sorted data, mid calculation, iterative vs recursive formulation, O(log n)." }
+                    { id: "dsa-linear-search", title: "Linear Search", desc: "Sequential examination, worst-case O(n), best-case O(1), suitable for unsorted data.", minutes: 15, highYield: false },
+                    { id: "dsa-binary-search", title: "Binary Search", desc: "Divide and conquer on sorted data, mid calculation, iterative vs recursive formulation, O(log n).", minutes: 25, highYield: true }
                 ]
             },
             {
                 name: "5. Sorting Algorithms & Analysis",
                 topics: [
-                    { id: "dsa-bubble-sort", title: "Bubble Sort", desc: "Repeated adjacent swaps, sinking largest element, swapped flag optimization, O(n^2) worst, O(n) best." },
-                    { id: "dsa-selection-sort", title: "Selection Sort", desc: "Finding minimum from unsorted sub-array and placing at front, minimum swaps O(n), always O(n^2), unstable." },
-                    { id: "dsa-insertion-sort", title: "Insertion Sort", desc: "Incremental card placement, adaptive O(n) for nearly-sorted data, stable, O(n^2) worst." },
-                    { id: "dsa-merge-sort", title: "Merge Sort", desc: "Divide and conquer, two-way merging, recurrence T(n) = 2T(n/2) + O(n), guaranteed O(n log n), stable, O(n) space." },
-                    { id: "dsa-quick-sort", title: "Quick Sort", desc: "Partitioning around pivot (Lomuto vs Hoare), worst-case O(n^2) for sorted arrays, expected O(n log n), in-place, unstable." },
-                    { id: "dsa-sort-comparison", title: "Comparison-Based Sorting Analysis", desc: "Decision tree lower bound of Ω(n log n), stability comparison, in-place vs extra auxiliary memory tradeoffs." }
+                    { id: "dsa-bubble-sort", title: "Bubble Sort", desc: "Repeated adjacent swaps, sinking largest element, swapped flag optimization, O(n^2) worst, O(n) best.", minutes: 20, highYield: false },
+                    { id: "dsa-selection-sort", title: "Selection Sort", desc: "Finding minimum from unsorted sub-array and placing at front, minimum swaps O(n), always O(n^2), unstable.", minutes: 20, highYield: false },
+                    { id: "dsa-insertion-sort", title: "Insertion Sort", desc: "Incremental card placement, adaptive O(n) for nearly-sorted data, stable, O(n^2) worst.", minutes: 20, highYield: true },
+                    { id: "dsa-merge-sort", title: "Merge Sort", desc: "Divide and conquer, two-way merging, recurrence T(n) = 2T(n/2) + O(n), guaranteed O(n log n), stable, O(n) space.", minutes: 30, highYield: true },
+                    { id: "dsa-quick-sort", title: "Quick Sort", desc: "Partitioning around pivot (Lomuto vs Hoare), worst-case O(n^2) for sorted arrays, expected O(n log n), in-place, unstable.", minutes: 35, highYield: true },
+                    { id: "dsa-sort-comparison", title: "Comparison-Based Sorting Analysis", desc: "Decision tree lower bound of Ω(n log n), stability comparison, in-place vs extra auxiliary memory tradeoffs.", minutes: 25, highYield: true }
                 ]
             },
             {
                 name: "6. Stack Data Structure",
                 topics: [
-                    { id: "dsa-stack-concept", title: "Stack Concept & Primitive Operations", desc: "LIFO principle, Top pointer, Push, Pop, Peek/Top, isEmpty, isFull (array & linked list representations)." },
-                    { id: "dsa-stack-apps", title: "Applications of Stack", desc: "Infix to Postfix/Prefix conversion, Postfix evaluation, balanced parentheses checking, recursion call stack." }
+                    { id: "dsa-stack-concept", title: "Stack Concept & Primitive Operations", desc: "LIFO principle, Top pointer, Push, Pop, Peek/Top, isEmpty, isFull (array & linked list representations).", minutes: 20, highYield: false },
+                    { id: "dsa-stack-apps", title: "Applications of Stack", desc: "Infix to Postfix/Prefix conversion, Postfix evaluation, balanced parentheses checking, recursion call stack.", minutes: 35, highYield: true }
                 ]
             },
             {
                 name: "7. Queue Data Structure",
                 topics: [
-                    { id: "dsa-queue-concept", title: "Queue Concept & Primitive Operations", desc: "FIFO principle, Front and Rear pointers, Enqueue, Dequeue, Peek (array & linked list representations)." },
-                    { id: "dsa-queue-variants-apps", title: "Queue Variants & Applications", desc: "Circular Queue (preventing false overflow using modulo arithmetic), Deque, Priority Queue, BFS, CPU scheduling." }
+                    { id: "dsa-queue-concept", title: "Queue Concept & Primitive Operations", desc: "FIFO principle, Front and Rear pointers, Enqueue, Dequeue, Peek (array & linked list representations).", minutes: 20, highYield: false },
+                    { id: "dsa-queue-variants-apps", title: "Queue Variants & Applications", desc: "Circular Queue (preventing false overflow using modulo arithmetic), Deque, Priority Queue, BFS, CPU scheduling.", minutes: 30, highYield: true }
                 ]
             },
             {
                 name: "8. Linked Lists",
                 topics: [
-                    { id: "dsa-singly-ll", title: "Singly Linked List", desc: "Node structure (data + next), head pointer, insertion (start, mid, end), deletion, search, reversal." },
-                    { id: "dsa-doubly-ll", title: "Doubly Linked List", desc: "Node structure (data + prev + next), bidirectional traversal, deletion and insertion edge cases." },
-                    { id: "dsa-circular-ll", title: "Circular & Doubly Circular Linked Lists", desc: "Last node links back to head, circular navigation, round-robin playlist/scheduling applications." },
-                    { id: "dsa-ll-applications", title: "Linked List Applications", desc: "Dynamic memory allocation, polynomial representation and algebraic addition, sparse matrices." }
+                    { id: "dsa-singly-ll", title: "Singly Linked List", desc: "Node structure (data + next), head pointer, insertion (start, mid, end), deletion, search, reversal.", minutes: 30, highYield: true },
+                    { id: "dsa-doubly-ll", title: "Doubly Linked List", desc: "Node structure (data + prev + next), bidirectional traversal, deletion and insertion edge cases.", minutes: 25, highYield: true },
+                    { id: "dsa-circular-ll", title: "Circular & Doubly Circular Linked Lists", desc: "Last node links back to head, circular navigation, round-robin playlist/scheduling applications.", minutes: 25, highYield: false },
+                    { id: "dsa-ll-applications", title: "Linked List Applications", desc: "Dynamic memory allocation, polynomial representation and algebraic addition, sparse matrices.", minutes: 25, highYield: true }
                 ]
             }
         ]
@@ -1794,25 +2174,25 @@ const SYLLABUS_DATA = [
             {
                 name: "1. Data Understanding & Exploratory Analysis (EDA)",
                 topics: [
-                    { id: "da-intro-lifecycle", title: "Data Analytics Life Cycle & Types", desc: "Descriptive, Diagnostic, Predictive, and Prescriptive analytics; data preprocessing steps." },
-                    { id: "da-data-types-cleaning", title: "Data Types & Data Cleaning", desc: "Structured, semi-structured, unstructured; handling missing values, imputation techniques, outlier detection (IQR, Z-score)." },
-                    { id: "da-eda-visualization", title: "Exploratory Data Analysis & Visualization", desc: "Summary statistics, histograms, box plots, scatter plots, correlation heatmaps, feature distributions." }
+                    { id: "da-intro-lifecycle", title: "Data Analytics Life Cycle & Types", desc: "Descriptive, Diagnostic, Predictive, and Prescriptive analytics; data preprocessing steps.", minutes: 20, highYield: false },
+                    { id: "da-data-types-cleaning", title: "Data Types & Data Cleaning", desc: "Structured, semi-structured, unstructured; handling missing values, imputation techniques, outlier detection (IQR, Z-score).", minutes: 25, highYield: true },
+                    { id: "da-eda-visualization", title: "Exploratory Data Analysis & Visualization", desc: "Summary statistics, histograms, box plots, scatter plots, correlation heatmaps, feature distributions.", minutes: 25, highYield: true }
                 ]
             },
             {
                 name: "2. Statistical Foundations & Probability",
                 topics: [
-                    { id: "da-descriptive-stats", title: "Measures of Central Tendency & Dispersion", desc: "Mean, median, mode, variance, standard deviation, skewness, kurtosis, quartiles." },
-                    { id: "da-probability-distributions", title: "Probability Distributions", desc: "Discrete (Binomial, Poisson) and Continuous (Normal / Gaussian distribution, Standard Normal Z-table, Central Limit Theorem)." },
-                    { id: "da-hypothesis-testing", title: "Hypothesis Testing & Significance", desc: "Null hypothesis (H0) vs Alternative (H1), Type I and Type II errors, p-value interpretation, Z-test, t-test, Chi-square test." }
+                    { id: "da-descriptive-stats", title: "Measures of Central Tendency & Dispersion", desc: "Mean, median, mode, variance, standard deviation, skewness, kurtosis, quartiles.", minutes: 25, highYield: true },
+                    { id: "da-probability-distributions", title: "Probability Distributions", desc: "Discrete (Binomial, Poisson) and Continuous (Normal / Gaussian distribution, Standard Normal Z-table, Central Limit Theorem).", minutes: 30, highYield: true },
+                    { id: "da-hypothesis-testing", title: "Hypothesis Testing & Significance", desc: "Null hypothesis (H0) vs Alternative (H1), Type I and Type II errors, p-value interpretation, Z-test, t-test, Chi-square test.", minutes: 35, highYield: true }
                 ]
             },
             {
                 name: "3. Predictive Modeling & Regression",
                 topics: [
-                    { id: "da-linear-regression", title: "Simple & Multiple Linear Regression", desc: "Least squares estimation, slope & intercept formula, R-squared and Adjusted R-squared, assumptions of regression." },
-                    { id: "da-logistic-classification", title: "Classification & Logistic Regression", desc: "Sigmoid function, odds ratio, decision boundary, confusion matrix, precision, recall, F1-score, ROC-AUC curve." },
-                    { id: "da-clustering-dim-reduction", title: "Clustering & Dimensionality Reduction", desc: "K-Means clustering algorithm (Elbow method), Hierarchical clustering, PCA (Principal Component Analysis) concepts." }
+                    { id: "da-linear-regression", title: "Simple & Multiple Linear Regression", desc: "Least squares estimation, slope & intercept formula, R-squared and Adjusted R-squared, assumptions of regression.", minutes: 35, highYield: true },
+                    { id: "da-logistic-classification", title: "Classification & Logistic Regression", desc: "Sigmoid function, odds ratio, decision boundary, confusion matrix, precision, recall, F1-score, ROC-AUC curve.", minutes: 35, highYield: true },
+                    { id: "da-clustering-dim-reduction", title: "Clustering & Dimensionality Reduction", desc: "K-Means clustering algorithm (Elbow method), Hierarchical clustering, PCA (Principal Component Analysis) concepts.", minutes: 30, highYield: true }
                 ]
             }
         ]
@@ -1830,35 +2210,35 @@ const SYLLABUS_DATA = [
             {
                 name: "1. Java Environment & OOP Foundation",
                 topics: [
-                    { id: "java-characteristics", title: "Characteristics of Java & Environment", desc: "Platform independence (WORA), Architecture Neutral, Robust, Secure, Multithreaded, Distributed." },
-                    { id: "java-runtime-jvm", title: "JDK, JRE, JVM & JIT Compiler", desc: "JDK tools (javac, jar), JRE libraries, JVM execution engine, ClassLoader, JIT compiler (bytecode to native code)." },
-                    { id: "java-oop-principles", title: "OOP Principles in Java", desc: "Encapsulation (data hiding), Abstraction (interfaces/abstract classes), Inheritance, Polymorphism." },
-                    { id: "java-lifecycle", title: "Lifecycle of a Java Program & First Program", desc: "Source (.java) -> javac -> Bytecode (.class) -> JVM execution; public static void main(String[] args)." }
+                    { id: "java-characteristics", title: "Characteristics of Java & Environment", desc: "Platform independence (WORA), Architecture Neutral, Robust, Secure, Multithreaded, Distributed.", minutes: 20, highYield: false },
+                    { id: "java-runtime-jvm", title: "JDK, JRE, JVM & JIT Compiler", desc: "JDK tools (javac, jar), JRE libraries, JVM execution engine, ClassLoader, JIT compiler (bytecode to native code).", minutes: 25, highYield: true },
+                    { id: "java-oop-principles", title: "OOP Principles in Java", desc: "Encapsulation (data hiding), Abstraction (interfaces/abstract classes), Inheritance, Polymorphism.", minutes: 30, highYield: true },
+                    { id: "java-lifecycle", title: "Lifecycle of a Java Program & First Program", desc: "Source (.java) -> javac -> Bytecode (.class) -> JVM execution; public static void main(String[] args).", minutes: 20, highYield: false }
                 ]
             },
             {
                 name: "2. Fundamental Programming Structures",
                 topics: [
-                    { id: "java-tokens-types", title: "Identifiers, Literals, Comments & Data Types", desc: "Identifier rules, reserved keywords, primitive types (byte, short, int, long, float, double, char, boolean)." },
-                    { id: "java-variables-casts", title: "Variables, Scope, Lifetime & Type Conversion", desc: "Local, instance, and static variables; implicit widening conversion vs explicit narrowing type casting." },
-                    { id: "java-operators", title: "Operators & Expressions", desc: "Arithmetic, relational, logical (short-circuit && and ||), bitwise, shift, ternary operator, precedence." },
-                    { id: "java-control-flow", title: "Control Flow: Conditionals & Switches", desc: "if-else-if ladder, nested if, switch-case with constants/enums/strings, switch fall-through and break." },
-                    { id: "java-loops-jumps", title: "Loops & Jump Statements", desc: "while, do-while, standard for, enhanced for-each, labeled break, continue, return." }
+                    { id: "java-tokens-types", title: "Identifiers, Literals, Comments & Data Types", desc: "Identifier rules, reserved keywords, primitive types (byte, short, int, long, float, double, char, boolean).", minutes: 20, highYield: false },
+                    { id: "java-variables-casts", title: "Variables, Scope, Lifetime & Type Conversion", desc: "Local, instance, and static variables; implicit widening conversion vs explicit narrowing type casting.", minutes: 25, highYield: true },
+                    { id: "java-operators", title: "Operators & Expressions", desc: "Arithmetic, relational, logical (short-circuit && and ||), bitwise, shift, ternary operator, precedence.", minutes: 20, highYield: false },
+                    { id: "java-control-flow", title: "Control Flow: Conditionals & Switches", desc: "if-else-if ladder, nested if, switch-case with constants/enums/strings, switch fall-through and break.", minutes: 20, highYield: false },
+                    { id: "java-loops-jumps", title: "Loops & Jump Statements", desc: "while, do-while, standard for, enhanced for-each, labeled break, continue, return.", minutes: 20, highYield: false }
                 ]
             },
             {
                 name: "3. Classes, Objects & Core Implementations",
                 topics: [
-                    { id: "java-classes-objects", title: "Defining Classes & Creating Objects", desc: "Class declaration, fields, methods, new keyword, reference variables, heap vs stack allocation." },
-                    { id: "java-methods-constructors", title: "Methods & Constructors", desc: "Method signature, return types, pass-by-value semantics, default constructors, parameterized constructors." },
-                    { id: "java-overloading", title: "Method & Constructor Overloading", desc: "Compile-time polymorphism: varying number, types, or order of parameters; return type alone is insufficient." },
-                    { id: "java-this-keyword", title: "The `this` Keyword", desc: "Referencing current object instance fields (resolving variable shadowing), constructor chaining using this()." },
-                    { id: "java-static-members", title: "Static Members (Variables, Methods, Blocks)", desc: "Class-level shared memory, static methods cannot use this/super, static initialization block order." },
-                    { id: "java-nested-classes", title: "Nested Classes", desc: "Static nested classes vs Inner member classes, access permissions to outer class enclosing scope." },
-                    { id: "java-arrays", title: "Arrays in Java", desc: "Array declaration, allocation, initialization, 1-D, 2-D matrices, ragged/jagged arrays, .length property." },
-                    { id: "java-strings", title: "Strings, StringBuffer & StringBuilder", desc: "String immutability, String Constant Pool (SCP), equals() vs ==, thread-safe StringBuffer vs StringBuilder." },
-                    { id: "java-scanner", title: "Scanner Class", desc: "java.util.Scanner: nextInt(), nextDouble(), next(), nextLine() line-break consumption issues." },
-                    { id: "java-wrapper-classes", title: "Wrapper Classes & Autoboxing", desc: "Integer, Double, Character, Boolean; automatic boxing and unboxing between primitives and objects." }
+                    { id: "java-classes-objects", title: "Defining Classes & Creating Objects", desc: "Class declaration, fields, methods, new keyword, reference variables, heap vs stack allocation.", minutes: 25, highYield: true },
+                    { id: "java-methods-constructors", title: "Methods & Constructors", desc: "Method signature, return types, pass-by-value semantics, default constructors, parameterized constructors.", minutes: 25, highYield: true },
+                    { id: "java-overloading", title: "Method & Constructor Overloading", desc: "Compile-time polymorphism: varying number, types, or order of parameters; return type alone is insufficient.", minutes: 30, highYield: true },
+                    { id: "java-this-keyword", title: "The `this` Keyword", desc: "Referencing current object instance fields (resolving variable shadowing), constructor chaining using this().", minutes: 25, highYield: true },
+                    { id: "java-static-members", title: "Static Members (Variables, Methods, Blocks)", desc: "Class-level shared memory, static methods cannot use this/super, static initialization block order.", minutes: 30, highYield: true },
+                    { id: "java-nested-classes", title: "Nested Classes", desc: "Static nested classes vs Inner member classes, access permissions to outer class enclosing scope.", minutes: 25, highYield: false },
+                    { id: "java-arrays", title: "Arrays in Java", desc: "Array declaration, allocation, initialization, 1-D, 2-D matrices, ragged/jagged arrays, .length property.", minutes: 25, highYield: false },
+                    { id: "java-strings", title: "Strings, StringBuffer & StringBuilder", desc: "String immutability, String Constant Pool (SCP), equals() vs ==, thread-safe StringBuffer vs StringBuilder.", minutes: 30, highYield: true },
+                    { id: "java-scanner", title: "Scanner Class", desc: "java.util.Scanner: nextInt(), nextDouble(), next(), nextLine() line-break consumption issues.", minutes: 20, highYield: true },
+                    { id: "java-wrapper-classes", title: "Wrapper Classes & Autoboxing", desc: "Integer, Double, Character, Boolean; automatic boxing and unboxing between primitives and objects.", minutes: 25, highYield: true }
                 ]
             }
         ]
@@ -1876,51 +2256,51 @@ const SYLLABUS_DATA = [
             {
                 name: "1. Introduction to Digital Circuits & Signals",
                 topics: [
-                    { id: "dld-intro", title: "Introduction to Digital Circuits", desc: "Definitions, nature of analog vs discrete-time vs digital signals, amplitude and time quantization." },
-                    { id: "dld-adv-disadv", title: "Advantages & Disadvantages of Digital Circuits", desc: "Noise immunity, storage efficiency, ease of design vs quantization error and ADC conversion complexity." }
+                    { id: "dld-intro", title: "Introduction to Digital Circuits", desc: "Definitions, nature of analog vs discrete-time vs digital signals, amplitude and time quantization.", minutes: 15, highYield: false },
+                    { id: "dld-adv-disadv", title: "Advantages & Disadvantages of Digital Circuits", desc: "Noise immunity, storage efficiency, ease of design vs quantization error and ADC conversion complexity.", minutes: 15, highYield: false }
                 ]
             },
             {
                 name: "2. Number Systems & Representations",
                 topics: [
-                    { id: "dld-number-bases", title: "Number Systems: Binary, Octal, Decimal, Hexadecimal", desc: "Radix/base representation, positional weights, converting integer and fractional numbers between systems." },
-                    { id: "dld-conversions", title: "System Conversions", desc: "Repeated division/multiplication methods, grouping bits for binary-octal (3-bit) and binary-hex (4-bit) conversion." },
-                    { id: "dld-complements", title: "1's and 2's Complement Representations", desc: "Signed binary numbers, subtraction using 1's and 2's complements, overflow detection." }
+                    { id: "dld-number-bases", title: "Number Systems: Binary, Octal, Decimal, Hexadecimal", desc: "Radix/base representation, positional weights, converting integer and fractional numbers between systems.", minutes: 25, highYield: true },
+                    { id: "dld-conversions", title: "System Conversions", desc: "Repeated division/multiplication methods, grouping bits for binary-octal (3-bit) and binary-hex (4-bit) conversion.", minutes: 25, highYield: true },
+                    { id: "dld-complements", title: "1's and 2's Complement Representations", desc: "Signed binary numbers, subtraction using 1's and 2's complements, overflow detection.", minutes: 30, highYield: true }
                 ]
             },
             {
                 name: "3. Binary Codes",
                 topics: [
-                    { id: "dld-weighted-nonweighted", title: "Weighted and Non-Weighted Codes", desc: "Positional weight property: BCD (8421, 2421, 5421) vs non-weighted codes (Excess-3, Gray code)." },
-                    { id: "dld-bcd", title: "BCD (Binary Coded Decimal)", desc: "BCD encoding (0-9), invalid states (10-15), BCD addition and correction (+6 / +0110 rule)." },
-                    { id: "dld-excess3", title: "Excess-Three (XS-3) Code", desc: "Adding 0011 to BCD, self-complementing property for 9's complement, arithmetic with Excess-3." },
-                    { id: "dld-gray", title: "Gray Code (Reflected Binary)", desc: "Unit-distance code, elimination of race conditions, binary-to-Gray conversion (XOR with right shift) and Gray-to-binary." },
-                    { id: "dld-ascii", title: "ASCII Code", desc: "7-bit and 8-bit alphanumeric character encoding, control characters, parity bit integration." }
+                    { id: "dld-weighted-nonweighted", title: "Weighted and Non-Weighted Codes", desc: "Positional weight property: BCD (8421, 2421, 5421) vs non-weighted codes (Excess-3, Gray code).", minutes: 20, highYield: false },
+                    { id: "dld-bcd", title: "BCD (Binary Coded Decimal)", desc: "BCD encoding (0-9), invalid states (10-15), BCD addition and correction (+6 / +0110 rule).", minutes: 25, highYield: true },
+                    { id: "dld-excess3", title: "Excess-Three (XS-3) Code", desc: "Adding 0011 to BCD, self-complementing property for 9's complement, arithmetic with Excess-3.", minutes: 25, highYield: true },
+                    { id: "dld-gray", title: "Gray Code (Reflected Binary)", desc: "Unit-distance code, elimination of race conditions, binary-to-Gray conversion (XOR with right shift) and Gray-to-binary.", minutes: 25, highYield: true },
+                    { id: "dld-ascii", title: "ASCII Code", desc: "7-bit and 8-bit alphanumeric character encoding, control characters, parity bit integration.", minutes: 20, highYield: false }
                 ]
             },
             {
                 name: "4. Logic Gates and Functions",
                 topics: [
-                    { id: "dld-gate-tables", title: "Logic Gates & Truth Tables", desc: "Functions, representations, and truth tables of basic gates (AND, OR, NOT) and derived gates (NAND, NOR, XOR, XNOR)." },
-                    { id: "dld-universal-gates", title: "Universal Logic Gates (NAND & NOR)", desc: "Implementing NOT, AND, OR, XOR, and XNOR using exclusively NAND gates or exclusively NOR gates." },
-                    { id: "dld-combining-gates", title: "Circuit Synthesis for Simple Logic Functions", desc: "Deriving gate-level circuits from boolean expressions and truth tables." }
+                    { id: "dld-gate-tables", title: "Logic Gates & Truth Tables", desc: "Functions, representations, and truth tables of basic gates (AND, OR, NOT) and derived gates (NAND, NOR, XOR, XNOR).", minutes: 25, highYield: true },
+                    { id: "dld-universal-gates", title: "Universal Logic Gates (NAND & NOR)", desc: "Implementing NOT, AND, OR, XOR, and XNOR using exclusively NAND gates or exclusively NOR gates.", minutes: 30, highYield: true },
+                    { id: "dld-combining-gates", title: "Circuit Synthesis for Simple Logic Functions", desc: "Deriving gate-level circuits from boolean expressions and truth tables.", minutes: 25, highYield: false }
                 ]
             },
             {
                 name: "5. Boolean Algebra & Minimization Techniques",
                 topics: [
-                    { id: "dld-boolean-algebra", title: "Boolean Algebra Axioms & Theorems", desc: "Huntington's postulates, Commutative, Associative, Distributive, Identity, Complement, Involution, De Morgan's laws." },
-                    { id: "dld-reduction", title: "Reduction of Gate Count by Simplification", desc: "Algebraic reduction, Canonical SOP (minterms) and POS (maxterms), standard forms." },
-                    { id: "dld-kmaps", title: "Karnaugh Maps (K-Maps) Simplification", desc: "2, 3, and 4 variable K-Maps, Gray code ordering, grouping rules (pairs, quads, octets), Don't Care (X) conditions." },
-                    { id: "dld-tabulation", title: "Tabulation Method (Quine-McCluskey)", desc: "Algorithmic tabular minimization, grouping by number of 1s, finding prime implicants, prime implicant chart, essential prime implicants." }
+                    { id: "dld-boolean-algebra", title: "Boolean Algebra Axioms & Theorems", desc: "Huntington's postulates, Commutative, Associative, Distributive, Identity, Complement, Involution, De Morgan's laws.", minutes: 25, highYield: true },
+                    { id: "dld-reduction", title: "Reduction of Gate Count by Simplification", desc: "Algebraic reduction, Canonical SOP (minterms) and POS (maxterms), standard forms.", minutes: 25, highYield: true },
+                    { id: "dld-kmaps", title: "Karnaugh Maps (K-Maps) Simplification", desc: "2, 3, and 4 variable K-Maps, Gray code ordering, grouping rules (pairs, quads, octets), Don't Care (X) conditions.", minutes: 35, highYield: true },
+                    { id: "dld-tabulation", title: "Tabulation Method (Quine-McCluskey)", desc: "Algorithmic tabular minimization, grouping by number of 1s, finding prime implicants, prime implicant chart, essential prime implicants.", minutes: 35, highYield: true }
                 ]
             },
             {
                 name: "6. Combinational Circuits",
                 topics: [
-                    { id: "dld-mux-demux", title: "Multiplexers & Demultiplexers", desc: "2:1, 4:1, 8:1 MUX architecture, select lines, implementing any logic function using MUX; 1:2, 1:4, 1:8 DEMUX." },
-                    { id: "dld-encoders-decoders", title: "Encoders & Decoders", desc: "Priority encoders (resolving multiple active inputs), 2-to-4 and 3-to-8 line decoders with active-low/high enable lines." },
-                    { id: "dld-arithmetic", title: "Arithmetic Circuits: Adders & Subtracters", desc: "Half Adder, Full Adder (using gates and universal gates), Half Subtractor, Full Subtractor, 4-bit Parallel Adder/Subtractor." }
+                    { id: "dld-mux-demux", title: "Multiplexers & Demultiplexers", desc: "2:1, 4:1, 8:1 MUX architecture, select lines, implementing any logic function using MUX; 1:2, 1:4, 1:8 DEMUX.", minutes: 35, highYield: true },
+                    { id: "dld-encoders-decoders", title: "Encoders & Decoders", desc: "Priority encoders (resolving multiple active inputs), 2-to-4 and 3-to-8 line decoders with active-low/high enable lines.", minutes: 30, highYield: true },
+                    { id: "dld-arithmetic", title: "Arithmetic Circuits: Adders & Subtracters", desc: "Half Adder, Full Adder (using gates and universal gates), Half Subtractor, Full Subtractor, 4-bit Parallel Adder/Subtractor.", minutes: 35, highYield: true }
                 ]
             }
         ]
@@ -1928,20 +2308,26 @@ const SYLLABUS_DATA = [
 ];
 
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { EXAM_SCHEDULE, SYLLABUS_DATA };
+    module.exports = { EXAM_SCHEDULE, FORMULA_CHEATSHEETS, SYLLABUS_DATA };
 }
 
 
 /**
- * Mid-Sem Exam Prep Tracker - High Performance Exam Mastery Suite
- * Ultra-Responsive UI/UX with In-Place DOM Mutation & Zero Re-render Lag
+ * Mid-Sem Exam Prep Tracker - Master-Tier UI/UX Controller
+ * Includes:
+ * - Pure Canvas Confetti Celebrations
+ * - Interactive Formula Cheatsheets Drawer
+ * - Dynamic Daily Study Pacer & Remaining Study Hours
+ * - Zero-Lag In-Place DOM Checkpoint Ticking
+ * - Sticky Subject Navigation with ScrollSpy
+ * - Web Audio API Synthesizer with Streak-Modulated Pitch
  */
 
 const STORAGE_KEY = 'mid_sem_exam_tracker_v3';
 const THEME_KEY = 'mid_sem_exam_theme_pref';
 const SOUND_KEY = 'mid_sem_exam_sound_pref';
 
-// Main Application State
+// Application State
 let appState = {
     topics: {},              // id -> { status, starred, notes }
     customTopics: {},        // moduleId -> [ { id, title, desc, status, starred, notes } ]
@@ -1960,9 +2346,10 @@ let activeEditingTopicId = null;
 let currentTheme = 'light';
 let soundEnabled = true;
 let timerInterval = null;
+let completedStreakCount = 0;
 
 // ==========================================
-// Web Audio Synthesizer (Zero External Files)
+// Web Audio Synthesizer (Pitch-Modulated Streak)
 // ==========================================
 
 let audioCtx = null;
@@ -1983,11 +2370,13 @@ function playTickSound() {
     try {
         const ctx = getAudioContext();
         if (!ctx) return;
+        completedStreakCount++;
+        const baseFreq = 540 + Math.min(completedStreakCount * 25, 400);
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(580, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
+        osc.frequency.setValueAtTime(baseFreq, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.5, ctx.currentTime + 0.08);
         gain.gain.setValueAtTime(0.12, ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
         osc.connect(gain);
@@ -2003,16 +2392,16 @@ function playChimeSound() {
         const ctx = getAudioContext();
         if (!ctx) return;
         const now = ctx.currentTime;
-        [523.25, 659.25, 783.99].forEach((freq, idx) => {
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
-            osc.frequency.setValueAtTime(freq, now + idx * 0.1);
-            gain.gain.setValueAtTime(0.15, now + idx * 0.1);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.35);
+            osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+            gain.gain.setValueAtTime(0.14, now + idx * 0.09);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.35);
             osc.connect(gain);
             gain.connect(ctx.destination);
-            osc.start(now + idx * 0.1);
-            osc.stop(now + idx * 0.1 + 0.35);
+            osc.start(now + idx * 0.09);
+            osc.stop(now + idx * 0.09 + 0.35);
         });
     } catch (e) {}
 }
@@ -2033,6 +2422,68 @@ function updateSoundButton() {
 }
 
 // ==========================================
+// Canvas Confetti Celebration
+// ==========================================
+
+function fireConfetti() {
+    const canvas = document.getElementById('confettiCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const colors = ['#4f46e5', '#7c3aed', '#db2777', '#059669', '#0284c7', '#f59e0b', '#ec4899'];
+
+    for (let i = 0; i < 90; i++) {
+        particles.push({
+            x: canvas.width / 2 + (Math.random() - 0.5) * 300,
+            y: canvas.height * 0.3 + (Math.random() - 0.5) * 100,
+            vx: (Math.random() - 0.5) * 12,
+            vy: (Math.random() - 0.8) * 14,
+            size: Math.random() * 8 + 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rotation: Math.random() * 360,
+            rotSpeed: (Math.random() - 0.5) * 10,
+            opacity: 1
+        });
+    }
+
+    let frame = 0;
+    function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let active = false;
+
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.35; // gravity
+            p.rotation += p.rotSpeed;
+            p.opacity -= 0.012;
+
+            if (p.opacity > 0) {
+                active = true;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate((p.rotation * Math.PI) / 180);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = Math.max(p.opacity, 0);
+                ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+                ctx.restore();
+            }
+        });
+
+        frame++;
+        if (active && frame < 150) {
+            requestAnimationFrame(render);
+        } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+    requestAnimationFrame(render);
+}
+
+// ==========================================
 // Boot & Initialization
 // ==========================================
 
@@ -2040,6 +2491,7 @@ function initApp() {
     loadThemePreference();
     loadSoundPreference();
     loadPersistedState();
+    renderStickySubjectNav();
     renderTimelineStrip();
     renderSubjectMiniCards();
     renderSubjectsAccordions();
@@ -2047,6 +2499,7 @@ function initApp() {
     initGlobalCountdowns();
     updateTimerDisplay();
     bindGlobalListeners();
+    initScrollSpy();
 }
 
 function loadThemePreference() {
@@ -2124,6 +2577,47 @@ function showToastNotification(message) {
 }
 
 // ==========================================
+// Sticky Subject Navigation Bar
+// ==========================================
+
+function renderStickySubjectNav() {
+    const nav = document.getElementById('stickySubNav');
+    if (!nav) return;
+    nav.innerHTML = `
+        <button class="nav-pill-btn active-pill" id="nav-pill-all" onclick="handleFilterClick('all', null)">
+            ⚡ All (${SYLLABUS_DATA.length})
+        </button>
+    `;
+
+    SYLLABUS_DATA.forEach(sub => {
+        const btn = document.createElement('button');
+        btn.className = 'nav-pill-btn';
+        btn.id = `nav-pill-${sub.id}`;
+        btn.onclick = () => scrollToSubjectSection(sub.id);
+        btn.innerHTML = `${sub.icon} ${sub.shortName} <span style="font-size:0.68rem;opacity:0.75;">(${sub.examDateDisplay.split(' ')[0]} Oct)</span>`;
+        nav.appendChild(btn);
+    });
+}
+
+function initScrollSpy() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const subId = entry.target.id.replace('section-', '');
+                document.querySelectorAll('.nav-pill-btn').forEach(b => b.classList.remove('active-pill'));
+                const activeBtn = document.getElementById(`nav-pill-${subId}`);
+                if (activeBtn) activeBtn.classList.add('active-pill');
+            }
+        });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    SYLLABUS_DATA.forEach(sub => {
+        const el = document.getElementById(`section-${sub.id}`);
+        if (el) observer.observe(el);
+    });
+}
+
+// ==========================================
 // Exam Timeline Ribbon
 // ==========================================
 
@@ -2163,7 +2657,7 @@ function renderTimelineStrip() {
 }
 
 function formatCountdown(diff) {
-    if (diff <= 0) return 'Exam Done / Past';
+    if (diff <= 0) return 'Exam Completed / Past';
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -2189,7 +2683,7 @@ function initGlobalCountdowns() {
 }
 
 // ==========================================
-// Master Metrics & Progress Calculations
+// Master Metrics & Daily Pacer
 // ==========================================
 
 function updateMasterMetrics() {
@@ -2197,25 +2691,53 @@ function updateMasterMetrics() {
     let completedTopics = 0;
     let inProgressTopics = 0;
     let starredTopics = 0;
+    let totalEstimatedMinutes = 0;
+    let completedEstimatedMinutes = 0;
+
+    // LA&DE specific counters for next exam battle station
+    let ladeTotal = 0;
+    let ladeDone = 0;
 
     SYLLABUS_DATA.forEach(sub => {
         sub.modules.forEach(mod => {
             mod.topics.forEach(t => {
                 totalTopics++;
+                const mins = t.minutes || 25;
+                totalEstimatedMinutes += mins;
+
                 const s = appState.topics[t.id];
                 if (s) {
-                    if (s.status === 'done') completedTopics++;
-                    else if (s.status === 'in_progress') inProgressTopics++;
+                    if (s.status === 'done') {
+                        completedTopics++;
+                        completedEstimatedMinutes += mins;
+                    } else if (s.status === 'in_progress') {
+                        inProgressTopics++;
+                    }
                     if (s.starred) starredTopics++;
+                }
+
+                if (sub.id === 'lade') {
+                    ladeTotal++;
+                    if (s?.status === 'done') ladeDone++;
                 }
             });
 
             const customs = appState.customTopics[mod.name] || [];
             customs.forEach(ct => {
                 totalTopics++;
-                if (ct.status === 'done') completedTopics++;
-                else if (ct.status === 'in_progress') inProgressTopics++;
+                totalEstimatedMinutes += 25;
+                if (ct.status === 'done') {
+                    completedTopics++;
+                    completedEstimatedMinutes += 25;
+                } else if (ct.status === 'in_progress') {
+                    inProgressTopics++;
+                }
                 if (ct.starred) starredTopics++;
+
+                if (sub.id === 'lade') {
+                    ladeTotal++;
+                    if (ct.status === 'done') ladeDone++;
+                }
             });
         });
     });
@@ -2223,6 +2745,7 @@ function updateMasterMetrics() {
     const pendingTopics = totalTopics - completedTopics - inProgressTopics;
     const overallPercentage = totalTopics === 0 ? 0 : Math.round((completedTopics / totalTopics) * 100);
 
+    // Update Overall Cards
     const gaugeEl = document.getElementById('overallGaugeVal');
     const fillEl = document.getElementById('masterProgressFill');
     const countLabelEl = document.getElementById('topicsCountSummary');
@@ -2244,12 +2767,22 @@ function updateMasterMetrics() {
     setElemText('statPendingNum', pendingTopics);
     setElemText('statStarredNum', starredTopics);
 
+    // Update Next Exam Battle Station Card
+    const remainingHours = Math.max(0, Math.round(((totalEstimatedMinutes - completedEstimatedMinutes) / 60) * 10) / 10);
+    setElemText('battleHoursLeft', `${remainingHours}h`);
+    setElemText('battleLadeDone', `${ladeDone}/${ladeTotal}`);
+
+    // Daily pacing: Remaining topics in LA&DE divided by ~2.5 days left
+    const ladeRemaining = ladeTotal - ladeDone;
+    const dailyTarget = Math.max(1, Math.ceil(ladeRemaining / 2.5));
+    setElemText('battleDailyTarget', `${dailyTarget} topics/day`);
+
     refreshSubjectCardsData();
     refreshSubjectHeaderScores();
 }
 
 // ==========================================
-// Subject Overview Cards
+// Subject Mini Cards
 // ==========================================
 
 function renderSubjectMiniCards() {
@@ -2404,6 +2937,9 @@ function renderSubjectsAccordions() {
                 </div>
             </div>
             <div class="subject-header-meta">
+                <button class="btn-open-cheatsheet no-collapse" onclick="openCheatsheetModal('${sub.id}')" title="View key formulas and theorems">
+                    📖 Cheatsheet
+                </button>
                 <div class="subject-score-badge" id="header-score-${sub.id}" style="color: ${sub.color};">
                     ${subDone}/${subTotal} (${subPct}%)
                 </div>
@@ -2484,7 +3020,9 @@ function renderSubjectsAccordions() {
                         </div>
                         <div class="topic-texts">
                             <div class="topic-heading">
-                                ${topic.title}
+                                <span>${topic.title}</span>
+                                ${topic.highYield ? '<span class="badge-high-yield">⚡ High Yield</span>' : ''}
+                                ${topic.minutes ? `<span class="badge-minutes">⏱️ ~${topic.minutes}m</span>` : ''}
                                 ${topic.isCustom ? '<span style="font-size: 0.68rem; color: #4f46e5; font-weight:700;">[CUSTOM]</span>' : ''}
                             </div>
                             <div class="topic-desc">${topic.desc}</div>
@@ -2556,9 +3094,11 @@ function toggleTopicDoneState(topicId, isCustom = false, modName = '') {
 
     if (newStatus === 'done') {
         playTickSound();
+        if (completedStreakCount % 5 === 0) {
+            fireConfetti();
+        }
     }
 
-    // In-place DOM update (zero scroll jump or screen flash)
     const row = document.getElementById(`topic-${topicId}`);
     if (row) {
         row.className = `topic-row status-${newStatus}`;
@@ -2721,12 +3261,65 @@ function markAllVisibleDone() {
         count++;
     });
     playTickSound();
+    fireConfetti();
     persistState();
     showToastNotification(`Marked ${count} checkpoints as Done! Keep going! 🚀`);
 }
 
 // ==========================================
-// Study Sprint Timer (Pomodoro 25/5 min)
+// Formula Cheatsheet Modal
+// ==========================================
+
+function openCheatsheetModal(subjectId = 'lade') {
+    const modal = document.getElementById('cheatsheetModalDialog');
+    const titleEl = document.getElementById('cheatsheetTitle');
+    const gridEl = document.getElementById('cheatsheetGrid');
+    if (!modal || !gridEl) return;
+
+    const sub = SYLLABUS_DATA.find(s => s.id === subjectId) || SYLLABUS_DATA[0];
+    const formulas = FORMULA_CHEATSHEETS[sub.id] || [];
+
+    if (titleEl) {
+        titleEl.innerText = `📖 ${sub.name} - Quick Formula Cheatsheet`;
+    }
+
+    gridEl.innerHTML = '';
+    if (formulas.length === 0) {
+        gridEl.innerHTML = '<p style="color:var(--text-muted);padding:1rem 0;">No formula cheatsheet available for this subject.</p>';
+    } else {
+        formulas.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'formula-card';
+            card.innerHTML = `
+                <div class="formula-card-top">
+                    <span class="formula-card-title">${item.title}</span>
+                    <button class="btn" style="padding:0.2rem 0.5rem;font-size:0.7rem;" onclick="copyFormulaText('${item.formula.replace(/'/g, "\\'")}')">
+                        Copy
+                    </button>
+                </div>
+                <div class="formula-code-block">${item.formula}</div>
+                <div class="formula-card-desc">${item.desc}</div>
+            `;
+            gridEl.appendChild(card);
+        });
+    }
+
+    modal.classList.add('is-open');
+}
+
+function closeCheatsheetModal() {
+    const modal = document.getElementById('cheatsheetModalDialog');
+    if (modal) modal.classList.remove('is-open');
+}
+
+function copyFormulaText(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showToastNotification('Formula copied to clipboard! 📋');
+    });
+}
+
+// ==========================================
+// Study Sprint Timer (Pomodoro 25/5/15 min)
 // ==========================================
 
 function updateTimerDisplay() {
@@ -2756,6 +3349,7 @@ function toggleTimer() {
                 appState.pomodoro.isRunning = false;
                 appState.pomodoro.sessionsCompleted++;
                 playChimeSound();
+                fireConfetti();
                 showToastNotification('🔔 Focus sprint finished! Great job! Take 5m break.');
                 resetTimer(5);
             }
@@ -2825,7 +3419,6 @@ function saveNotesFromModal() {
         }
     }
 
-    // In-place button highlight update
     const noteBtn = document.getElementById(`note-btn-${activeEditingTopicId}`);
     if (noteBtn) {
         noteBtn.className = `icon-action-btn ${content.trim() ? 'active-note' : ''}`;
@@ -2893,6 +3486,7 @@ function bindGlobalListeners() {
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeNotesModal();
+            closeCheatsheetModal();
             const searchInput = document.getElementById('liveSearchInput');
             if (searchInput && document.activeElement === searchInput) {
                 searchInput.value = '';
@@ -2900,7 +3494,6 @@ function bindGlobalListeners() {
                 searchInput.blur();
             }
         }
-        // Press "/" to focus search immediately
         if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
             e.preventDefault();
             const searchInput = document.getElementById('liveSearchInput');

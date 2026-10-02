@@ -1,13 +1,19 @@
 /**
- * Mid-Sem Exam Prep Tracker - High Performance Exam Mastery Suite
- * Ultra-Responsive UI/UX with In-Place DOM Mutation & Zero Re-render Lag
+ * Mid-Sem Exam Prep Tracker - Master-Tier UI/UX Controller
+ * Includes:
+ * - Pure Canvas Confetti Celebrations
+ * - Interactive Formula Cheatsheets Drawer
+ * - Dynamic Daily Study Pacer & Remaining Study Hours
+ * - Zero-Lag In-Place DOM Checkpoint Ticking
+ * - Sticky Subject Navigation with ScrollSpy
+ * - Web Audio API Synthesizer with Streak-Modulated Pitch
  */
 
 const STORAGE_KEY = 'mid_sem_exam_tracker_v3';
 const THEME_KEY = 'mid_sem_exam_theme_pref';
 const SOUND_KEY = 'mid_sem_exam_sound_pref';
 
-// Main Application State
+// Application State
 let appState = {
     topics: {},              // id -> { status, starred, notes }
     customTopics: {},        // moduleId -> [ { id, title, desc, status, starred, notes } ]
@@ -26,9 +32,10 @@ let activeEditingTopicId = null;
 let currentTheme = 'light';
 let soundEnabled = true;
 let timerInterval = null;
+let completedStreakCount = 0;
 
 // ==========================================
-// Web Audio Synthesizer (Zero External Files)
+// Web Audio Synthesizer (Pitch-Modulated Streak)
 // ==========================================
 
 let audioCtx = null;
@@ -49,11 +56,13 @@ function playTickSound() {
     try {
         const ctx = getAudioContext();
         if (!ctx) return;
+        completedStreakCount++;
+        const baseFreq = 540 + Math.min(completedStreakCount * 25, 400);
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(580, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
+        osc.frequency.setValueAtTime(baseFreq, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.5, ctx.currentTime + 0.08);
         gain.gain.setValueAtTime(0.12, ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
         osc.connect(gain);
@@ -69,16 +78,16 @@ function playChimeSound() {
         const ctx = getAudioContext();
         if (!ctx) return;
         const now = ctx.currentTime;
-        [523.25, 659.25, 783.99].forEach((freq, idx) => {
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
-            osc.frequency.setValueAtTime(freq, now + idx * 0.1);
-            gain.gain.setValueAtTime(0.15, now + idx * 0.1);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.35);
+            osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+            gain.gain.setValueAtTime(0.14, now + idx * 0.09);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.35);
             osc.connect(gain);
             gain.connect(ctx.destination);
-            osc.start(now + idx * 0.1);
-            osc.stop(now + idx * 0.1 + 0.35);
+            osc.start(now + idx * 0.09);
+            osc.stop(now + idx * 0.09 + 0.35);
         });
     } catch (e) {}
 }
@@ -99,6 +108,68 @@ function updateSoundButton() {
 }
 
 // ==========================================
+// Canvas Confetti Celebration
+// ==========================================
+
+function fireConfetti() {
+    const canvas = document.getElementById('confettiCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const colors = ['#4f46e5', '#7c3aed', '#db2777', '#059669', '#0284c7', '#f59e0b', '#ec4899'];
+
+    for (let i = 0; i < 90; i++) {
+        particles.push({
+            x: canvas.width / 2 + (Math.random() - 0.5) * 300,
+            y: canvas.height * 0.3 + (Math.random() - 0.5) * 100,
+            vx: (Math.random() - 0.5) * 12,
+            vy: (Math.random() - 0.8) * 14,
+            size: Math.random() * 8 + 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rotation: Math.random() * 360,
+            rotSpeed: (Math.random() - 0.5) * 10,
+            opacity: 1
+        });
+    }
+
+    let frame = 0;
+    function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let active = false;
+
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.35; // gravity
+            p.rotation += p.rotSpeed;
+            p.opacity -= 0.012;
+
+            if (p.opacity > 0) {
+                active = true;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate((p.rotation * Math.PI) / 180);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = Math.max(p.opacity, 0);
+                ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+                ctx.restore();
+            }
+        });
+
+        frame++;
+        if (active && frame < 150) {
+            requestAnimationFrame(render);
+        } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+    requestAnimationFrame(render);
+}
+
+// ==========================================
 // Boot & Initialization
 // ==========================================
 
@@ -106,6 +177,7 @@ function initApp() {
     loadThemePreference();
     loadSoundPreference();
     loadPersistedState();
+    renderStickySubjectNav();
     renderTimelineStrip();
     renderSubjectMiniCards();
     renderSubjectsAccordions();
@@ -113,6 +185,7 @@ function initApp() {
     initGlobalCountdowns();
     updateTimerDisplay();
     bindGlobalListeners();
+    initScrollSpy();
 }
 
 function loadThemePreference() {
@@ -190,6 +263,47 @@ function showToastNotification(message) {
 }
 
 // ==========================================
+// Sticky Subject Navigation Bar
+// ==========================================
+
+function renderStickySubjectNav() {
+    const nav = document.getElementById('stickySubNav');
+    if (!nav) return;
+    nav.innerHTML = `
+        <button class="nav-pill-btn active-pill" id="nav-pill-all" onclick="handleFilterClick('all', null)">
+            ⚡ All (${SYLLABUS_DATA.length})
+        </button>
+    `;
+
+    SYLLABUS_DATA.forEach(sub => {
+        const btn = document.createElement('button');
+        btn.className = 'nav-pill-btn';
+        btn.id = `nav-pill-${sub.id}`;
+        btn.onclick = () => scrollToSubjectSection(sub.id);
+        btn.innerHTML = `${sub.icon} ${sub.shortName} <span style="font-size:0.68rem;opacity:0.75;">(${sub.examDateDisplay.split(' ')[0]} Oct)</span>`;
+        nav.appendChild(btn);
+    });
+}
+
+function initScrollSpy() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const subId = entry.target.id.replace('section-', '');
+                document.querySelectorAll('.nav-pill-btn').forEach(b => b.classList.remove('active-pill'));
+                const activeBtn = document.getElementById(`nav-pill-${subId}`);
+                if (activeBtn) activeBtn.classList.add('active-pill');
+            }
+        });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    SYLLABUS_DATA.forEach(sub => {
+        const el = document.getElementById(`section-${sub.id}`);
+        if (el) observer.observe(el);
+    });
+}
+
+// ==========================================
 // Exam Timeline Ribbon
 // ==========================================
 
@@ -229,7 +343,7 @@ function renderTimelineStrip() {
 }
 
 function formatCountdown(diff) {
-    if (diff <= 0) return 'Exam Done / Past';
+    if (diff <= 0) return 'Exam Completed / Past';
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -255,7 +369,7 @@ function initGlobalCountdowns() {
 }
 
 // ==========================================
-// Master Metrics & Progress Calculations
+// Master Metrics & Daily Pacer
 // ==========================================
 
 function updateMasterMetrics() {
@@ -263,25 +377,53 @@ function updateMasterMetrics() {
     let completedTopics = 0;
     let inProgressTopics = 0;
     let starredTopics = 0;
+    let totalEstimatedMinutes = 0;
+    let completedEstimatedMinutes = 0;
+
+    // LA&DE specific counters for next exam battle station
+    let ladeTotal = 0;
+    let ladeDone = 0;
 
     SYLLABUS_DATA.forEach(sub => {
         sub.modules.forEach(mod => {
             mod.topics.forEach(t => {
                 totalTopics++;
+                const mins = t.minutes || 25;
+                totalEstimatedMinutes += mins;
+
                 const s = appState.topics[t.id];
                 if (s) {
-                    if (s.status === 'done') completedTopics++;
-                    else if (s.status === 'in_progress') inProgressTopics++;
+                    if (s.status === 'done') {
+                        completedTopics++;
+                        completedEstimatedMinutes += mins;
+                    } else if (s.status === 'in_progress') {
+                        inProgressTopics++;
+                    }
                     if (s.starred) starredTopics++;
+                }
+
+                if (sub.id === 'lade') {
+                    ladeTotal++;
+                    if (s?.status === 'done') ladeDone++;
                 }
             });
 
             const customs = appState.customTopics[mod.name] || [];
             customs.forEach(ct => {
                 totalTopics++;
-                if (ct.status === 'done') completedTopics++;
-                else if (ct.status === 'in_progress') inProgressTopics++;
+                totalEstimatedMinutes += 25;
+                if (ct.status === 'done') {
+                    completedTopics++;
+                    completedEstimatedMinutes += 25;
+                } else if (ct.status === 'in_progress') {
+                    inProgressTopics++;
+                }
                 if (ct.starred) starredTopics++;
+
+                if (sub.id === 'lade') {
+                    ladeTotal++;
+                    if (ct.status === 'done') ladeDone++;
+                }
             });
         });
     });
@@ -289,6 +431,7 @@ function updateMasterMetrics() {
     const pendingTopics = totalTopics - completedTopics - inProgressTopics;
     const overallPercentage = totalTopics === 0 ? 0 : Math.round((completedTopics / totalTopics) * 100);
 
+    // Update Overall Cards
     const gaugeEl = document.getElementById('overallGaugeVal');
     const fillEl = document.getElementById('masterProgressFill');
     const countLabelEl = document.getElementById('topicsCountSummary');
@@ -310,12 +453,22 @@ function updateMasterMetrics() {
     setElemText('statPendingNum', pendingTopics);
     setElemText('statStarredNum', starredTopics);
 
+    // Update Next Exam Battle Station Card
+    const remainingHours = Math.max(0, Math.round(((totalEstimatedMinutes - completedEstimatedMinutes) / 60) * 10) / 10);
+    setElemText('battleHoursLeft', `${remainingHours}h`);
+    setElemText('battleLadeDone', `${ladeDone}/${ladeTotal}`);
+
+    // Daily pacing: Remaining topics in LA&DE divided by ~2.5 days left
+    const ladeRemaining = ladeTotal - ladeDone;
+    const dailyTarget = Math.max(1, Math.ceil(ladeRemaining / 2.5));
+    setElemText('battleDailyTarget', `${dailyTarget} topics/day`);
+
     refreshSubjectCardsData();
     refreshSubjectHeaderScores();
 }
 
 // ==========================================
-// Subject Overview Cards
+// Subject Mini Cards
 // ==========================================
 
 function renderSubjectMiniCards() {
@@ -470,6 +623,9 @@ function renderSubjectsAccordions() {
                 </div>
             </div>
             <div class="subject-header-meta">
+                <button class="btn-open-cheatsheet no-collapse" onclick="openCheatsheetModal('${sub.id}')" title="View key formulas and theorems">
+                    📖 Cheatsheet
+                </button>
                 <div class="subject-score-badge" id="header-score-${sub.id}" style="color: ${sub.color};">
                     ${subDone}/${subTotal} (${subPct}%)
                 </div>
@@ -550,7 +706,9 @@ function renderSubjectsAccordions() {
                         </div>
                         <div class="topic-texts">
                             <div class="topic-heading">
-                                ${topic.title}
+                                <span>${topic.title}</span>
+                                ${topic.highYield ? '<span class="badge-high-yield">⚡ High Yield</span>' : ''}
+                                ${topic.minutes ? `<span class="badge-minutes">⏱️ ~${topic.minutes}m</span>` : ''}
                                 ${topic.isCustom ? '<span style="font-size: 0.68rem; color: #4f46e5; font-weight:700;">[CUSTOM]</span>' : ''}
                             </div>
                             <div class="topic-desc">${topic.desc}</div>
@@ -622,9 +780,11 @@ function toggleTopicDoneState(topicId, isCustom = false, modName = '') {
 
     if (newStatus === 'done') {
         playTickSound();
+        if (completedStreakCount % 5 === 0) {
+            fireConfetti();
+        }
     }
 
-    // In-place DOM update (zero scroll jump or screen flash)
     const row = document.getElementById(`topic-${topicId}`);
     if (row) {
         row.className = `topic-row status-${newStatus}`;
@@ -787,12 +947,65 @@ function markAllVisibleDone() {
         count++;
     });
     playTickSound();
+    fireConfetti();
     persistState();
     showToastNotification(`Marked ${count} checkpoints as Done! Keep going! 🚀`);
 }
 
 // ==========================================
-// Study Sprint Timer (Pomodoro 25/5 min)
+// Formula Cheatsheet Modal
+// ==========================================
+
+function openCheatsheetModal(subjectId = 'lade') {
+    const modal = document.getElementById('cheatsheetModalDialog');
+    const titleEl = document.getElementById('cheatsheetTitle');
+    const gridEl = document.getElementById('cheatsheetGrid');
+    if (!modal || !gridEl) return;
+
+    const sub = SYLLABUS_DATA.find(s => s.id === subjectId) || SYLLABUS_DATA[0];
+    const formulas = FORMULA_CHEATSHEETS[sub.id] || [];
+
+    if (titleEl) {
+        titleEl.innerText = `📖 ${sub.name} - Quick Formula Cheatsheet`;
+    }
+
+    gridEl.innerHTML = '';
+    if (formulas.length === 0) {
+        gridEl.innerHTML = '<p style="color:var(--text-muted);padding:1rem 0;">No formula cheatsheet available for this subject.</p>';
+    } else {
+        formulas.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'formula-card';
+            card.innerHTML = `
+                <div class="formula-card-top">
+                    <span class="formula-card-title">${item.title}</span>
+                    <button class="btn" style="padding:0.2rem 0.5rem;font-size:0.7rem;" onclick="copyFormulaText('${item.formula.replace(/'/g, "\\'")}')">
+                        Copy
+                    </button>
+                </div>
+                <div class="formula-code-block">${item.formula}</div>
+                <div class="formula-card-desc">${item.desc}</div>
+            `;
+            gridEl.appendChild(card);
+        });
+    }
+
+    modal.classList.add('is-open');
+}
+
+function closeCheatsheetModal() {
+    const modal = document.getElementById('cheatsheetModalDialog');
+    if (modal) modal.classList.remove('is-open');
+}
+
+function copyFormulaText(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showToastNotification('Formula copied to clipboard! 📋');
+    });
+}
+
+// ==========================================
+// Study Sprint Timer (Pomodoro 25/5/15 min)
 // ==========================================
 
 function updateTimerDisplay() {
@@ -822,6 +1035,7 @@ function toggleTimer() {
                 appState.pomodoro.isRunning = false;
                 appState.pomodoro.sessionsCompleted++;
                 playChimeSound();
+                fireConfetti();
                 showToastNotification('🔔 Focus sprint finished! Great job! Take 5m break.');
                 resetTimer(5);
             }
@@ -891,7 +1105,6 @@ function saveNotesFromModal() {
         }
     }
 
-    // In-place button highlight update
     const noteBtn = document.getElementById(`note-btn-${activeEditingTopicId}`);
     if (noteBtn) {
         noteBtn.className = `icon-action-btn ${content.trim() ? 'active-note' : ''}`;
@@ -959,6 +1172,7 @@ function bindGlobalListeners() {
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeNotesModal();
+            closeCheatsheetModal();
             const searchInput = document.getElementById('liveSearchInput');
             if (searchInput && document.activeElement === searchInput) {
                 searchInput.value = '';
@@ -966,7 +1180,6 @@ function bindGlobalListeners() {
                 searchInput.blur();
             }
         }
-        // Press "/" to focus search immediately
         if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
             e.preventDefault();
             const searchInput = document.getElementById('liveSearchInput');

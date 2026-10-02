@@ -13,6 +13,9 @@
 </head>
 <body>
 
+    <!-- Canvas for Confetti Milestone Celebrations -->
+    <canvas id="confettiCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;"></canvas>
+
     <!-- Header Navigation -->
     <header>
         <div class="brand-wrapper">
@@ -56,7 +59,38 @@
         </div>
     </header>
 
+    <!-- Sticky Subject Quick-Jump Bar -->
+    <nav class="sticky-sub-nav" id="stickySubNav">
+        <!-- Rendered dynamically -->
+    </nav>
+
     <main class="app-container">
+
+        <!-- 🎯 NEXT EXAM BATTLE STATION BANNER -->
+        <section class="battle-station-banner">
+            <div class="battle-left">
+                <div class="battle-tag">🎯 CURRENT MISSION &bull; FIRST EXAM</div>
+                <div class="battle-title">Linear Algebra &amp; Differential Equations (LA&amp;DE)</div>
+                <div class="battle-subtitle">Exam on <strong>October 5, 2026</strong> &bull; Complete Matrices, Vector Spaces &amp; ODEs to lock in your foundation</div>
+            </div>
+            <div class="battle-right">
+                <div class="battle-stat-box">
+                    <div class="val" id="battleLadeDone">0/15</div>
+                    <div class="lbl">LA&amp;DE Mastered</div>
+                </div>
+                <div class="battle-stat-box">
+                    <div class="val" id="battleHoursLeft">0h</div>
+                    <div class="lbl">Est. Study Left</div>
+                </div>
+                <div class="battle-stat-box">
+                    <div class="val" id="battleDailyTarget">5 topics/day</div>
+                    <div class="lbl">Target Velocity</div>
+                </div>
+                <button class="btn btn-urgent" onclick="scrollToSubjectSection('lade')" style="background:#ffffff; color:#4f46e5; font-weight:800; border:none; padding:0.65rem 1.15rem; box-shadow:0 4px 14px rgba(0,0,0,0.18); cursor:pointer;">
+                    Jump to LA&amp;DE &rarr;
+                </button>
+            </div>
+        </section>
 
         <!-- 🗓️ CHRONOLOGICAL EXAM SCHEDULE TIMELINE -->
         <section class="exam-schedule-banner">
@@ -67,7 +101,7 @@
                 </h3>
                 <div style="display: flex; gap: 0.45rem; flex-wrap: wrap;">
                     <button class="btn btn-urgent" onclick="handleFilterClick('next_exam', null)">
-                        🚨 Focus Next Exam (LA&DE - 5 Oct)
+                        🚨 Focus Next Exam (LA&amp;DE - 5 Oct)
                     </button>
                     <button class="btn" onclick="toggleExpandAllSubjects()">
                         ↔️ Expand / Collapse All
@@ -164,7 +198,7 @@
 
             <div class="chips-wrap">
                 <div class="filter-chip active" onclick="handleFilterClick('all', this)">All Checkpoints</div>
-                <div class="filter-chip urgent-chip" onclick="handleFilterClick('next_exam', this)">🚨 LA&DE (5 Oct)</div>
+                <div class="filter-chip urgent-chip" onclick="handleFilterClick('next_exam', this)">🚨 LA&amp;DE (5 Oct)</div>
                 <div class="filter-chip" onclick="handleFilterClick('pending', this)">Pending</div>
                 <div class="filter-chip" onclick="handleFilterClick('in_progress', this)">In Progress</div>
                 <div class="filter-chip" onclick="handleFilterClick('done', this)">Completed</div>
@@ -199,6 +233,25 @@
             <div class="modal-buttons-row">
                 <button class="btn" onclick="closeNotesModal()">Cancel</button>
                 <button class="btn btn-primary" onclick="saveNotesFromModal()">Save Note</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formula Cheatsheets Modal Drawer -->
+    <div class="modal-backdrop" id="cheatsheetModalDialog">
+        <div class="modal-dialog cheatsheet-dialog">
+            <div class="modal-header-row">
+                <div>
+                    <h3 id="cheatsheetTitle">📖 Quick Formula Cheatsheet</h3>
+                    <p>High-yield exam definitions, theorems, formulas &amp; algorithms</p>
+                </div>
+                <button class="btn-close-modal" onclick="closeCheatsheetModal()" title="Close">&times;</button>
+            </div>
+            <div class="cheatsheet-grid" id="cheatsheetGrid">
+                <!-- Dynamically populated from FORMULA_CHEATSHEETS -->
+            </div>
+            <div class="modal-buttons-row">
+                <button class="btn btn-primary" onclick="closeCheatsheetModal()">Got it</button>
             </div>
         </div>
     </div>
