@@ -1,0 +1,2671 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mid-Sem Exam Mastery Tracker & Study Suite</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <style>
+/* ==========================================================================
+   MID-SEM EXAM PREP TRACKER - BEST EXAM MASTERY SUITE (CLEAN WHITE THEME)
+   ========================================================================== */
+
+:root {
+    /* Base Light Palette (Default) */
+    --bg-base: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-card: #ffffff;
+    --bg-card-hover: #ffffff;
+    --bg-elevated: #f1f5f9;
+    --bg-subtle: #f8fafc;
+
+    /* Borders & Accents */
+    --border-subtle: #e2e8f0;
+    --border-hover: #cbd5e1;
+    --border-active: #4f46e5;
+
+    /* Text Colors */
+    --text-main: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --text-dim: #94a3b8;
+
+    /* Exam Colors */
+    --color-lade: #db2777;
+    --color-dm: #7c3aed;
+    --color-dsa: #059669;
+    --color-da: #2563eb;
+    --color-oops: #d97706;
+    --color-dld: #0284c7;
+
+    /* Status Indicators */
+    --status-done: #059669;
+    --status-done-bg: #ecfdf5;
+    --status-done-border: #a7f3d0;
+
+    --status-progress: #d97706;
+    --status-progress-bg: #fffbeb;
+    --status-progress-border: #fde68a;
+
+    --status-pending: #64748b;
+    --status-pending-bg: #f8fafc;
+    --status-pending-border: #e2e8f0;
+
+    --status-starred: #f59e0b;
+
+    /* Brand Gradients & Shadows */
+    --brand-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #db2777 100%);
+    --card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+    --card-shadow-hover: 0 12px 30px -4px rgba(15, 23, 42, 0.09), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+
+    /* Layout & Animation */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-full: 9999px;
+    --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-normal: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dark Mode Overrides (if toggled) */
+[data-theme="dark"] {
+    --bg-base: #090d16;
+    --bg-surface: #0f1523;
+    --bg-card: #131b2c;
+    --bg-card-hover: #182238;
+    --bg-elevated: #161f31;
+    --bg-subtle: #090d16;
+
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.18);
+    --border-active: #6366f1;
+
+    --text-main: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --text-dim: #475569;
+
+    --status-done: #10b981;
+    --status-done-bg: rgba(16, 185, 129, 0.1);
+    --status-done-border: rgba(16, 185, 129, 0.3);
+
+    --status-progress: #f59e0b;
+    --status-progress-bg: rgba(245, 158, 11, 0.1);
+    --status-progress-border: rgba(245, 158, 11, 0.3);
+
+    --status-pending: #64748b;
+    --status-pending-bg: rgba(255, 255, 255, 0.04);
+    --status-pending-border: rgba(255, 255, 255, 0.08);
+
+    --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: 0 14px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    line-height: 1.5;
+    min-height: 100vh;
+    padding-bottom: 5rem;
+    overflow-x: hidden;
+    background-image: 
+        radial-gradient(ellipse 70% 40% at 15% 5%, rgba(99, 102, 241, 0.06), transparent),
+        radial-gradient(ellipse 60% 40% at 85% 15%, rgba(219, 39, 119, 0.05), transparent),
+        radial-gradient(circle at 50% 85%, rgba(5, 150, 105, 0.04), transparent);
+    background-attachment: fixed;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* ==========================================================================
+   HEADER & NAVBAR
+   ========================================================================== */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0.85rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 1px 10px rgba(15, 23, 42, 0.03);
+    transition: all var(--transition-normal);
+}
+
+[data-theme="dark"] header {
+    background: rgba(9, 13, 22, 0.9);
+    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.3);
+}
+
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.brand-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: var(--brand-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.25);
+    flex-shrink: 0;
+    color: #ffffff;
+}
+
+.brand-text h1 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: var(--text-main);
+}
+
+.brand-text p {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.header-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    cursor: pointer;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+    color: var(--text-main);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+    transition: all var(--transition-fast);
+    user-select: none;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: var(--bg-elevated);
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+}
+
+.btn-primary {
+    background: var(--brand-gradient);
+    border: none;
+    color: #ffffff;
+    box-shadow: 0 2px 12px rgba(79, 70, 229, 0.3);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 4px 18px rgba(79, 70, 229, 0.45);
+    background: var(--brand-gradient);
+    color: #ffffff;
+}
+
+.btn-urgent {
+    background: #ec4899;
+    border: none;
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(236, 72, 153, 0.3);
+    font-weight: 700;
+}
+
+.btn-urgent:hover {
+    background: #db2777;
+    box-shadow: 0 4px 16px rgba(236, 72, 153, 0.45);
+    color: #ffffff;
+}
+
+.btn-danger {
+    color: #ef4444;
+    border-color: #fecaca;
+    background: #fef2f2;
+}
+
+.btn-danger:hover {
+    background: #fee2e2;
+}
+
+[data-theme="dark"] .btn-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* ==========================================================================
+   APP CONTAINER
+   ========================================================================== */
+
+.app-container {
+    max-width: 1400px;
+    margin: 1.75rem auto;
+    padding: 0 1.5rem;
+}
+
+/* ==========================================================================
+   EXAM SCHEDULE TIMELINE STRIP
+   ========================================================================== */
+
+.exam-schedule-banner {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--card-shadow);
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.schedule-header h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.schedule-header .live-badge {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+[data-theme="dark"] .schedule-header .live-badge {
+    background: rgba(220, 38, 38, 0.15);
+    border-color: rgba(220, 38, 38, 0.3);
+}
+
+.live-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #dc2626;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.9); opacity: 0.6; }
+    50% { transform: scale(1.4); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.6; }
+}
+
+.timeline-cards-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+    gap: 0.85rem;
+}
+
+.timeline-item {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-item:hover {
+    background: var(--bg-surface);
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+}
+
+.timeline-item.next-exam {
+    border-color: #db2777;
+    background: #fdf2f8;
+    box-shadow: 0 0 0 2px rgba(219, 39, 119, 0.2);
+}
+
+[data-theme="dark"] .timeline-item.next-exam {
+    background: rgba(219, 39, 119, 0.12);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--exam-color, #4f46e5);
+}
+
+.timeline-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.35rem;
+}
+
+.timeline-date {
+    font-size: 0.76rem;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--exam-color, #4f46e5);
+}
+
+.timeline-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-full);
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.timeline-subject-name {
+    font-size: 0.86rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.timeline-countdown {
+    font-size: 0.74rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* ==========================================================================
+   DASHBOARD HERO: OVERALL + NEXT EXAM HERO + STUDY TIMER
+   ========================================================================== */
+
+.dashboard-hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 980px) {
+    .dashboard-hero {
+        grid-template-columns: 1fr;
+    }
+}
+
+.readiness-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 1.6rem;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.readiness-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--brand-gradient);
+}
+
+.readiness-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.15rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.readiness-title h2 {
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-main);
+}
+
+.readiness-title p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 0.2rem;
+}
+
+.percentage-gauge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-subtle);
+    padding: 0.4rem 1.1rem;
+    border-radius: var(--radius-full);
+}
+
+.percentage-gauge .gauge-value {
+    font-size: 1.7rem;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.master-progress-wrap {
+    margin-bottom: 1.25rem;
+}
+
+.progress-info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.45rem;
+}
+
+.progress-track {
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+[data-theme="dark"] .progress-track {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--brand-gradient);
+    border-radius: var(--radius-full);
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stat-tiles-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.75rem;
+}
+
+.stat-tile {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 0.65rem 0.75rem;
+    text-align: center;
+    transition: all var(--transition-fast);
+}
+
+.stat-tile .num {
+    font-size: 1.3rem;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 0.15rem;
+    color: var(--text-main);
+}
+
+.stat-tile .lbl {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   STUDY TIMER / FOCUS SPRINT CARD
+   ========================================================================== */
+
+.timer-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 1.6rem;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.timer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.timer-header h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.timer-display {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.timer-digits {
+    font-size: 2.8rem;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    color: #4f46e5;
+    letter-spacing: -0.02em;
+}
+
+.timer-mode-lbl {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.timer-controls {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   SUBJECT QUICK CARDS
+   ========================================================================== */
+
+.subject-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.subject-mini-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.15rem;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.subject-mini-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-hover);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.subject-mini-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 4px;
+    background: currentColor;
+}
+
+.sub-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.sub-card-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text-main);
+}
+
+.sub-card-pct {
+    font-size: 1.15rem;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.sub-exam-date-pill {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-subtle);
+    display: inline-block;
+    margin-bottom: 0.6rem;
+    color: var(--text-secondary);
+}
+
+.sub-card-track {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+[data-theme="dark"] .sub-card-track {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.sub-card-fill {
+    height: 100%;
+    background: currentColor;
+    border-radius: var(--radius-full);
+    transition: width var(--transition-normal);
+}
+
+.sub-card-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.73rem;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   CONTROLS, SEARCH & FILTER
+   ========================================================================== */
+
+.filter-controls-bar {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 0.9rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    box-shadow: var(--card-shadow);
+}
+
+.search-input-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 260px;
+}
+
+.search-input-wrap svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.search-input-wrap input {
+    width: 100%;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 0.85rem 0.6rem 2.4rem;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.88rem;
+    transition: all var(--transition-fast);
+}
+
+.search-input-wrap input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    background: var(--bg-surface);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.chips-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+}
+
+.filter-chip {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    padding: 0.38rem 0.85rem;
+    border-radius: var(--radius-full);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    user-select: none;
+}
+
+.filter-chip:hover {
+    color: var(--text-main);
+    border-color: var(--border-hover);
+    background: var(--bg-elevated);
+}
+
+.filter-chip.active {
+    background: #eef2ff;
+    border-color: #6366f1;
+    color: #4f46e5;
+}
+
+[data-theme="dark"] .filter-chip.active {
+    background: rgba(99, 102, 241, 0.2);
+    color: #a5b4fc;
+}
+
+.filter-chip.urgent-chip {
+    border-color: #fbcfe8;
+    background: #fdf2f8;
+    color: #db2777;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   SUBJECT SECTIONS & TOPIC ACCORDIONS
+   ========================================================================== */
+
+.subject-section {
+    margin-bottom: 2.25rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: all var(--transition-normal);
+}
+
+.subject-header {
+    padding: 1.15rem 1.6rem;
+    background: var(--bg-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    gap: 1rem;
+    flex-wrap: wrap;
+    transition: background var(--transition-fast);
+}
+
+.subject-header:hover {
+    background: var(--bg-elevated);
+}
+
+.subject-header-title {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.subject-tag-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.subject-header-title h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.subject-exam-pill {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.15rem 0.55rem;
+    border-radius: var(--radius-full);
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+}
+
+.subject-header-title span.sub-meta-info {
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+}
+
+.subject-header-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.subject-score-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.86rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+}
+
+.chevron-icon {
+    transition: transform var(--transition-normal);
+    color: var(--text-secondary);
+}
+
+.subject-section.collapsed .chevron-icon {
+    transform: rotate(-90deg);
+}
+
+.subject-section.collapsed .modules-container {
+    display: none;
+}
+
+/* Modules & Topic Rows */
+.modules-container {
+    padding: 1.25rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.module-box {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.module-box-header {
+    padding: 0.75rem 1.25rem;
+    background: rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+[data-theme="dark"] .module-box-header {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.module-box-header h4 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.module-box-header span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.topics-list {
+    list-style: none;
+}
+
+.topic-row {
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-subtle);
+    gap: 1rem;
+    background: var(--bg-surface);
+    transition: background var(--transition-fast);
+}
+
+.topic-row:last-child {
+    border-bottom: none;
+}
+
+.topic-row:hover {
+    background: var(--bg-subtle);
+}
+
+.topic-row.status-done {
+    background: var(--status-done-bg);
+}
+
+.topic-row.status-in_progress {
+    background: var(--status-progress-bg);
+}
+
+.topic-main {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex: 1;
+    cursor: pointer;
+}
+
+/* Custom Interactive Checkbox */
+.interactive-check {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid #cbd5e1;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.interactive-check:hover {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.topic-row.status-done .interactive-check {
+    background: var(--status-done);
+    border-color: var(--status-done);
+    box-shadow: 0 0 10px rgba(5, 150, 105, 0.35);
+}
+
+.interactive-check svg {
+    width: 14px;
+    height: 14px;
+    stroke: #ffffff;
+    stroke-width: 3;
+    fill: none;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all var(--transition-fast);
+}
+
+.topic-row.status-done .interactive-check svg {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.topic-texts {
+    flex: 1;
+}
+
+.topic-heading {
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text-main);
+    transition: color var(--transition-fast);
+}
+
+.topic-row.status-done .topic-heading {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    opacity: 0.75;
+}
+
+.topic-desc {
+    font-size: 0.77rem;
+    color: var(--text-secondary);
+    margin-top: 0.15rem;
+    line-height: 1.35;
+}
+
+/* Row Actions */
+.topic-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-shrink: 0;
+}
+
+.status-picker {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 0.74rem;
+    font-weight: 600;
+    padding: 0.28rem 0.5rem;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+.status-picker:focus {
+    border-color: #4f46e5;
+}
+
+.topic-row.status-done .status-picker {
+    color: var(--status-done);
+    border-color: var(--status-done-border);
+    background: var(--status-done-bg);
+}
+
+.topic-row.status-in_progress .status-picker {
+    color: var(--status-progress);
+    border-color: var(--status-progress-border);
+    background: var(--status-progress-bg);
+}
+
+.icon-action-btn {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    padding: 0.32rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.icon-action-btn:hover {
+    color: var(--text-main);
+    background: var(--bg-elevated);
+    border-color: var(--border-hover);
+}
+
+.icon-action-btn.active-note {
+    color: #0284c7;
+    background: #e0f2fe;
+    border-color: #bae6fd;
+}
+
+.icon-action-btn.active-star {
+    color: var(--status-starred);
+    background: #fffbeb;
+    border-color: #fde68a;
+}
+
+/* Add custom topic strip */
+.add-custom-topic-btn {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #4f46e5;
+    background: var(--bg-surface);
+    border: 1px dashed var(--border-subtle);
+    border-top: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    width: 100%;
+}
+
+.add-custom-topic-btn:hover {
+    background: #eef2ff;
+    border-color: #6366f1;
+}
+
+/* ==========================================================================
+   MODAL & TOAST
+   ========================================================================== */
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal);
+}
+
+.modal-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-dialog {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 580px;
+    padding: 1.75rem;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+    transform: scale(0.95);
+    transition: transform var(--transition-normal);
+}
+
+.modal-backdrop.is-open .modal-dialog {
+    transform: scale(1);
+}
+
+.modal-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.modal-header-row h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.modal-header-row p {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-top: 0.15rem;
+}
+
+.btn-close-modal {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.notes-editor {
+    width: 100%;
+    height: 170px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.88rem;
+    resize: vertical;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+}
+
+.notes-editor:focus {
+    outline: none;
+    border-color: #4f46e5;
+    background: var(--bg-surface);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.modal-buttons-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+/* Toast */
+.toast-notice {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #0f172a;
+    color: #ffffff;
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1.25rem;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+    font-size: 0.86rem;
+    font-weight: 600;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all var(--transition-normal);
+}
+
+.toast-notice.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Empty State */
+.empty-results {
+    text-align: center;
+    padding: 3.5rem 1rem;
+    color: var(--text-muted);
+    display: none;
+}
+
+/* Print Styles */
+@media print {
+    header, .header-toolbar, .filter-controls-bar, .timer-card, .timeline-cards-row, .icon-action-btn, .status-picker, .add-custom-topic-btn, .toast-notice {
+        display: none !important;
+    }
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+    }
+    .subject-section {
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+        margin-bottom: 1.5rem;
+    }
+}
+
+</style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="brand-wrapper">
+            <div class="brand-icon">⚡</div>
+            <div class="brand-text">
+                <h1>Mid-Sem Exam Mastery Suite</h1>
+                <p>Track syllabus, tick checkpoints, record formulas & ace your exams (5 Oct - 9 Oct)</p>
+            </div>
+        </div>
+
+        <div class="header-toolbar">
+            <!-- Theme Toggle Button -->
+            <button class="btn" id="themeToggleBtn" onclick="toggleTheme()" title="Switch theme">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                Dark
+            </button>
+            <button class="btn" onclick="exportBackupJSON()" title="Export JSON backup of your progress">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export
+            </button>
+            <label class="btn" style="cursor: pointer;" title="Import previous JSON backup">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Import
+                <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="handleImportJSON(event)">
+            </label>
+            <button class="btn" onclick="window.print()" title="Print revision checklist">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                Print
+            </button>
+            <button class="btn btn-danger" onclick="promptResetProgress()" title="Reset all checkboxes back to pending">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Reset
+            </button>
+        </div>
+    </header>
+
+    <main class="app-container">
+
+        <!-- 🗓️ CHRONOLOGICAL EXAM SCHEDULE TIMELINE -->
+        <section class="exam-schedule-banner">
+            <div class="schedule-header">
+                <h3>
+                    🗓️ Mid-Semester Exam Schedule
+                    <span class="live-badge">LIVE COUNTDOWNS</span>
+                </h3>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button class="btn btn-urgent" onclick="handleFilterClick('next_exam', null)">
+                        🚨 Focus Next Exam (LA&DE - 5 Oct)
+                    </button>
+                    <button class="btn" onclick="handleFilterClick('all', null)">
+                        Show All Exams
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-cards-row" id="timelineCardsRow">
+                <!-- Injected dynamically with live countdowns -->
+            </div>
+        </section>
+
+        <!-- DASHBOARD HERO: OVERALL READINESS + STUDY FOCUS TIMER -->
+        <section class="dashboard-hero">
+            <!-- Overall Progress Card -->
+            <div class="readiness-card">
+                <div class="readiness-header">
+                    <div class="readiness-title">
+                        <h2>Overall Exam Readiness</h2>
+                        <p>Tracked across all 6 mid-sem exams in chronological order</p>
+                    </div>
+                    <div class="percentage-gauge">
+                        <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.08em;">READINESS</span>
+                        <span class="gauge-value" id="overallGaugeVal">0%</span>
+                    </div>
+                </div>
+
+                <div class="master-progress-wrap">
+                    <div class="progress-info-row">
+                        <span id="topicsCountSummary">0 of 0 topics mastered</span>
+                        <span id="topicsInProgressSummary">0 in progress</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-bar-fill" id="masterProgressFill"></div>
+                    </div>
+                </div>
+
+                <div class="stat-tiles-row">
+                    <div class="stat-tile">
+                        <div class="num" id="statTotalNum">0</div>
+                        <div class="lbl">Total Topics</div>
+                    </div>
+                    <div class="stat-tile">
+                        <div class="num" id="statDoneNum" style="color: var(--status-done);">0</div>
+                        <div class="lbl">Completed</div>
+                    </div>
+                    <div class="stat-tile">
+                        <div class="num" id="statProgressNum" style="color: var(--status-progress);">0</div>
+                        <div class="lbl">In Progress</div>
+                    </div>
+                    <div class="stat-tile">
+                        <div class="num" id="statPendingNum" style="color: var(--text-muted);">0</div>
+                        <div class="lbl">Pending</div>
+                    </div>
+                    <div class="stat-tile">
+                        <div class="num" id="statStarredNum" style="color: var(--status-starred);">0</div>
+                        <div class="lbl">⭐ Priority</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Built-in Study Focus Sprint Timer (Pomodoro) -->
+            <div class="timer-card">
+                <div class="timer-header">
+                    <h3>⏱️ Study Focus Sprint</h3>
+                    <span style="font-size: 0.72rem; font-weight: 700; color: #4f46e5; background: #eef2ff; padding: 0.2rem 0.55rem; border-radius: 9999px;">POMODORO</span>
+                </div>
+
+                <div class="timer-display">
+                    <div class="timer-digits" id="timerDigits">25:00</div>
+                    <div class="timer-mode-lbl">DEEP WORK FOCUS</div>
+                </div>
+
+                <div class="timer-controls">
+                    <button class="btn btn-primary" id="timerToggleBtn" onclick="toggleTimer()">Start 25m Sprint</button>
+                    <button class="btn" onclick="resetTimer(25)">Reset 25m</button>
+                    <button class="btn" onclick="resetTimer(5)">5m Break</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subject Overview Mini Cards Grid -->
+        <section class="subject-cards-grid" id="subjectCardsGrid">
+            <!-- Rendered dynamically -->
+        </section>
+
+        <!-- Filter & Search Bar -->
+        <section class="filter-controls-bar">
+            <div class="search-input-wrap">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="liveSearchInput" placeholder="Search any topic (e.g. Eigenvalues, K-Map, Quicksort, Bezout, Scanner, Regression)..." oninput="handleLiveSearch(this.value)">
+            </div>
+
+            <div class="chips-wrap">
+                <div class="filter-chip active" onclick="handleFilterClick('all', this)">All Checkpoints</div>
+                <div class="filter-chip urgent-chip" onclick="handleFilterClick('next_exam', this)">🚨 LA&DE (5 Oct)</div>
+                <div class="filter-chip" onclick="handleFilterClick('pending', this)">Pending</div>
+                <div class="filter-chip" onclick="handleFilterClick('in_progress', this)">In Progress</div>
+                <div class="filter-chip" onclick="handleFilterClick('done', this)">Completed</div>
+                <div class="filter-chip" onclick="handleFilterClick('starred', this)">⭐ Starred Priority</div>
+            </div>
+        </section>
+
+        <!-- Empty Search Result Notice -->
+        <div class="empty-results" id="emptyResultsBox">
+            <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin: 0 auto; color: var(--text-muted);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <p>No matching syllabus topics found for your search or filter.</p>
+        </div>
+
+        <!-- Subject Accordion Containers -->
+        <section id="subjectsAccordionsContainer">
+            <!-- Dynamically populated from SYLLABUS_DATA -->
+        </section>
+
+    </main>
+
+    <!-- Notes & Formula Modal -->
+    <div class="modal-backdrop" id="notesModalDialog">
+        <div class="modal-dialog">
+            <div class="modal-header-row">
+                <div>
+                    <h3 id="notesModalTopicTitle">Topic Notes</h3>
+                    <p>Write formula summaries, key proofs, solved problems, or tricky test cases</p>
+                </div>
+                <button class="btn-close-modal" onclick="closeNotesModal()" title="Close">&times;</button>
+            </div>
+            <textarea class="notes-editor" id="notesModalEditor" placeholder="Enter formulas, algorithm edge cases, standard exam questions, or quick memory hooks..."></textarea>
+            <div class="modal-buttons-row">
+                <button class="btn" onclick="closeNotesModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveNotesFromModal()">Save Note</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-notice" id="toastNotice">
+        <svg width="18" height="18" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span id="toastMessageText">Action successful</span>
+    </div>
+
+    <!-- Scripts -->
+    
+    <script>
+/**
+ * Mid-Semester Preparation Syllabus Data Model
+ * Sorted by Exact Exam Schedule:
+ * 1. LA&DE (Linear Algebra & Diff Equations) - Oct 5
+ * 2. Discrete Mathematics - Oct 6
+ * 3. DSA (Data Structures & Algorithms) - Oct 7
+ * 4. DA (Data Analytics) - Oct 8
+ * 5. Java (OOPs) - Oct 9
+ * 6. Digital Logic Design (DLD) - Oct 9
+ */
+
+const EXAM_SCHEDULE = [
+    { id: "lade", name: "Linear Algebra & Diff Eq", code: "LA&DE", date: "2026-10-05", dateDisplay: "5 Oct", time: "09:00", color: "#db2777" },
+    { id: "discrete", name: "Discrete Mathematics", code: "DM", date: "2026-10-06", dateDisplay: "6 Oct", time: "09:00", color: "#7c3aed" },
+    { id: "dsa", name: "Data Structures & Algos", code: "DSA", date: "2026-10-07", dateDisplay: "7 Oct", time: "09:00", color: "#059669" },
+    { id: "da", name: "Data Analytics (DA)", code: "DA", date: "2026-10-08", dateDisplay: "8 Oct", time: "09:00", color: "#2563eb" },
+    { id: "java", name: "Java (OOPs)", code: "OOPS", date: "2026-10-09", dateDisplay: "9 Oct", time: "09:00", color: "#d97706" },
+    { id: "dld", name: "Digital Logic Design", code: "DLD", date: "2026-10-09", dateDisplay: "9 Oct", time: "14:00", color: "#0284c7" }
+];
+
+const SYLLABUS_DATA = [
+    {
+        id: "lade",
+        name: "Linear Algebra & Diff Equations",
+        shortName: "LA&DE",
+        examDate: "2026-10-05",
+        examDateDisplay: "5 Oct 2026",
+        icon: "📐",
+        color: "#db2777",
+        glow: "rgba(219, 39, 119, 0.2)",
+        modules: [
+            {
+                name: "1. Systems of Linear Equations & Elimination",
+                topics: [
+                    { id: "la-matrix-rep", title: "Linear Systems & Matrix Representation", desc: "Coefficient matrix, augmented matrix [A|b], consistency conditions and solution types." },
+                    { id: "la-ref-gauss", title: "Row Echelon Form (REF), Rank & Gauss Elimination", desc: "Elementary row operations, leading entries (pivots), rank calculation, forward Gaussian elimination." },
+                    { id: "la-rref-gauss-jordan", title: "Reduced Row Echelon Form (RREF) & Gauss-Jordan", desc: "Unique RREF, Gauss-Jordan elimination, matrix inversion [A | I] -> [I | A^-1]." },
+                    { id: "la-homogeneous", title: "Homogeneous Systems of Linear Equations", desc: "Ax = 0, always consistent, trivial vs non-trivial solutions, free variables and nullity." },
+                    { id: "la-non-homogeneous", title: "Non-Homogeneous Systems & Solution Sets", desc: "General solution x = x_p + x_h (particular + null space solution), Rouché-Capelli rank theorem." }
+                ]
+            },
+            {
+                name: "2. Applications of Linear Systems",
+                topics: [
+                    { id: "la-app-resources-chem", title: "Resource Allocation & Balancing Chemical Reactions", desc: "Setting up simultaneous equations for multi-variable raw material constraints and stoichiometry." },
+                    { id: "la-app-networks-circuits", title: "Network Analysis & Electrical Networks", desc: "Flow conservation at network junctions (traffic flow), Kirchhoff's Current Law (KCL) and Voltage Law (KVL)." },
+                    { id: "la-app-leontief", title: "Linear Economic Models (Leontief Input-Output)", desc: "Production vectors, internal consumption matrix C, external demand vector d, solving (I - C)x = d." }
+                ]
+            },
+            {
+                name: "3. Eigenvalues, Eigenvectors & Diagonalization",
+                topics: [
+                    { id: "la-eigen-intro", title: "Introduction to Eigenvalues & Eigenvectors", desc: "Definition Av = λv (v ≠ 0), characteristic polynomial det(A - λI) = 0, trace and det relations." },
+                    { id: "la-eigen-nxn", title: "Eigenvalues & Eigenvectors of n x n Matrices", desc: "Finding eigenspaces Null(A - λI), Algebraic Multiplicity (AM) vs Geometric Multiplicity (GM)." },
+                    { id: "la-similar-diagonalization", title: "Similar Matrices & Matrix Diagonalization", desc: "Similarity transform B = P^-1 A P, conditions for diagonalizability (n linearly independent eigenvectors)." }
+                ]
+            },
+            {
+                name: "4. Dynamical Systems & Differential Equations",
+                topics: [
+                    { id: "la-markov-chains", title: "Markov Chains & Steady-State Vectors", desc: "Stochastic transition matrices (column sums = 1), state vectors x_k, regular Markov chains, finding steady-state vector Pq = q." },
+                    { id: "la-population-growth", title: "Population Growth Models", desc: "Leslie matrix models for age-structured populations, dominant eigenvalue determining long-term growth." },
+                    { id: "la-diff-eqs-systems", title: "Systems of Linear Differential Equations", desc: "Vector differential equation x'(t) = A x(t), decoupling using eigenvalues/eigenvectors, general solution formula." },
+                    { id: "la-discrete-dyn-systems", title: "Discrete Linear Dynamical Systems", desc: "State evolution x_{k+1} = A x_k, attractor/sink (|λ| < 1), repeller/source (|λ| > 1), saddle point behavior." }
+                ]
+            },
+            {
+                name: "5. Vector Spaces, Basis & Dimension",
+                topics: [
+                    { id: "la-vector-spaces-subspaces", title: "Vector Spaces & Subspaces", desc: "10 vector space axioms, subspace test (contains 0, closed under vector addition and scalar multiplication)." },
+                    { id: "la-span-independence", title: "Spanning Sets & Linear Independence", desc: "Span{v1, ..., vk}, testing linear independence (c1*v1 + ... + ck*vk = 0 implies only ci = 0)." },
+                    { id: "la-basis-dimension", title: "Basis and Dimension", desc: "Basis as a minimal spanning set and maximal independent set, dimension of vector spaces." }
+                ]
+            },
+            {
+                name: "6. Linear Transformations",
+                topics: [
+                    { id: "la-linear-transformations", title: "Linear Transformations & Properties", desc: "Mapping T: V -> W, linearity criteria T(u+v) = T(u)+T(v) and T(cu) = cT(u), zero vector preservation." },
+                    { id: "la-kernel-range-rank-nullity", title: "Kernel, Range & Rank-Nullity Theorem", desc: "Ker(T) = {v | T(v)=0}, Range(T), Dimension Theorem: dim(Ker(T)) + dim(Range(T)) = dim(V)." },
+                    { id: "la-matrix-linear-trans", title: "Matrix of a Linear Transformation", desc: "Standard matrix [T], coordinate vectors relative to arbitrary bases B and B', change of basis matrix." }
+                ]
+            }
+        ]
+    },
+    {
+        id: "discrete",
+        name: "Discrete Mathematics",
+        shortName: "DM",
+        examDate: "2026-10-06",
+        examDateDisplay: "6 Oct 2026",
+        icon: "🔢",
+        color: "#7c3aed",
+        glow: "rgba(124, 58, 237, 0.2)",
+        modules: [
+            {
+                name: "Module: Relations",
+                topics: [
+                    { id: "dm-relations-properties", title: "Relations & Properties (Sec 9.1)", desc: "Reflexive (∀a: aRa), Symmetric (aRb -> bRa), Antisymmetric (aRb & bRa -> a=b), Transitive; composite relations S ∘ R, powers R^n." },
+                    { id: "dm-matrix-digraph", title: "Matrix & Digraph Representations (Sec 9.3)", desc: "0-1 boolean matrices, digraphs, checking properties visually, boolean matrix product for composite relations." },
+                    { id: "dm-equivalence-relations", title: "Equivalence Relations, Classes & Partitions (Sec 9.5)", desc: "Equivalence (Reflexive + Symmetric + Transitive), equivalence classes [a], partitions of a set." },
+                    { id: "dm-poset-hasse", title: "Partial Orderings, Posets & Hasse Diagrams (Sec 9.6)", desc: "Poset (Reflexive + Antisymmetric + Transitive), comparable vs incomparable elements, total order, lexicographic order." },
+                    { id: "dm-hasse-extremals", title: "Hasse Diagram Extremal Elements (Sec 9.6)", desc: "Maximal and minimal elements, greatest element (maximum) vs least element (minimum), upper/lower bounds, LUB & GLB." }
+                ]
+            },
+            {
+                name: "Module: Induction and Recursion",
+                topics: [
+                    { id: "dm-weak-induction", title: "First (Weak) Mathematical Induction (Sec 5.1)", desc: "Basis step P(1), Inductive hypothesis P(k), Inductive step P(k) -> P(k+1); proofs for sums and inequalities." },
+                    { id: "dm-strong-induction", title: "Second (Strong) Mathematical Induction (Sec 5.2)", desc: "Basis step, Inductive hypothesis [P(1) ∧ ... ∧ P(k)] -> P(k+1); Well-Ordering Property." },
+                    { id: "dm-recursion-funcs", title: "Recursively Defined Functions (Sec 5.3)", desc: "Base case and recursive rule, Fibonacci sequence definition, recursively defined sets and structural induction." },
+                    { id: "dm-recurrence-homo", title: "Linear Recurrence: Homogeneous Solutions (Sec 8.2)", desc: "Characteristic equation: Case 1 (real distinct roots: a_n = α1*r1^n + α2*r2^n); Case 2 (real repeated roots: a_n = (α1 + α2*n)*r^n)." },
+                    { id: "dm-recurrence-nonhomo", title: "Linear Recurrence: Non-Homogeneous Solutions (Sec 8.2)", desc: "General solution a_n = a_n^(h) + a_n^(p); Case i: F(n)=const; Case ii: F(n)=c*a^n; Case iii: F(n)=polynomial." }
+                ]
+            },
+            {
+                name: "Module: Number Theory & Cryptography",
+                topics: [
+                    { id: "dm-divisibility-modulo", title: "Divisibility Theorems & Modular Arithmetic (Sec 4.1)", desc: "Divisibility rules (a|b, a|c -> a|(sb+tc)), division algorithm: a = dq + r (0 <= r < d), a div d and a mod d." },
+                    { id: "dm-primes-fta", title: "Primes, Fundamental Theorem & Mersenne Primes (Sec 4.3)", desc: "Unique prime factorization, Mersenne primes (2^p - 1), infinitude of primes." },
+                    { id: "dm-gcd-euclidean", title: "GCD, LCM & Euclidean Algorithm (Sec 4.3)", desc: "Relation gcd(a,b)*lcm(a,b) = a*b, Euclidean division algorithm steps to systematically compute GCD." },
+                    { id: "dm-bezout-theorem", title: "Bézout's Theorem & Extended Euclidean (Sec 4.3)", desc: "Finding integers s and t such that sa + tb = gcd(a,b), expressing gcd as a linear combination." },
+                    { id: "dm-linear-congruence", title: "Linear Congruence Equations & Inverses (Sec 4.4)", desc: "Finding modular inverse of a modulo m using Bézout; solving single linear congruence ax ≡ b (mod m)." },
+                    { id: "dm-crt-flt", title: "Chinese Remainder Theorem & Fermat's Little Theorem (Sec 4.4)", desc: "CRT simultaneous congruences formula with pairwise coprime moduli; Fermat's Little Theorem (a^(p-1) ≡ 1 mod p); pseudoprimes." },
+                    { id: "dm-congruence-apps", title: "Applications of Congruences (Sec 4.5)", desc: "Hashing functions h(k)=k mod m, PRNGs (Linear Congruential Method), parity check bits, UPC, ISBN-10, USPS, ISSN." },
+                    { id: "dm-cryptography", title: "Classical Cryptography (Sec 4.6)", desc: "Caesar cipher, Shift cipher f(p)=(p+k) mod 26, Affine cipher f(p)=(ap+b) mod 26 with gcd(a,26)=1, Transposition block ciphers." }
+                ]
+            }
+        ]
+    },
+    {
+        id: "dsa",
+        name: "Data Structures & Algorithms",
+        shortName: "DSA",
+        examDate: "2026-10-07",
+        examDateDisplay: "7 Oct 2026",
+        icon: "💻",
+        color: "#059669",
+        glow: "rgba(5, 150, 105, 0.2)",
+        modules: [
+            {
+                name: "1. Foundations & Classification",
+                topics: [
+                    { id: "dsa-intro", title: "Motivation & Need for Data Structures", desc: "Role of DS in efficient searching, indexing, memory optimization, and algorithmic throughput." },
+                    { id: "dsa-classification", title: "Classification of Data Structures", desc: "Primitive vs Non-Primitive; Linear (Arrays, Stacks, Queues, Linked Lists) vs Non-Linear (Trees, Graphs); Static vs Dynamic." }
+                ]
+            },
+            {
+                name: "2. Algorithm Analysis & Asymptotic Notations",
+                topics: [
+                    { id: "dsa-algo-notion", title: "Brief Idea of Algorithms & Properties", desc: "Algorithmic properties: Finiteness, Definiteness, Input, Output, Feasibility/Effectiveness." },
+                    { id: "dsa-complexity", title: "Time and Space Complexity Analysis", desc: "Counting fundamental operations, auxiliary memory space, worst-case, average-case, and best-case performance." },
+                    { id: "dsa-asymptotic", title: "Asymptotic Notations", desc: "Formal mathematical definitions of Big-O (O), Big-Omega (Ω), Big-Theta (Θ), small-o (o), and small-omega (ω)." }
+                ]
+            },
+            {
+                name: "3. Arrays & Memory Layout",
+                topics: [
+                    { id: "dsa-arrays-1d-2d", title: "1-D and 2-D Arrays", desc: "Contiguous memory layout, base address, index computation, cache locality benefits." },
+                    { id: "dsa-ordering-formulas", title: "Multi-Dimensional Array Address Calculations", desc: "Row-Major Ordering (RMO): Base + [i * n + j] * size; Column-Major Ordering (CMO): Base + [j * m + i] * size." }
+                ]
+            },
+            {
+                name: "4. Searching Algorithms",
+                topics: [
+                    { id: "dsa-linear-search", title: "Linear Search", desc: "Sequential examination, worst-case O(n), best-case O(1), suitable for unsorted data." },
+                    { id: "dsa-binary-search", title: "Binary Search", desc: "Divide and conquer on sorted data, mid calculation, iterative vs recursive formulation, O(log n)." }
+                ]
+            },
+            {
+                name: "5. Sorting Algorithms & Analysis",
+                topics: [
+                    { id: "dsa-bubble-sort", title: "Bubble Sort", desc: "Repeated adjacent swaps, sinking largest element, swapped flag optimization, O(n^2) worst, O(n) best." },
+                    { id: "dsa-selection-sort", title: "Selection Sort", desc: "Finding minimum from unsorted sub-array and placing at front, minimum swaps O(n), always O(n^2), unstable." },
+                    { id: "dsa-insertion-sort", title: "Insertion Sort", desc: "Incremental card placement, adaptive O(n) for nearly-sorted data, stable, O(n^2) worst." },
+                    { id: "dsa-merge-sort", title: "Merge Sort", desc: "Divide and conquer, two-way merging, recurrence T(n) = 2T(n/2) + O(n), guaranteed O(n log n), stable, O(n) space." },
+                    { id: "dsa-quick-sort", title: "Quick Sort", desc: "Partitioning around pivot (Lomuto vs Hoare), worst-case O(n^2) for sorted arrays, expected O(n log n), in-place, unstable." },
+                    { id: "dsa-sort-comparison", title: "Comparison-Based Sorting Analysis", desc: "Decision tree lower bound of Ω(n log n), stability comparison, in-place vs extra auxiliary memory tradeoffs." }
+                ]
+            },
+            {
+                name: "6. Stack Data Structure",
+                topics: [
+                    { id: "dsa-stack-concept", title: "Stack Concept & Primitive Operations", desc: "LIFO principle, Top pointer, Push, Pop, Peek/Top, isEmpty, isFull (array & linked list representations)." },
+                    { id: "dsa-stack-apps", title: "Applications of Stack", desc: "Infix to Postfix/Prefix conversion, Postfix evaluation, balanced parentheses checking, recursion call stack." }
+                ]
+            },
+            {
+                name: "7. Queue Data Structure",
+                topics: [
+                    { id: "dsa-queue-concept", title: "Queue Concept & Primitive Operations", desc: "FIFO principle, Front and Rear pointers, Enqueue, Dequeue, Peek (array & linked list representations)." },
+                    { id: "dsa-queue-variants-apps", title: "Queue Variants & Applications", desc: "Circular Queue (preventing false overflow using modulo arithmetic), Deque, Priority Queue, BFS, CPU scheduling." }
+                ]
+            },
+            {
+                name: "8. Linked Lists",
+                topics: [
+                    { id: "dsa-singly-ll", title: "Singly Linked List", desc: "Node structure (data + next), head pointer, insertion (start, mid, end), deletion, search, reversal." },
+                    { id: "dsa-doubly-ll", title: "Doubly Linked List", desc: "Node structure (data + prev + next), bidirectional traversal, deletion and insertion edge cases." },
+                    { id: "dsa-circular-ll", title: "Circular & Doubly Circular Linked Lists", desc: "Last node links back to head, circular navigation, round-robin playlist/scheduling applications." },
+                    { id: "dsa-ll-applications", title: "Linked List Applications", desc: "Dynamic memory allocation, polynomial representation and algebraic addition, sparse matrices." }
+                ]
+            }
+        ]
+    },
+    {
+        id: "da",
+        name: "Data Analytics (DA)",
+        shortName: "DA",
+        examDate: "2026-10-08",
+        examDateDisplay: "8 Oct 2026",
+        icon: "📊",
+        color: "#2563eb",
+        glow: "rgba(37, 99, 235, 0.2)",
+        modules: [
+            {
+                name: "1. Data Understanding & Exploratory Analysis (EDA)",
+                topics: [
+                    { id: "da-intro-lifecycle", title: "Data Analytics Life Cycle & Types", desc: "Descriptive, Diagnostic, Predictive, and Prescriptive analytics; data preprocessing steps." },
+                    { id: "da-data-types-cleaning", title: "Data Types & Data Cleaning", desc: "Structured, semi-structured, unstructured; handling missing values, imputation techniques, outlier detection (IQR, Z-score)." },
+                    { id: "da-eda-visualization", title: "Exploratory Data Analysis & Visualization", desc: "Summary statistics, histograms, box plots, scatter plots, correlation heatmaps, feature distributions." }
+                ]
+            },
+            {
+                name: "2. Statistical Foundations & Probability",
+                topics: [
+                    { id: "da-descriptive-stats", title: "Measures of Central Tendency & Dispersion", desc: "Mean, median, mode, variance, standard deviation, skewness, kurtosis, quartiles." },
+                    { id: "da-probability-distributions", title: "Probability Distributions", desc: "Discrete (Binomial, Poisson) and Continuous (Normal / Gaussian distribution, Standard Normal Z-table, Central Limit Theorem)." },
+                    { id: "da-hypothesis-testing", title: "Hypothesis Testing & Significance", desc: "Null hypothesis (H0) vs Alternative (H1), Type I and Type II errors, p-value interpretation, Z-test, t-test, Chi-square test." }
+                ]
+            },
+            {
+                name: "3. Predictive Modeling & Regression",
+                topics: [
+                    { id: "da-linear-regression", title: "Simple & Multiple Linear Regression", desc: "Least squares estimation, slope & intercept formula, R-squared and Adjusted R-squared, assumptions of regression." },
+                    { id: "da-logistic-classification", title: "Classification & Logistic Regression", desc: "Sigmoid function, odds ratio, decision boundary, confusion matrix, precision, recall, F1-score, ROC-AUC curve." },
+                    { id: "da-clustering-dim-reduction", title: "Clustering & Dimensionality Reduction", desc: "K-Means clustering algorithm (Elbow method), Hierarchical clustering, PCA (Principal Component Analysis) concepts." }
+                ]
+            }
+        ]
+    },
+    {
+        id: "java",
+        name: "Java (OOPs)",
+        shortName: "OOPS",
+        examDate: "2026-10-09",
+        examDateDisplay: "9 Oct 2026 (Morning)",
+        icon: "☕",
+        color: "#d97706",
+        glow: "rgba(217, 119, 6, 0.2)",
+        modules: [
+            {
+                name: "1. Java Environment & OOP Foundation",
+                topics: [
+                    { id: "java-characteristics", title: "Characteristics of Java & Environment", desc: "Platform independence (WORA), Architecture Neutral, Robust, Secure, Multithreaded, Distributed." },
+                    { id: "java-runtime-jvm", title: "JDK, JRE, JVM & JIT Compiler", desc: "JDK tools (javac, jar), JRE libraries, JVM execution engine, ClassLoader, JIT compiler (bytecode to native code)." },
+                    { id: "java-oop-principles", title: "OOP Principles in Java", desc: "Encapsulation (data hiding), Abstraction (interfaces/abstract classes), Inheritance, Polymorphism." },
+                    { id: "java-lifecycle", title: "Lifecycle of a Java Program & First Program", desc: "Source (.java) -> javac -> Bytecode (.class) -> JVM execution; public static void main(String[] args)." }
+                ]
+            },
+            {
+                name: "2. Fundamental Programming Structures",
+                topics: [
+                    { id: "java-tokens-types", title: "Identifiers, Literals, Comments & Data Types", desc: "Identifier rules, reserved keywords, primitive types (byte, short, int, long, float, double, char, boolean)." },
+                    { id: "java-variables-casts", title: "Variables, Scope, Lifetime & Type Conversion", desc: "Local, instance, and static variables; implicit widening conversion vs explicit narrowing type casting." },
+                    { id: "java-operators", title: "Operators & Expressions", desc: "Arithmetic, relational, logical (short-circuit && and ||), bitwise, shift, ternary operator, precedence." },
+                    { id: "java-control-flow", title: "Control Flow: Conditionals & Switches", desc: "if-else-if ladder, nested if, switch-case with constants/enums/strings, switch fall-through and break." },
+                    { id: "java-loops-jumps", title: "Loops & Jump Statements", desc: "while, do-while, standard for, enhanced for-each, labeled break, continue, return." }
+                ]
+            },
+            {
+                name: "3. Classes, Objects & Core Implementations",
+                topics: [
+                    { id: "java-classes-objects", title: "Defining Classes & Creating Objects", desc: "Class declaration, fields, methods, new keyword, reference variables, heap vs stack allocation." },
+                    { id: "java-methods-constructors", title: "Methods & Constructors", desc: "Method signature, return types, pass-by-value semantics, default constructors, parameterized constructors." },
+                    { id: "java-overloading", title: "Method & Constructor Overloading", desc: "Compile-time polymorphism: varying number, types, or order of parameters; return type alone is insufficient." },
+                    { id: "java-this-keyword", title: "The `this` Keyword", desc: "Referencing current object instance fields (resolving variable shadowing), constructor chaining using this()." },
+                    { id: "java-static-members", title: "Static Members (Variables, Methods, Blocks)", desc: "Class-level shared memory, static methods cannot use this/super, static initialization block order." },
+                    { id: "java-nested-classes", title: "Nested Classes", desc: "Static nested classes vs Inner member classes, access permissions to outer class enclosing scope." },
+                    { id: "java-arrays", title: "Arrays in Java", desc: "Array declaration, allocation, initialization, 1-D, 2-D matrices, ragged/jagged arrays, .length property." },
+                    { id: "java-strings", title: "Strings, StringBuffer & StringBuilder", desc: "String immutability, String Constant Pool (SCP), equals() vs ==, thread-safe StringBuffer vs StringBuilder." },
+                    { id: "java-scanner", title: "Scanner Class", desc: "java.util.Scanner: nextInt(), nextDouble(), next(), nextLine() line-break consumption issues." },
+                    { id: "java-wrapper-classes", title: "Wrapper Classes & Autoboxing", desc: "Integer, Double, Character, Boolean; automatic boxing and unboxing between primitives and objects." }
+                ]
+            }
+        ]
+    },
+    {
+        id: "dld",
+        name: "Digital Logic Design",
+        shortName: "DLD",
+        examDate: "2026-10-09",
+        examDateDisplay: "9 Oct 2026 (Afternoon)",
+        icon: "⚡",
+        color: "#0284c7",
+        glow: "rgba(2, 132, 199, 0.2)",
+        modules: [
+            {
+                name: "1. Introduction to Digital Circuits & Signals",
+                topics: [
+                    { id: "dld-intro", title: "Introduction to Digital Circuits", desc: "Definitions, nature of analog vs discrete-time vs digital signals, amplitude and time quantization." },
+                    { id: "dld-adv-disadv", title: "Advantages & Disadvantages of Digital Circuits", desc: "Noise immunity, storage efficiency, ease of design vs quantization error and ADC conversion complexity." }
+                ]
+            },
+            {
+                name: "2. Number Systems & Representations",
+                topics: [
+                    { id: "dld-number-bases", title: "Number Systems: Binary, Octal, Decimal, Hexadecimal", desc: "Radix/base representation, positional weights, converting integer and fractional numbers between systems." },
+                    { id: "dld-conversions", title: "System Conversions", desc: "Repeated division/multiplication methods, grouping bits for binary-octal (3-bit) and binary-hex (4-bit) conversion." },
+                    { id: "dld-complements", title: "1's and 2's Complement Representations", desc: "Signed binary numbers, subtraction using 1's and 2's complements, overflow detection." }
+                ]
+            },
+            {
+                name: "3. Binary Codes",
+                topics: [
+                    { id: "dld-weighted-nonweighted", title: "Weighted and Non-Weighted Codes", desc: "Positional weight property: BCD (8421, 2421, 5421) vs non-weighted codes (Excess-3, Gray code)." },
+                    { id: "dld-bcd", title: "BCD (Binary Coded Decimal)", desc: "BCD encoding (0-9), invalid states (10-15), BCD addition and correction (+6 / +0110 rule)." },
+                    { id: "dld-excess3", title: "Excess-Three (XS-3) Code", desc: "Adding 0011 to BCD, self-complementing property for 9's complement, arithmetic with Excess-3." },
+                    { id: "dld-gray", title: "Gray Code (Reflected Binary)", desc: "Unit-distance code, elimination of race conditions, binary-to-Gray conversion (XOR with right shift) and Gray-to-binary." },
+                    { id: "dld-ascii", title: "ASCII Code", desc: "7-bit and 8-bit alphanumeric character encoding, control characters, parity bit integration." }
+                ]
+            },
+            {
+                name: "4. Logic Gates and Functions",
+                topics: [
+                    { id: "dld-gate-tables", title: "Logic Gates & Truth Tables", desc: "Functions, representations, and truth tables of basic gates (AND, OR, NOT) and derived gates (NAND, NOR, XOR, XNOR)." },
+                    { id: "dld-universal-gates", title: "Universal Logic Gates (NAND & NOR)", desc: "Implementing NOT, AND, OR, XOR, and XNOR using exclusively NAND gates or exclusively NOR gates." },
+                    { id: "dld-combining-gates", title: "Circuit Synthesis for Simple Logic Functions", desc: "Deriving gate-level circuits from boolean expressions and truth tables." }
+                ]
+            },
+            {
+                name: "5. Boolean Algebra & Minimization Techniques",
+                topics: [
+                    { id: "dld-boolean-algebra", title: "Boolean Algebra Axioms & Theorems", desc: "Huntington's postulates, Commutative, Associative, Distributive, Identity, Complement, Involution, De Morgan's laws." },
+                    { id: "dld-reduction", title: "Reduction of Gate Count by Simplification", desc: "Algebraic reduction, Canonical SOP (minterms) and POS (maxterms), standard forms." },
+                    { id: "dld-kmaps", title: "Karnaugh Maps (K-Maps) Simplification", desc: "2, 3, and 4 variable K-Maps, Gray code ordering, grouping rules (pairs, quads, octets), Don't Care (X) conditions." },
+                    { id: "dld-tabulation", title: "Tabulation Method (Quine-McCluskey)", desc: "Algorithmic tabular minimization, grouping by number of 1s, finding prime implicants, prime implicant chart, essential prime implicants." }
+                ]
+            },
+            {
+                name: "6. Combinational Circuits",
+                topics: [
+                    { id: "dld-mux-demux", title: "Multiplexers & Demultiplexers", desc: "2:1, 4:1, 8:1 MUX architecture, select lines, implementing any logic function using MUX; 1:2, 1:4, 1:8 DEMUX." },
+                    { id: "dld-encoders-decoders", title: "Encoders & Decoders", desc: "Priority encoders (resolving multiple active inputs), 2-to-4 and 3-to-8 line decoders with active-low/high enable lines." },
+                    { id: "dld-arithmetic", title: "Arithmetic Circuits: Adders & Subtracters", desc: "Half Adder, Full Adder (using gates and universal gates), Half Subtractor, Full Subtractor, 4-bit Parallel Adder/Subtractor." }
+                ]
+            }
+        ]
+    }
+];
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { EXAM_SCHEDULE, SYLLABUS_DATA };
+}
+
+
+/**
+ * Mid-Sem Exam Prep Tracker - High Performance Exam Mastery Suite
+ * Features:
+ * - Live Chronological Exam Schedule Countdowns (Oct 5 - Oct 9)
+ * - Next Exam Urgency Highlighting
+ * - Built-in Study Focus Sprint Timer (Pomodoro)
+ * - Custom Checkpoint / Topic Insertion
+ * - Live Search, Filters, Star Priority, Notes Modal
+ * - Light / Dark Theme Sync
+ */
+
+const STORAGE_KEY = 'mid_sem_exam_tracker_v3';
+const THEME_KEY = 'mid_sem_exam_theme_pref';
+
+// Main Application State
+let appState = {
+    topics: {},              // id -> { status, starred, notes }
+    customTopics: {},        // moduleId -> [ { id, title, desc, status, starred, notes } ]
+    collapsedSubjects: {},   // subjectId -> bool
+    pomodoro: {
+        timeLeft: 25 * 60,
+        isRunning: false,
+        mode: 'focus',        // 'focus' | 'break'
+        sessionsCompleted: 0
+    }
+};
+
+let activeFilter = 'all';     // 'all' | 'pending' | 'in_progress' | 'done' | 'starred' | 'next_exam'
+let searchQuery = '';
+let activeEditingTopicId = null;
+let currentTheme = 'light';
+let timerInterval = null;
+
+// ==========================================
+// Boot & Initialization
+// ==========================================
+
+function initApp() {
+    loadThemePreference();
+    loadPersistedState();
+    renderTimelineStrip();
+    renderSubjectMiniCards();
+    renderSubjectsAccordions();
+    updateMasterMetrics();
+    initGlobalCountdowns();
+    updateTimerDisplay();
+    bindGlobalListeners();
+}
+
+function loadThemePreference() {
+    const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
+    applyTheme(savedTheme);
+}
+
+function applyTheme(theme) {
+    currentTheme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    const themeBtn = document.getElementById('themeToggleBtn');
+    if (themeBtn) {
+        if (theme === 'dark') {
+            themeBtn.innerHTML = `
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                Light
+            `;
+            themeBtn.title = "Switch to clean white theme";
+        } else {
+            themeBtn.innerHTML = `
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                Dark
+            `;
+            themeBtn.title = "Switch to dark theme";
+        }
+    }
+}
+
+function toggleTheme() {
+    const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+    applyTheme(nextTheme);
+    localStorage.setItem(THEME_KEY, nextTheme);
+    showToastNotification(nextTheme === 'light' ? 'Switched to clean white theme ☀️' : 'Switched to dark theme 🌙');
+}
+
+function loadPersistedState() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+            const parsed = JSON.parse(raw);
+            appState = { ...appState, ...parsed };
+        }
+    } catch (err) {
+        console.warn('Could not read state from localStorage', err);
+    }
+}
+
+function persistState() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+    } catch (err) {
+        console.error('Could not save state to localStorage', err);
+    }
+    updateMasterMetrics();
+}
+
+function showToastNotification(message) {
+    const toast = document.getElementById('toastNotice');
+    const toastMsg = document.getElementById('toastMessageText');
+    if (!toast || !toastMsg) return;
+
+    toastMsg.innerText = message;
+    toast.classList.add('is-visible');
+
+    clearTimeout(toast._timeoutId);
+    toast._timeoutId = setTimeout(() => {
+        toast.classList.remove('is-visible');
+    }, 2800);
+}
+
+// ==========================================
+// Exam Timeline Ribbon & Live Countdowns
+// ==========================================
+
+function renderTimelineStrip() {
+    const container = document.getElementById('timelineCardsRow');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const now = new Date().getTime();
+    let nextExamFound = false;
+
+    EXAM_SCHEDULE.forEach((exam, idx) => {
+        const examTargetTime = new Date(`${exam.date}T${exam.time}:00`).getTime();
+        const diff = examTargetTime - now;
+        const isPast = diff <= 0;
+        const isNext = !isPast && !nextExamFound;
+        if (isNext) nextExamFound = true;
+
+        const card = document.createElement('div');
+        card.className = `timeline-item ${isNext ? 'next-exam' : ''}`;
+        card.style.setProperty('--exam-color', exam.color);
+        card.onclick = () => scrollToSubjectSection(exam.id);
+
+        card.innerHTML = `
+            <div class="timeline-top">
+                <span class="timeline-date">${exam.dateDisplay}</span>
+                <span class="timeline-tag" style="color: ${exam.color};">${isNext ? '🚨 NEXT EXAM' : (isPast ? 'DONE' : 'UPCOMING')}</span>
+            </div>
+            <div class="timeline-subject-name">${exam.name}</div>
+            <div class="timeline-countdown" id="timeline-cd-${exam.id}">
+                ${formatCountdown(diff)}
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+function formatCountdown(diff) {
+    if (diff <= 0) return 'Exam Completed / Past';
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    if (days > 0) {
+        return `⏳ in ${days}d ${hours}h ${mins}m`;
+    }
+    return `⚡ in ${hours}h ${mins}m ${secs}s`;
+}
+
+function initGlobalCountdowns() {
+    setInterval(() => {
+        const now = new Date().getTime();
+        EXAM_SCHEDULE.forEach(exam => {
+            const el = document.getElementById(`timeline-cd-${exam.id}`);
+            if (el) {
+                const examTargetTime = new Date(`${exam.date}T${exam.time}:00`).getTime();
+                const diff = examTargetTime - now;
+                el.innerText = formatCountdown(diff);
+            }
+        });
+    }, 1000);
+}
+
+// ==========================================
+// Master Metrics
+// ==========================================
+
+function updateMasterMetrics() {
+    let totalTopics = 0;
+    let completedTopics = 0;
+    let inProgressTopics = 0;
+    let starredTopics = 0;
+
+    SYLLABUS_DATA.forEach(sub => {
+        sub.modules.forEach(mod => {
+            // Standard topics
+            mod.topics.forEach(t => {
+                totalTopics++;
+                const s = appState.topics[t.id];
+                if (s) {
+                    if (s.status === 'done') completedTopics++;
+                    else if (s.status === 'in_progress') inProgressTopics++;
+                    if (s.starred) starredTopics++;
+                }
+            });
+
+            // Custom topics
+            const customs = appState.customTopics[mod.name] || [];
+            customs.forEach(ct => {
+                totalTopics++;
+                if (ct.status === 'done') completedTopics++;
+                else if (ct.status === 'in_progress') inProgressTopics++;
+                if (ct.starred) starredTopics++;
+            });
+        });
+    });
+
+    const pendingTopics = totalTopics - completedTopics - inProgressTopics;
+    const overallPercentage = totalTopics === 0 ? 0 : Math.round((completedTopics / totalTopics) * 100);
+
+    const gaugeEl = document.getElementById('overallGaugeVal');
+    const fillEl = document.getElementById('masterProgressFill');
+    const countLabelEl = document.getElementById('topicsCountSummary');
+    const inProgressLabelEl = document.getElementById('topicsInProgressSummary');
+
+    if (gaugeEl) gaugeEl.innerText = `${overallPercentage}%`;
+    if (fillEl) fillEl.style.width = `${overallPercentage}%`;
+    if (countLabelEl) countLabelEl.innerText = `${completedTopics} of ${totalTopics} topics mastered`;
+    if (inProgressLabelEl) inProgressLabelEl.innerText = `${inProgressTopics} in progress`;
+
+    const setElemText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = text;
+    };
+
+    setElemText('statTotalNum', totalTopics);
+    setElemText('statDoneNum', completedTopics);
+    setElemText('statProgressNum', inProgressTopics);
+    setElemText('statPendingNum', pendingTopics);
+    setElemText('statStarredNum', starredTopics);
+
+    refreshSubjectCardsData();
+}
+
+// ==========================================
+// Subject Mini Cards
+// ==========================================
+
+function renderSubjectMiniCards() {
+    const grid = document.getElementById('subjectCardsGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    SYLLABUS_DATA.forEach(sub => {
+        let total = 0;
+        let done = 0;
+        sub.modules.forEach(m => {
+            m.topics.forEach(t => {
+                total++;
+                if (appState.topics[t.id]?.status === 'done') done++;
+            });
+            const customs = appState.customTopics[m.name] || [];
+            customs.forEach(ct => {
+                total++;
+                if (ct.status === 'done') done++;
+            });
+        });
+
+        const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+
+        const card = document.createElement('div');
+        card.className = 'subject-mini-card';
+        card.id = `mini-card-${sub.id}`;
+        card.style.color = sub.color;
+        card.onclick = () => scrollToSubjectSection(sub.id);
+
+        card.innerHTML = `
+            <div class="sub-card-header">
+                <div class="sub-card-title">${sub.icon} ${sub.name}</div>
+                <div class="sub-card-pct" id="mini-pct-${sub.id}">${pct}%</div>
+            </div>
+            <div class="sub-exam-date-pill">🗓️ Exam: ${sub.examDateDisplay}</div>
+            <div class="sub-card-track">
+                <div class="sub-card-fill" id="mini-fill-${sub.id}" style="width: ${pct}%;"></div>
+            </div>
+            <div class="sub-card-meta">
+                <span id="mini-count-${sub.id}">${done} / ${total} done</span>
+                <span style="font-weight: 700;">${sub.shortName}</span>
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+function refreshSubjectCardsData() {
+    SYLLABUS_DATA.forEach(sub => {
+        let total = 0;
+        let done = 0;
+        sub.modules.forEach(m => {
+            m.topics.forEach(t => {
+                total++;
+                if (appState.topics[t.id]?.status === 'done') done++;
+            });
+            const customs = appState.customTopics[m.name] || [];
+            customs.forEach(ct => {
+                total++;
+                if (ct.status === 'done') done++;
+            });
+        });
+        const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+
+        const pctEl = document.getElementById(`mini-pct-${sub.id}`);
+        const fillEl = document.getElementById(`mini-fill-${sub.id}`);
+        const countEl = document.getElementById(`mini-count-${sub.id}`);
+
+        if (pctEl) pctEl.innerText = `${pct}%`;
+        if (fillEl) fillEl.style.width = `${pct}%`;
+        if (countEl) countEl.innerText = `${done} / ${total} done`;
+    });
+}
+
+// ==========================================
+// Subject Sections & Topic Accordions
+// ==========================================
+
+function renderSubjectsAccordions() {
+    const container = document.getElementById('subjectsAccordionsContainer');
+    if (!container) return;
+    container.innerHTML = '';
+
+    let totalRenderedTopics = 0;
+    const q = searchQuery.toLowerCase().trim();
+
+    SYLLABUS_DATA.forEach(sub => {
+        // If next_exam filter is active, only show the first exam (LA&DE)
+        if (activeFilter === 'next_exam' && sub.id !== 'lade') {
+            return;
+        }
+
+        const isCollapsed = !!appState.collapsedSubjects[sub.id];
+
+        let subTotal = 0;
+        let subDone = 0;
+        sub.modules.forEach(m => {
+            m.topics.forEach(t => {
+                subTotal++;
+                if (appState.topics[t.id]?.status === 'done') subDone++;
+            });
+            const customs = appState.customTopics[m.name] || [];
+            customs.forEach(ct => {
+                subTotal++;
+                if (ct.status === 'done') subDone++;
+            });
+        });
+        const subPct = subTotal === 0 ? 0 : Math.round((subDone / subTotal) * 100);
+
+        const section = document.createElement('section');
+        section.className = `subject-section ${isCollapsed ? 'collapsed' : ''}`;
+        section.id = `section-${sub.id}`;
+        section.style.setProperty('--sub-theme-color', sub.color);
+
+        const header = document.createElement('div');
+        header.className = 'subject-header';
+        header.onclick = (e) => {
+            if (e.target.closest('.no-collapse')) return;
+            toggleSubjectCollapse(sub.id);
+        };
+
+        header.innerHTML = `
+            <div class="subject-header-title">
+                <div class="subject-tag-badge" style="background: ${sub.color};">${sub.shortName}</div>
+                <div>
+                    <h3>${sub.name} <span class="subject-exam-pill">🗓️ ${sub.examDateDisplay}</span></h3>
+                    <span class="sub-meta-info">${sub.modules.length} Modules &bull; ${subTotal} Checkpoints</span>
+                </div>
+            </div>
+            <div class="subject-header-meta">
+                <div class="subject-score-badge" style="color: ${sub.color};">
+                    ${subDone}/${subTotal} (${subPct}%)
+                </div>
+                <svg class="chevron-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+        `;
+
+        section.appendChild(header);
+
+        const modulesWrap = document.createElement('div');
+        modulesWrap.className = 'modules-container';
+
+        let subjectHasMatches = false;
+
+        sub.modules.forEach(mod => {
+            // Aggregate standard + custom topics
+            const allModTopics = [
+                ...mod.topics.map(t => ({ ...t, isCustom: false })),
+                ...(appState.customTopics[mod.name] || []).map(ct => ({ ...ct, isCustom: true }))
+            ];
+
+            const filteredTopics = allModTopics.filter(t => {
+                const s = t.isCustom ? t : (appState.topics[t.id] || { status: 'not_started', starred: false, notes: '' });
+
+                if (activeFilter === 'done' && s.status !== 'done') return false;
+                if (activeFilter === 'in_progress' && s.status !== 'in_progress') return false;
+                if (activeFilter === 'pending' && s.status === 'done') return false;
+                if (activeFilter === 'starred' && !s.starred) return false;
+
+                if (q !== '') {
+                    const matchTitle = (t.title || '').toLowerCase().includes(q);
+                    const matchDesc = (t.desc || '').toLowerCase().includes(q);
+                    const matchNotes = (s.notes || '').toLowerCase().includes(q);
+                    if (!matchTitle && !matchDesc && !matchNotes) return false;
+                }
+
+                return true;
+            });
+
+            if (filteredTopics.length === 0 && searchQuery !== '') return;
+
+            subjectHasMatches = true;
+            totalRenderedTopics += filteredTopics.length;
+
+            const modBox = document.createElement('div');
+            modBox.className = 'module-box';
+
+            let modDone = 0;
+            allModTopics.forEach(t => {
+                const s = t.isCustom ? t : appState.topics[t.id];
+                if (s?.status === 'done') modDone++;
+            });
+
+            modBox.innerHTML = `
+                <div class="module-box-header">
+                    <h4>${mod.name}</h4>
+                    <span>${modDone}/${allModTopics.length} done</span>
+                </div>
+            `;
+
+            const topicList = document.createElement('ul');
+            topicList.className = 'topics-list';
+
+            filteredTopics.forEach(topic => {
+                const s = topic.isCustom ? topic : (appState.topics[topic.id] || { status: 'not_started', starred: false, notes: '' });
+                const isDone = s.status === 'done';
+                const isInProgress = s.status === 'in_progress';
+                const isStarred = !!s.starred;
+                const hasNotes = !!(s.notes && s.notes.trim() !== '');
+
+                const row = document.createElement('li');
+                row.className = `topic-row status-${s.status || 'not_started'}`;
+                row.id = `topic-${topic.id}`;
+
+                row.innerHTML = `
+                    <div class="topic-main" onclick="toggleTopicDoneState('${topic.id}', ${topic.isCustom}, '${mod.name.replace(/'/g, "\\'")}')">
+                        <div class="interactive-check" title="Click to toggle Done">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <div class="topic-texts">
+                            <div class="topic-heading">${topic.title} ${topic.isCustom ? '<span style="font-size: 0.68rem; color: #4f46e5; font-weight:700;">[CUSTOM]</span>' : ''}</div>
+                            <div class="topic-desc">${topic.desc}</div>
+                        </div>
+                    </div>
+                    <div class="topic-controls no-collapse">
+                        <select class="status-picker" onchange="setTopicStatus('${topic.id}', this.value, ${topic.isCustom}, '${mod.name.replace(/'/g, "\\'")}')" title="Change status">
+                            <option value="not_started" ${s.status === 'not_started' || !s.status ? 'selected' : ''}>Pending</option>
+                            <option value="in_progress" ${isInProgress ? 'selected' : ''}>In Progress</option>
+                            <option value="done" ${isDone ? 'selected' : ''}>Done ✓</option>
+                        </select>
+                        <button class="icon-action-btn ${isStarred ? 'active-star' : ''}" onclick="toggleTopicStar('${topic.id}', ${topic.isCustom}, '${mod.name.replace(/'/g, "\\'")}')" title="Star as priority topic">
+                            <svg width="17" height="17" fill="${isStarred ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </button>
+                        <button class="icon-action-btn ${hasNotes ? 'active-note' : ''}" onclick="openNotesModal('${topic.id}', '${topic.title.replace(/'/g, "\\'")}', ${topic.isCustom}, '${mod.name.replace(/'/g, "\\'")}')" title="Revision notes & formulas">
+                            <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        </button>
+                    </div>
+                `;
+
+                topicList.appendChild(row);
+            });
+
+            modBox.appendChild(topicList);
+
+            // Add Custom Checkpoint Button
+            const addBtn = document.createElement('button');
+            addBtn.className = 'add-custom-topic-btn no-collapse';
+            addBtn.innerHTML = `+ Add Custom Topic / Question to "${mod.name}"`;
+            addBtn.onclick = () => promptAddCustomTopic(mod.name);
+            modBox.appendChild(addBtn);
+
+            modulesWrap.appendChild(modBox);
+        });
+
+        section.appendChild(modulesWrap);
+
+        if (subjectHasMatches || (searchQuery === '' && activeFilter === 'all')) {
+            container.appendChild(section);
+        }
+    });
+
+    const emptyEl = document.getElementById('emptyResultsBox');
+    if (emptyEl) {
+        emptyEl.style.display = (totalRenderedTopics === 0 && (searchQuery !== '' || activeFilter !== 'all')) ? 'block' : 'none';
+    }
+}
+
+// ==========================================
+// User Interactions & Actions
+// ==========================================
+
+function toggleTopicDoneState(topicId, isCustom = false, modName = '') {
+    if (isCustom && modName) {
+        const list = appState.customTopics[modName] || [];
+        const item = list.find(t => t.id === topicId);
+        if (item) {
+            item.status = item.status === 'done' ? 'not_started' : 'done';
+        }
+    } else {
+        if (!appState.topics[topicId]) {
+            appState.topics[topicId] = { status: 'done', starred: false, notes: '' };
+        } else {
+            appState.topics[topicId].status = (appState.topics[topicId].status === 'done') ? 'not_started' : 'done';
+        }
+    }
+    persistState();
+    renderSubjectsAccordions();
+}
+
+function setTopicStatus(topicId, status, isCustom = false, modName = '') {
+    if (isCustom && modName) {
+        const list = appState.customTopics[modName] || [];
+        const item = list.find(t => t.id === topicId);
+        if (item) {
+            item.status = status;
+        }
+    } else {
+        if (!appState.topics[topicId]) {
+            appState.topics[topicId] = { status: status, starred: false, notes: '' };
+        } else {
+            appState.topics[topicId].status = status;
+        }
+    }
+    persistState();
+    renderSubjectsAccordions();
+}
+
+function toggleTopicStar(topicId, isCustom = false, modName = '') {
+    let nowStarred = false;
+    if (isCustom && modName) {
+        const list = appState.customTopics[modName] || [];
+        const item = list.find(t => t.id === topicId);
+        if (item) {
+            item.starred = !item.starred;
+            nowStarred = item.starred;
+        }
+    } else {
+        if (!appState.topics[topicId]) {
+            appState.topics[topicId] = { status: 'not_started', starred: true, notes: '' };
+            nowStarred = true;
+        } else {
+            appState.topics[topicId].starred = !appState.topics[topicId].starred;
+            nowStarred = appState.topics[topicId].starred;
+        }
+    }
+    persistState();
+    renderSubjectsAccordions();
+    showToastNotification(nowStarred ? '⭐ Added to Starred priority' : 'Removed from Starred');
+}
+
+function promptAddCustomTopic(modName) {
+    const title = prompt(`Enter checkpoint title for ${modName}:`);
+    if (!title || !title.trim()) return;
+    const desc = prompt("Enter short description / question note (optional):") || "";
+
+    if (!appState.customTopics[modName]) {
+        appState.customTopics[modName] = [];
+    }
+
+    const newTopic = {
+        id: `custom-${Date.now()}`,
+        title: title.trim(),
+        desc: desc.trim(),
+        status: 'not_started',
+        starred: false,
+        notes: ''
+    };
+
+    appState.customTopics[modName].push(newTopic);
+    persistState();
+    renderSubjectsAccordions();
+    renderSubjectMiniCards();
+    showToastNotification('Custom topic added! 📝');
+}
+
+function toggleSubjectCollapse(subjectId) {
+    appState.collapsedSubjects[subjectId] = !appState.collapsedSubjects[subjectId];
+    persistState();
+    const sec = document.getElementById(`section-${subjectId}`);
+    if (sec) {
+        sec.classList.toggle('collapsed', appState.collapsedSubjects[subjectId]);
+    }
+}
+
+function scrollToSubjectSection(subjectId) {
+    if (appState.collapsedSubjects[subjectId]) {
+        appState.collapsedSubjects[subjectId] = false;
+        persistState();
+        renderSubjectsAccordions();
+    }
+    const sec = document.getElementById(`section-${subjectId}`);
+    if (sec) {
+        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function handleFilterClick(filterType, element) {
+    activeFilter = filterType;
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    if (element) element.classList.add('active');
+    renderSubjectsAccordions();
+}
+
+function handleLiveSearch(value) {
+    searchQuery = value;
+    renderSubjectsAccordions();
+}
+
+function markAllVisibleDone() {
+    let count = 0;
+    document.querySelectorAll('.topic-row').forEach(row => {
+        const id = row.id.replace('topic-', '');
+        if (!appState.topics[id]) appState.topics[id] = {};
+        appState.topics[id].status = 'done';
+        count++;
+    });
+    persistState();
+    renderSubjectsAccordions();
+    showToastNotification(`Marked ${count} topics as Done! Keep going! 🚀`);
+}
+
+// ==========================================
+// Study Sprint Timer (Pomodoro 25/5 min)
+// ==========================================
+
+function updateTimerDisplay() {
+    const mins = Math.floor(appState.pomodoro.timeLeft / 60);
+    const secs = appState.pomodoro.timeLeft % 60;
+    const el = document.getElementById('timerDigits');
+    if (el) {
+        el.innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+}
+
+function toggleTimer() {
+    const btn = document.getElementById('timerToggleBtn');
+    if (appState.pomodoro.isRunning) {
+        clearInterval(timerInterval);
+        appState.pomodoro.isRunning = false;
+        if (btn) btn.innerText = "Resume Sprint";
+    } else {
+        appState.pomodoro.isRunning = true;
+        if (btn) btn.innerText = "Pause";
+        timerInterval = setInterval(() => {
+            if (appState.pomodoro.timeLeft > 0) {
+                appState.pomodoro.timeLeft--;
+                updateTimerDisplay();
+            } else {
+                clearInterval(timerInterval);
+                appState.pomodoro.isRunning = false;
+                appState.pomodoro.sessionsCompleted++;
+                showToastNotification('🔔 Focus sprint finished! Great job!');
+                resetTimer(5); // switch to 5 min break
+            }
+        }, 1000);
+    }
+}
+
+function resetTimer(minutes = 25) {
+    clearInterval(timerInterval);
+    appState.pomodoro.isRunning = false;
+    appState.pomodoro.timeLeft = minutes * 60;
+    const btn = document.getElementById('timerToggleBtn');
+    if (btn) btn.innerText = "Start 25m Sprint";
+    updateTimerDisplay();
+}
+
+// ==========================================
+// Notes Drawer / Modal
+// ==========================================
+
+let activeNotesIsCustom = false;
+let activeNotesModName = '';
+
+function openNotesModal(topicId, topicTitle, isCustom = false, modName = '') {
+    activeEditingTopicId = topicId;
+    activeNotesIsCustom = isCustom;
+    activeNotesModName = modName;
+
+    const titleEl = document.getElementById('notesModalTopicTitle');
+    const editor = document.getElementById('notesModalEditor');
+    const modal = document.getElementById('notesModalDialog');
+
+    if (titleEl) titleEl.innerText = topicTitle;
+
+    let existingNotes = '';
+    if (isCustom && modName) {
+        const item = (appState.customTopics[modName] || []).find(t => t.id === topicId);
+        existingNotes = item?.notes || '';
+    } else {
+        existingNotes = appState.topics[topicId]?.notes || '';
+    }
+
+    if (editor) editor.value = existingNotes;
+    if (modal) modal.classList.add('is-open');
+    if (editor) editor.focus();
+}
+
+function closeNotesModal() {
+    const modal = document.getElementById('notesModalDialog');
+    if (modal) modal.classList.remove('is-open');
+    activeEditingTopicId = null;
+}
+
+function saveNotesFromModal() {
+    if (!activeEditingTopicId) return;
+    const editor = document.getElementById('notesModalEditor');
+    const content = editor ? editor.value : '';
+
+    if (activeNotesIsCustom && activeNotesModName) {
+        const item = (appState.customTopics[activeNotesModName] || []).find(t => t.id === activeEditingTopicId);
+        if (item) item.notes = content;
+    } else {
+        if (!appState.topics[activeEditingTopicId]) {
+            appState.topics[activeEditingTopicId] = { status: 'not_started', starred: false, notes: content };
+        } else {
+            appState.topics[activeEditingTopicId].notes = content;
+        }
+    }
+
+    persistState();
+    closeNotesModal();
+    renderSubjectsAccordions();
+    showToastNotification('Note saved successfully! 📝');
+}
+
+// ==========================================
+// Backup & Reset Functionality
+// ==========================================
+
+function exportBackupJSON() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
+    const dlAnchor = document.createElement('a');
+    dlAnchor.setAttribute("href", dataStr);
+    dlAnchor.setAttribute("download", `mid_sem_exam_prep_${new Date().toISOString().split('T')[0]}.json`);
+    document.body.appendChild(dlAnchor);
+    dlAnchor.click();
+    dlAnchor.remove();
+    showToastNotification('Backup file downloaded! 📥');
+}
+
+function handleImportJSON(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const imported = JSON.parse(e.target.result);
+            if (imported) {
+                appState = { ...appState, ...imported };
+                persistState();
+                renderTimelineStrip();
+                renderSubjectMiniCards();
+                renderSubjectsAccordions();
+                showToastNotification('Backup restored successfully! 🎉');
+            }
+        } catch (err) {
+            alert('Failed to parse backup JSON file.');
+        }
+    };
+    reader.readAsText(file);
+}
+
+function promptResetProgress() {
+    if (confirm("Reset all tracked progress back to Pending? (Notes will be preserved)")) {
+        Object.keys(appState.topics).forEach(k => {
+            appState.topics[k].status = 'not_started';
+        });
+        persistState();
+        renderSubjectMiniCards();
+        renderSubjectsAccordions();
+        showToastNotification('Progress reset back to Pending.');
+    }
+}
+
+// ==========================================
+// Global Event Bindings
+// ==========================================
+
+function bindGlobalListeners() {
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeNotesModal();
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initApp);
+
+</script>
+</body>
+</html>

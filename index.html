@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mid-Sem Exam Mastery Tracker & Study Suite</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="brand-wrapper">
+            <div class="brand-icon">⚡</div>
+            <div class="brand-text">
+                <h1>Mid-Sem Exam Mastery Suite</h1>
+                <p>Track syllabus, tick checkpoints, record formulas & ace your exams (5 Oct - 9 Oct)</p>
+            </div>
+        </div>
+
+        <div class="header-toolbar">
+            <!-- Theme Toggle Button -->
+            <button class="btn" id="themeToggleBtn" onclick="toggleTheme()" title="Switch theme">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                Dark
+            </button>
+            <button class="btn" onclick="exportBackupJSON()" title="Export JSON backup of your progress">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export
+            </button>
+            <label class="btn" style="cursor: pointer;" title="Import previous JSON backup">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Import
+                <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="handleImportJSON(event)">
+            </label>
+            <button class="btn" onclick="window.print()" title="Print revision checklist">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                Print
+            </button>
+            <button class="btn btn-danger" onclick="promptResetProgress()" title="Reset all checkboxes back to pending">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Reset
+            </button>
+        </div>
+    </header>
+
+    <main class="app-container">
+
+        <!-- 🗓️ CHRONOLOGICAL EXAM SCHEDULE TIMELINE -->
+        <section class="exam-schedule-banner">
+            <div class="schedule-header">
+                <h3>
+                    🗓️ Mid-Semester Exam Schedule
+                    <span class="live-badge">LIVE COUNTDOWNS</span>
+                </h3>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button class="btn btn-urgent" onclick="handleFilterClick('next_exam', null)">
+                        🚨 Focus Next Exam (LA&DE - 5 Oct)
+                    </button>
+                    <button class="btn" onclick="handleFilterClick('all', null)">
+                        Show All Exams
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-cards-row" id="timelineCardsRow">
+                <!-- Injected dynamically with live countdowns -->
+            </div>
+        </section>
+
+        <!-- DASHBOARD HERO: OVERALL READINESS + STUDY FOCUS TIMER -->
+        <section class="dashboard-hero">
+            <!-- Overall Progress Card -->
+            <div class="readiness-card">
+                <div class="readiness-header">
+                    <div class="readiness-title">
+                        <h2>Overall Exam Readiness</h2>
+                        <p>Tracked across all 6 mid-sem exams in chronological order</p>
+                    </div>
+                    <div class="percentage-gauge">
+                        <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.08em;">READINESS</span>
+                        <span class="gauge-value" id="overallGaugeVal">0%</span>
+                    </div>
+                </div>
+
+                <div class="master-progress-wrap">
+                    <div class="progress-info-row">
+                        <span id="topicsCountSummary">0 of 0 topics mastered</span>
+                        <span id="topicsInProgressSummary">0 in progress</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-bar-fill" id="masterProgressFill"></div>
+                    </div>
+                </div>
+
+                <div class="stat-tiles-row">
+                    <div class="stat-tile">
+                        <div class="num" id="statTotalNum">0</div>
+                        <div class="lbl">Total Topics</div>
+                    </div>
+                    <div class="stat-tile">
+                        <div class="num" id="statDoneNum" style="color: var(--status-done);">0</div>
+                        <div class="lbl">Completed</div>
+                    </div>
+                    <div class="stat-tile">
+                        <div class="num" id="statProgressNum" style="color: var(--status-progress);">0</div>
+                        <div class="lbl">In Progress</div>
+                    </div>
+                    <div class="stat-tile">
+                        <div class="num" id="statPendingNum" style="color: var(--text-muted);">0</div>
+                        <div class="lbl">Pending</div>
+                    </div>
+                    <div class="stat-tile">
+                        <div class="num" id="statStarredNum" style="color: var(--status-starred);">0</div>
+                        <div class="lbl">⭐ Priority</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Built-in Study Focus Sprint Timer (Pomodoro) -->
+            <div class="timer-card">
+                <div class="timer-header">
+                    <h3>⏱️ Study Focus Sprint</h3>
+                    <span style="font-size: 0.72rem; font-weight: 700; color: #4f46e5; background: #eef2ff; padding: 0.2rem 0.55rem; border-radius: 9999px;">POMODORO</span>
+                </div>
+
+                <div class="timer-display">
+                    <div class="timer-digits" id="timerDigits">25:00</div>
+                    <div class="timer-mode-lbl">DEEP WORK FOCUS</div>
+                </div>
+
+                <div class="timer-controls">
+                    <button class="btn btn-primary" id="timerToggleBtn" onclick="toggleTimer()">Start 25m Sprint</button>
+                    <button class="btn" onclick="resetTimer(25)">Reset 25m</button>
+                    <button class="btn" onclick="resetTimer(5)">5m Break</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subject Overview Mini Cards Grid -->
+        <section class="subject-cards-grid" id="subjectCardsGrid">
+            <!-- Rendered dynamically -->
+        </section>
+
+        <!-- Filter & Search Bar -->
+        <section class="filter-controls-bar">
+            <div class="search-input-wrap">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="liveSearchInput" placeholder="Search any topic (e.g. Eigenvalues, K-Map, Quicksort, Bezout, Scanner, Regression)..." oninput="handleLiveSearch(this.value)">
+            </div>
+
+            <div class="chips-wrap">
+                <div class="filter-chip active" onclick="handleFilterClick('all', this)">All Checkpoints</div>
+                <div class="filter-chip urgent-chip" onclick="handleFilterClick('next_exam', this)">🚨 LA&DE (5 Oct)</div>
+                <div class="filter-chip" onclick="handleFilterClick('pending', this)">Pending</div>
+                <div class="filter-chip" onclick="handleFilterClick('in_progress', this)">In Progress</div>
+                <div class="filter-chip" onclick="handleFilterClick('done', this)">Completed</div>
+                <div class="filter-chip" onclick="handleFilterClick('starred', this)">⭐ Starred Priority</div>
+            </div>
+        </section>
+
+        <!-- Empty Search Result Notice -->
+        <div class="empty-results" id="emptyResultsBox">
+            <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin: 0 auto; color: var(--text-muted);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <p>No matching syllabus topics found for your search or filter.</p>
+        </div>
+
+        <!-- Subject Accordion Containers -->
+        <section id="subjectsAccordionsContainer">
+            <!-- Dynamically populated from SYLLABUS_DATA -->
+        </section>
+
+    </main>
+
+    <!-- Notes & Formula Modal -->
+    <div class="modal-backdrop" id="notesModalDialog">
+        <div class="modal-dialog">
+            <div class="modal-header-row">
+                <div>
+                    <h3 id="notesModalTopicTitle">Topic Notes</h3>
+                    <p>Write formula summaries, key proofs, solved problems, or tricky test cases</p>
+                </div>
+                <button class="btn-close-modal" onclick="closeNotesModal()" title="Close">&times;</button>
+            </div>
+            <textarea class="notes-editor" id="notesModalEditor" placeholder="Enter formulas, algorithm edge cases, standard exam questions, or quick memory hooks..."></textarea>
+            <div class="modal-buttons-row">
+                <button class="btn" onclick="closeNotesModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveNotesFromModal()">Save Note</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-notice" id="toastNotice">
+        <svg width="18" height="18" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span id="toastMessageText">Action successful</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
