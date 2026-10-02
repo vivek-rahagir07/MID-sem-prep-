@@ -11,11 +11,12 @@
     <!-- Main Stylesheet -->
     <style>
 /* ==========================================================================
-   MID-SEM EXAM PREP TRACKER - BEST EXAM MASTERY SUITE (CLEAN WHITE THEME)
+   MID-SEM EXAM PREP TRACKER - ULTRA POLISHED UI/UX DESIGN SYSTEM
+   Clean White Aesthetic with Modern Micro-interactions & Accessible Contrast
    ========================================================================== */
 
 :root {
-    /* Base Light Palette (Default) */
+    /* Base White Palette (Default) */
     --bg-base: #f8fafc;
     --bg-surface: #ffffff;
     --bg-card: #ffffff;
@@ -23,7 +24,7 @@
     --bg-elevated: #f1f5f9;
     --bg-subtle: #f8fafc;
 
-    /* Borders & Accents */
+    /* Border System */
     --border-subtle: #e2e8f0;
     --border-hover: #cbd5e1;
     --border-active: #4f46e5;
@@ -34,13 +35,30 @@
     --text-muted: #64748b;
     --text-dim: #94a3b8;
 
-    /* Exam Colors */
+    /* Subject Themes */
     --color-lade: #db2777;
+    --bg-lade: #fdf2f8;
+    --border-lade: #fbcfe8;
+
     --color-dm: #7c3aed;
+    --bg-dm: #f5f3ff;
+    --border-dm: #ddd6fe;
+
     --color-dsa: #059669;
+    --bg-dsa: #ecfdf5;
+    --border-dsa: #a7f3d0;
+
     --color-da: #2563eb;
+    --bg-da: #eff6ff;
+    --border-da: #bfdbfe;
+
     --color-oops: #d97706;
+    --bg-oops: #fffbeb;
+    --border-oops: #fde68a;
+
     --color-dld: #0284c7;
+    --bg-dld: #f0f9ff;
+    --border-dld: #bae6fd;
 
     /* Status Indicators */
     --status-done: #059669;
@@ -57,18 +75,19 @@
 
     --status-starred: #f59e0b;
 
-    /* Brand Gradients & Shadows */
+    /* Gradients & Shadows */
     --brand-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #db2777 100%);
-    --card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
-    --card-shadow-hover: 0 12px 30px -4px rgba(15, 23, 42, 0.09), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+    --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+    --card-shadow-hover: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+    --card-shadow-elevated: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
 
-    /* Layout & Animation */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 18px;
+    /* Layout */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
     --radius-full: 9999px;
-    --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-    --transition-normal: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fast: 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Dark Mode Overrides (if toggled) */
@@ -78,7 +97,7 @@
     --bg-card: #131b2c;
     --bg-card-hover: #182238;
     --bg-elevated: #161f31;
-    --bg-subtle: #090d16;
+    --bg-subtle: #0b101b;
 
     --border-subtle: rgba(255, 255, 255, 0.08);
     --border-hover: rgba(255, 255, 255, 0.18);
@@ -101,11 +120,11 @@
     --status-pending-bg: rgba(255, 255, 255, 0.04);
     --status-pending-border: rgba(255, 255, 255, 0.08);
 
-    --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    --card-shadow-hover: 0 14px 40px rgba(0, 0, 0, 0.45);
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.45);
 }
 
-/* Reset & Base */
+/* Reset & Box Sizing */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -114,7 +133,7 @@
 }
 
 body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background-color: var(--bg-base);
     color: var(--text-main);
     line-height: 1.5;
@@ -122,9 +141,8 @@ body {
     padding-bottom: 5rem;
     overflow-x: hidden;
     background-image: 
-        radial-gradient(ellipse 70% 40% at 15% 5%, rgba(99, 102, 241, 0.06), transparent),
-        radial-gradient(ellipse 60% 40% at 85% 15%, rgba(219, 39, 119, 0.05), transparent),
-        radial-gradient(circle at 50% 85%, rgba(5, 150, 105, 0.04), transparent);
+        radial-gradient(ellipse 70% 35% at 15% 0%, rgba(99, 102, 241, 0.05), transparent),
+        radial-gradient(ellipse 60% 35% at 85% 10%, rgba(219, 39, 119, 0.04), transparent);
     background-attachment: fixed;
     transition: background-color var(--transition-normal), color var(--transition-normal);
 }
@@ -139,53 +157,66 @@ header {
     z-index: 100;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.92);
     border-bottom: 1px solid var(--border-subtle);
-    padding: 0.85rem 2rem;
+    padding: 0.75rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1.5rem;
-    box-shadow: 0 1px 10px rgba(15, 23, 42, 0.03);
+    box-shadow: 0 1px 8px rgba(15, 23, 42, 0.02);
     transition: all var(--transition-normal);
 }
 
 [data-theme="dark"] header {
-    background: rgba(9, 13, 22, 0.9);
+    background: rgba(9, 13, 22, 0.92);
     box-shadow: 0 1px 15px rgba(0, 0, 0, 0.3);
 }
 
 .brand-wrapper {
     display: flex;
     align-items: center;
-    gap: 0.9rem;
+    gap: 0.85rem;
     text-decoration: none;
     color: inherit;
 }
 
 .brand-icon {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: var(--radius-md);
     background: var(--brand-gradient);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.35rem;
-    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.25);
+    font-size: 1.25rem;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
     flex-shrink: 0;
     color: #ffffff;
 }
 
 .brand-text h1 {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: 800;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
     color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brand-badge-pill {
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #eef2ff;
+    color: #4f46e5;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-full);
+    border: 1px solid #c7d2fe;
 }
 
 .brand-text p {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: var(--text-secondary);
     font-weight: 500;
 }
@@ -193,18 +224,18 @@ header {
 .header-toolbar {
     display: flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.5rem;
     flex-wrap: wrap;
 }
 
-/* Buttons */
+/* Reusable Button System */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.9rem;
-    font-size: 0.82rem;
+    gap: 0.45rem;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     border-radius: var(--radius-sm);
     font-family: inherit;
@@ -212,7 +243,7 @@ header {
     border: 1px solid var(--border-subtle);
     background: var(--bg-surface);
     color: var(--text-main);
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+    box-shadow: var(--card-shadow);
     transition: all var(--transition-fast);
     user-select: none;
     text-decoration: none;
@@ -225,15 +256,19 @@ header {
     box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
 }
 
+.btn:active {
+    transform: translateY(0);
+}
+
 .btn-primary {
     background: var(--brand-gradient);
     border: none;
     color: #ffffff;
-    box-shadow: 0 2px 12px rgba(79, 70, 229, 0.3);
+    box-shadow: 0 2px 10px rgba(79, 70, 229, 0.28);
 }
 
 .btn-primary:hover {
-    box-shadow: 0 4px 18px rgba(79, 70, 229, 0.45);
+    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
     background: var(--brand-gradient);
     color: #ffffff;
 }
@@ -242,13 +277,13 @@ header {
     background: #ec4899;
     border: none;
     color: #ffffff;
-    box-shadow: 0 2px 10px rgba(236, 72, 153, 0.3);
+    box-shadow: 0 2px 8px rgba(236, 72, 153, 0.25);
     font-weight: 700;
 }
 
 .btn-urgent:hover {
     background: #db2777;
-    box-shadow: 0 4px 16px rgba(236, 72, 153, 0.45);
+    box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);
     color: #ffffff;
 }
 
@@ -273,20 +308,20 @@ header {
 
 .app-container {
     max-width: 1400px;
-    margin: 1.75rem auto;
+    margin: 1.5rem auto;
     padding: 0 1.5rem;
 }
 
 /* ==========================================================================
-   EXAM SCHEDULE TIMELINE STRIP
+   EXAM SCHEDULE TIMELINE RIBBON
    ========================================================================== */
 
 .exam-schedule-banner {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 2rem;
+    padding: 1.25rem 1.4rem;
+    margin-bottom: 1.75rem;
     box-shadow: var(--card-shadow);
 }
 
@@ -294,33 +329,34 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.9rem;
     gap: 1rem;
     flex-wrap: wrap;
 }
 
 .schedule-header h3 {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 800;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-.schedule-header .live-badge {
+.live-badge {
     background: #fef2f2;
     color: #dc2626;
     border: 1px solid #fecaca;
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.2rem 0.6rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 0.15rem 0.55rem;
     border-radius: var(--radius-full);
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.35rem;
+    letter-spacing: 0.04em;
 }
 
-[data-theme="dark"] .schedule-header .live-badge {
+[data-theme="dark"] .live-badge {
     background: rgba(220, 38, 38, 0.15);
     border-color: rgba(220, 38, 38, 0.3);
 }
@@ -331,26 +367,26 @@ header {
     height: 6px;
     background: #dc2626;
     border-radius: 50%;
-    animation: pulse 1.5s infinite;
+    animation: livePulse 1.4s ease-in-out infinite;
 }
 
-@keyframes pulse {
+@keyframes livePulse {
     0% { transform: scale(0.9); opacity: 0.6; }
-    50% { transform: scale(1.4); opacity: 1; }
+    50% { transform: scale(1.35); opacity: 1; }
     100% { transform: scale(0.9); opacity: 0.6; }
 }
 
 .timeline-cards-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
-    gap: 0.85rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
 }
 
 .timeline-item {
     background: var(--bg-subtle);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 0.85rem 1rem;
+    padding: 0.85rem;
     cursor: pointer;
     transition: all var(--transition-fast);
     position: relative;
@@ -361,13 +397,13 @@ header {
     background: var(--bg-surface);
     border-color: var(--border-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+    box-shadow: var(--card-shadow-hover);
 }
 
 .timeline-item.next-exam {
     border-color: #db2777;
     background: #fdf2f8;
-    box-shadow: 0 0 0 2px rgba(219, 39, 119, 0.2);
+    box-shadow: 0 0 0 2px rgba(219, 39, 119, 0.25);
 }
 
 [data-theme="dark"] .timeline-item.next-exam {
@@ -388,7 +424,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.3rem;
 }
 
 .timeline-date {
@@ -399,7 +435,7 @@ header {
 }
 
 .timeline-tag {
-    font-size: 0.65rem;
+    font-size: 0.64rem;
     font-weight: 700;
     padding: 0.15rem 0.45rem;
     border-radius: var(--radius-full);
@@ -407,35 +443,35 @@ header {
 }
 
 .timeline-subject-name {
-    font-size: 0.86rem;
+    font-size: 0.85rem;
     font-weight: 700;
     line-height: 1.25;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.45rem;
     color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .timeline-countdown {
-    font-size: 0.74rem;
+    font-size: 0.72rem;
     font-weight: 600;
     font-family: 'JetBrains Mono', monospace;
     color: var(--text-secondary);
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
 }
 
 /* ==========================================================================
-   DASHBOARD HERO: OVERALL + NEXT EXAM HERO + STUDY TIMER
+   DASHBOARD HERO: OVERALL STATS + POMODORO SPRINT TIMER
    ========================================================================== */
 
 .dashboard-hero {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 992px) {
     .dashboard-hero {
         grid-template-columns: 1fr;
     }
@@ -445,7 +481,7 @@ header {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
-    padding: 1.6rem;
+    padding: 1.4rem;
     box-shadow: var(--card-shadow);
     display: flex;
     flex-direction: column;
@@ -468,36 +504,36 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1.15rem;
-    gap: 1rem;
+    margin-bottom: 1rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
 }
 
 .readiness-title h2 {
-    font-size: 1.45rem;
+    font-size: 1.35rem;
     font-weight: 800;
     letter-spacing: -0.02em;
     color: var(--text-main);
 }
 
 .readiness-title p {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
-    margin-top: 0.2rem;
+    margin-top: 0.15rem;
 }
 
 .percentage-gauge {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.65rem;
     background: var(--bg-subtle);
     border: 1px solid var(--border-subtle);
-    padding: 0.4rem 1.1rem;
+    padding: 0.35rem 1rem;
     border-radius: var(--radius-full);
 }
 
 .percentage-gauge .gauge-value {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     font-weight: 800;
     font-family: 'JetBrains Mono', monospace;
     background: var(--brand-gradient);
@@ -506,20 +542,20 @@ header {
 }
 
 .master-progress-wrap {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.15rem;
 }
 
 .progress-info-row {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 600;
     color: var(--text-secondary);
-    margin-bottom: 0.45rem;
+    margin-bottom: 0.4rem;
 }
 
 .progress-track {
-    height: 12px;
+    height: 10px;
     background: #e2e8f0;
     border-radius: var(--radius-full);
     overflow: hidden;
@@ -534,38 +570,44 @@ header {
     width: 0%;
     background: var(--brand-gradient);
     border-radius: var(--radius-full);
-    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: width 0.4s ease;
 }
 
 .stat-tiles-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+    gap: 0.65rem;
 }
 
 .stat-tile {
     background: var(--bg-subtle);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 0.65rem 0.75rem;
+    padding: 0.6rem 0.65rem;
     text-align: center;
     transition: all var(--transition-fast);
 }
 
+.stat-tile:hover {
+    background: var(--bg-elevated);
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+}
+
 .stat-tile .num {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 800;
     font-family: 'JetBrains Mono', monospace;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.1rem;
     color: var(--text-main);
 }
 
 .stat-tile .lbl {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     font-weight: 600;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
 }
 
 /* ==========================================================================
@@ -576,7 +618,7 @@ header {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
-    padding: 1.6rem;
+    padding: 1.4rem;
     box-shadow: var(--card-shadow);
     display: flex;
     flex-direction: column;
@@ -590,7 +632,7 @@ header {
 }
 
 .timer-header h3 {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 800;
     display: flex;
     align-items: center;
@@ -599,28 +641,30 @@ header {
 
 .timer-display {
     text-align: center;
-    margin: 1rem 0;
+    margin: 0.75rem 0;
 }
 
 .timer-digits {
-    font-size: 2.8rem;
+    font-size: 2.6rem;
     font-weight: 800;
     font-family: 'JetBrains Mono', monospace;
     color: #4f46e5;
     letter-spacing: -0.02em;
+    line-height: 1.1;
 }
 
 .timer-mode-lbl {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     color: var(--text-secondary);
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
+    margin-top: 0.25rem;
 }
 
 .timer-controls {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.45rem;
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -631,16 +675,16 @@ header {
 
 .subject-cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+    gap: 0.85rem;
+    margin-bottom: 1.75rem;
 }
 
 .subject-mini-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 1.15rem;
+    padding: 1rem;
     box-shadow: var(--card-shadow);
     cursor: pointer;
     transition: all var(--transition-normal);
@@ -649,7 +693,7 @@ header {
 }
 
 .subject-mini-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     border-color: var(--border-hover);
     box-shadow: var(--card-shadow-hover);
 }
@@ -668,31 +712,35 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 
 .sub-card-title {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     font-weight: 700;
     line-height: 1.3;
     color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 0.5rem;
 }
 
 .sub-card-pct {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 800;
     font-family: 'JetBrains Mono', monospace;
 }
 
 .sub-exam-date-pill {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
-    padding: 0.2rem 0.55rem;
+    padding: 0.15rem 0.5rem;
     border-radius: var(--radius-full);
     background: var(--bg-subtle);
     border: 1px solid var(--border-subtle);
     display: inline-block;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
     color: var(--text-secondary);
 }
 
@@ -701,7 +749,7 @@ header {
     background: #e2e8f0;
     border-radius: var(--radius-full);
     overflow: hidden;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.45rem;
 }
 
 [data-theme="dark"] .sub-card-track {
@@ -718,24 +766,24 @@ header {
 .sub-card-meta {
     display: flex;
     justify-content: space-between;
-    font-size: 0.73rem;
+    font-size: 0.72rem;
     color: var(--text-secondary);
 }
 
 /* ==========================================================================
-   CONTROLS, SEARCH & FILTER
+   FILTER CONTROLS & SEARCH BAR
    ========================================================================== */
 
 .filter-controls-bar {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
-    padding: 0.9rem 1.25rem;
+    padding: 0.75rem 1.15rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 0.85rem;
+    margin-bottom: 1.75rem;
     flex-wrap: wrap;
     box-shadow: var(--card-shadow);
 }
@@ -743,7 +791,7 @@ header {
 .search-input-wrap {
     position: relative;
     flex: 1;
-    min-width: 260px;
+    min-width: 250px;
 }
 
 .search-input-wrap svg {
@@ -760,10 +808,10 @@ header {
     background: var(--bg-subtle);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
-    padding: 0.6rem 0.85rem 0.6rem 2.4rem;
+    padding: 0.55rem 0.85rem 0.55rem 2.3rem;
     color: var(--text-main);
     font-family: inherit;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     transition: all var(--transition-fast);
 }
 
@@ -771,13 +819,13 @@ header {
     outline: none;
     border-color: #4f46e5;
     background: var(--bg-surface);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
 
 .chips-wrap {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.4rem;
     flex-wrap: wrap;
 }
 
@@ -785,9 +833,9 @@ header {
     background: var(--bg-subtle);
     border: 1px solid var(--border-subtle);
     color: var(--text-secondary);
-    padding: 0.38rem 0.85rem;
+    padding: 0.35rem 0.8rem;
     border-radius: var(--radius-full);
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 600;
     cursor: pointer;
     transition: all var(--transition-fast);
@@ -819,11 +867,11 @@ header {
 }
 
 /* ==========================================================================
-   SUBJECT SECTIONS & TOPIC ACCORDIONS
+   SUBJECT SECTIONS & ACCORDIONS
    ========================================================================== */
 
 .subject-section {
-    margin-bottom: 2.25rem;
+    margin-bottom: 2rem;
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
@@ -833,7 +881,7 @@ header {
 }
 
 .subject-header {
-    padding: 1.15rem 1.6rem;
+    padding: 1rem 1.4rem;
     background: var(--bg-subtle);
     border-bottom: 1px solid var(--border-subtle);
     display: flex;
@@ -853,24 +901,24 @@ header {
 .subject-header-title {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
+    gap: 0.8rem;
 }
 
 .subject-tag-badge {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #ffffff;
     flex-shrink: 0;
 }
 
 .subject-header-title h3 {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--text-main);
     display: flex;
@@ -880,31 +928,31 @@ header {
 }
 
 .subject-exam-pill {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
-    padding: 0.15rem 0.55rem;
+    padding: 0.15rem 0.5rem;
     border-radius: var(--radius-full);
-    background: #ffffff;
+    background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     color: var(--text-main);
 }
 
-.subject-header-title span.sub-meta-info {
-    font-size: 0.76rem;
+.sub-meta-info {
+    font-size: 0.75rem;
     color: var(--text-secondary);
 }
 
 .subject-header-meta {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1rem;
 }
 
 .subject-score-badge {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
-    font-size: 0.86rem;
-    padding: 0.3rem 0.75rem;
+    font-size: 0.84rem;
+    padding: 0.28rem 0.7rem;
     border-radius: var(--radius-full);
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
@@ -923,12 +971,12 @@ header {
     display: none;
 }
 
-/* Modules & Topic Rows */
+/* Modules Container */
 .modules-container {
-    padding: 1.25rem 1.6rem;
+    padding: 1.15rem 1.4rem;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.15rem;
 }
 
 .module-box {
@@ -939,7 +987,7 @@ header {
 }
 
 .module-box-header {
-    padding: 0.75rem 1.25rem;
+    padding: 0.65rem 1.15rem;
     background: rgba(0, 0, 0, 0.02);
     border-bottom: 1px solid var(--border-subtle);
     display: flex;
@@ -952,13 +1000,13 @@ header {
 }
 
 .module-box-header h4 {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--text-main);
 }
 
 .module-box-header span {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: var(--text-muted);
     font-family: 'JetBrains Mono', monospace;
 }
@@ -967,13 +1015,14 @@ header {
     list-style: none;
 }
 
+/* Topic Row & Checkpoint Interactions */
 .topic-row {
-    padding: 0.85rem 1.25rem;
+    padding: 0.75rem 1.15rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--border-subtle);
-    gap: 1rem;
+    gap: 0.85rem;
     background: var(--bg-surface);
     transition: background var(--transition-fast);
 }
@@ -997,12 +1046,12 @@ header {
 .topic-main {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
+    gap: 0.8rem;
     flex: 1;
     cursor: pointer;
 }
 
-/* Custom Interactive Checkbox */
+/* Custom Interactive Checkbox with Micro-bounce */
 .interactive-check {
     width: 22px;
     height: 22px;
@@ -1013,19 +1062,20 @@ header {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     flex-shrink: 0;
 }
 
 .interactive-check:hover {
     border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    transform: scale(1.08);
 }
 
 .topic-row.status-done .interactive-check {
     background: var(--status-done);
     border-color: var(--status-done);
     box-shadow: 0 0 10px rgba(5, 150, 105, 0.35);
+    transform: scale(1.05);
 }
 
 .interactive-check svg {
@@ -1036,7 +1086,7 @@ header {
     fill: none;
     opacity: 0;
     transform: scale(0.5);
-    transition: all var(--transition-fast);
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .topic-row.status-done .interactive-check svg {
@@ -1049,31 +1099,31 @@ header {
 }
 
 .topic-heading {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     font-weight: 600;
-    line-height: 1.4;
+    line-height: 1.35;
     color: var(--text-main);
-    transition: color var(--transition-fast);
+    transition: all var(--transition-fast);
 }
 
 .topic-row.status-done .topic-heading {
     color: var(--text-muted);
     text-decoration: line-through;
-    opacity: 0.75;
+    opacity: 0.7;
 }
 
 .topic-desc {
-    font-size: 0.77rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
     margin-top: 0.15rem;
     line-height: 1.35;
 }
 
-/* Row Actions */
+/* Topic Controls */
 .topic-controls {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.4rem;
     flex-shrink: 0;
 }
 
@@ -1082,9 +1132,9 @@ header {
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
     color: var(--text-secondary);
-    font-size: 0.74rem;
+    font-size: 0.73rem;
     font-weight: 600;
-    padding: 0.28rem 0.5rem;
+    padding: 0.25rem 0.45rem;
     font-family: inherit;
     cursor: pointer;
     outline: none;
@@ -1111,7 +1161,7 @@ header {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     color: var(--text-muted);
-    padding: 0.32rem;
+    padding: 0.3rem;
     border-radius: var(--radius-sm);
     cursor: pointer;
     display: inline-flex;
@@ -1124,6 +1174,7 @@ header {
     color: var(--text-main);
     background: var(--bg-elevated);
     border-color: var(--border-hover);
+    transform: scale(1.05);
 }
 
 .icon-action-btn.active-note {
@@ -1138,10 +1189,10 @@ header {
     border-color: #fde68a;
 }
 
-/* Add custom topic strip */
+/* Custom Topic Add Button */
 .add-custom-topic-btn {
-    padding: 0.65rem 1.25rem;
-    font-size: 0.78rem;
+    padding: 0.6rem 1.15rem;
+    font-size: 0.76rem;
     font-weight: 600;
     color: #4f46e5;
     background: var(--bg-surface);
@@ -1170,7 +1221,7 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(15, 23, 42, 0.6);
+    background: rgba(15, 23, 42, 0.55);
     backdrop-filter: blur(8px);
     z-index: 1000;
     display: flex;
@@ -1193,9 +1244,9 @@ header {
     border-radius: var(--radius-lg);
     width: 100%;
     max-width: 580px;
-    padding: 1.75rem;
-    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
-    transform: scale(0.95);
+    padding: 1.6rem;
+    box-shadow: var(--card-shadow-elevated);
+    transform: scale(0.96);
     transition: transform var(--transition-normal);
 }
 
@@ -1207,17 +1258,17 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1rem;
+    margin-bottom: 0.9rem;
 }
 
 .modal-header-row h3 {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--text-main);
 }
 
 .modal-header-row p {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: var(--text-secondary);
     margin-top: 0.15rem;
 }
@@ -1229,6 +1280,11 @@ header {
     cursor: pointer;
     font-size: 1.3rem;
     line-height: 1;
+    padding: 0.2rem;
+}
+
+.btn-close-modal:hover {
+    color: var(--text-main);
 }
 
 .notes-editor {
@@ -1240,9 +1296,9 @@ header {
     padding: 0.85rem;
     color: var(--text-main);
     font-family: inherit;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     resize: vertical;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.15rem;
     line-height: 1.5;
 }
 
@@ -1250,13 +1306,13 @@ header {
     outline: none;
     border-color: #4f46e5;
     background: var(--bg-surface);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
 
 .modal-buttons-row {
     display: flex;
     justify-content: flex-end;
-    gap: 0.75rem;
+    gap: 0.65rem;
 }
 
 /* Toast */
@@ -1267,9 +1323,9 @@ header {
     background: #0f172a;
     color: #ffffff;
     border-radius: var(--radius-md);
-    padding: 0.75rem 1.25rem;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
-    font-size: 0.86rem;
+    padding: 0.7rem 1.15rem;
+    box-shadow: var(--card-shadow-elevated);
+    font-size: 0.84rem;
     font-weight: 600;
     z-index: 1100;
     display: flex;
@@ -1288,12 +1344,19 @@ header {
 /* Empty State */
 .empty-results {
     text-align: center;
-    padding: 3.5rem 1rem;
+    padding: 3rem 1rem;
     color: var(--text-muted);
     display: none;
 }
 
-/* Print Styles */
+/* Sound Mute Button Style */
+.btn-sound {
+    font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   ========================================================================== */
 @media print {
     header, .header-toolbar, .filter-controls-bar, .timer-card, .timeline-cards-row, .icon-action-btn, .status-picker, .add-custom-topic-btn, .toast-notice {
         display: none !important;
@@ -1307,7 +1370,7 @@ header {
         border: 1px solid #cbd5e1 !important;
         box-shadow: none !important;
         page-break-inside: avoid;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.25rem;
     }
 }
 
@@ -1320,32 +1383,39 @@ header {
         <div class="brand-wrapper">
             <div class="brand-icon">⚡</div>
             <div class="brand-text">
-                <h1>Mid-Sem Exam Mastery Suite</h1>
-                <p>Track syllabus, tick checkpoints, record formulas & ace your exams (5 Oct - 9 Oct)</p>
+                <h1>
+                    Mid-Sem Mastery Tracker
+                    <span class="brand-badge-pill">Oct 5 - 9</span>
+                </h1>
+                <p>Syllabus checkpoints, formula notes, Pomodoro focus sprint & exam countdowns</p>
             </div>
         </div>
 
         <div class="header-toolbar">
+            <!-- Audio Sound Toggle -->
+            <button class="btn btn-sound" id="soundToggleBtn" onclick="toggleSound()" title="Toggle audio feedback">
+                🔊 Sound
+            </button>
             <!-- Theme Toggle Button -->
             <button class="btn" id="themeToggleBtn" onclick="toggleTheme()" title="Switch theme">
                 <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 Dark
             </button>
             <button class="btn" onclick="exportBackupJSON()" title="Export JSON backup of your progress">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Export
             </button>
             <label class="btn" style="cursor: pointer;" title="Import previous JSON backup">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                 Import
                 <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="handleImportJSON(event)">
             </label>
             <button class="btn" onclick="window.print()" title="Print revision checklist">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
                 Print
             </button>
             <button class="btn btn-danger" onclick="promptResetProgress()" title="Reset all checkboxes back to pending">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                 Reset
             </button>
         </div>
@@ -1360,18 +1430,18 @@ header {
                     🗓️ Mid-Semester Exam Schedule
                     <span class="live-badge">LIVE COUNTDOWNS</span>
                 </h3>
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <div style="display: flex; gap: 0.45rem; flex-wrap: wrap;">
                     <button class="btn btn-urgent" onclick="handleFilterClick('next_exam', null)">
                         🚨 Focus Next Exam (LA&DE - 5 Oct)
                     </button>
-                    <button class="btn" onclick="handleFilterClick('all', null)">
-                        Show All Exams
+                    <button class="btn" onclick="toggleExpandAllSubjects()">
+                        ↔️ Expand / Collapse All
                     </button>
                 </div>
             </div>
 
             <div class="timeline-cards-row" id="timelineCardsRow">
-                <!-- Injected dynamically with live countdowns -->
+                <!-- Rendered dynamically -->
             </div>
         </section>
 
@@ -1392,7 +1462,7 @@ header {
 
                 <div class="master-progress-wrap">
                     <div class="progress-info-row">
-                        <span id="topicsCountSummary">0 of 0 topics mastered</span>
+                        <span id="topicsCountSummary">0 of 0 checkpoints mastered</span>
                         <span id="topicsInProgressSummary">0 in progress</span>
                     </div>
                     <div class="progress-track">
@@ -1403,7 +1473,7 @@ header {
                 <div class="stat-tiles-row">
                     <div class="stat-tile">
                         <div class="num" id="statTotalNum">0</div>
-                        <div class="lbl">Total Topics</div>
+                        <div class="lbl">Total</div>
                     </div>
                     <div class="stat-tile">
                         <div class="num" id="statDoneNum" style="color: var(--status-done);">0</div>
@@ -1419,7 +1489,7 @@ header {
                     </div>
                     <div class="stat-tile">
                         <div class="num" id="statStarredNum" style="color: var(--status-starred);">0</div>
-                        <div class="lbl">⭐ Priority</div>
+                        <div class="lbl">⭐ Starred</div>
                     </div>
                 </div>
             </div>
@@ -1428,7 +1498,7 @@ header {
             <div class="timer-card">
                 <div class="timer-header">
                     <h3>⏱️ Study Focus Sprint</h3>
-                    <span style="font-size: 0.72rem; font-weight: 700; color: #4f46e5; background: #eef2ff; padding: 0.2rem 0.55rem; border-radius: 9999px;">POMODORO</span>
+                    <span style="font-size: 0.72rem; font-weight: 700; color: #4f46e5; background: #eef2ff; padding: 0.15rem 0.5rem; border-radius: 9999px;">POMODORO</span>
                 </div>
 
                 <div class="timer-display">
@@ -1437,9 +1507,10 @@ header {
                 </div>
 
                 <div class="timer-controls">
-                    <button class="btn btn-primary" id="timerToggleBtn" onclick="toggleTimer()">Start 25m Sprint</button>
+                    <button class="btn btn-primary" id="timerToggleBtn" onclick="toggleTimer()">Start 25m</button>
                     <button class="btn" onclick="resetTimer(25)">Reset 25m</button>
                     <button class="btn" onclick="resetTimer(5)">5m Break</button>
+                    <button class="btn" onclick="resetTimer(15)">15m Break</button>
                 </div>
             </div>
         </section>
@@ -1453,7 +1524,7 @@ header {
         <section class="filter-controls-bar">
             <div class="search-input-wrap">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <input type="text" id="liveSearchInput" placeholder="Search any topic (e.g. Eigenvalues, K-Map, Quicksort, Bezout, Scanner, Regression)..." oninput="handleLiveSearch(this.value)">
+                <input type="text" id="liveSearchInput" placeholder="Search any topic (press / to focus)..." oninput="handleLiveSearch(this.value)">
             </div>
 
             <div class="chips-wrap">
@@ -1863,17 +1934,12 @@ if (typeof module !== 'undefined' && module.exports) {
 
 /**
  * Mid-Sem Exam Prep Tracker - High Performance Exam Mastery Suite
- * Features:
- * - Live Chronological Exam Schedule Countdowns (Oct 5 - Oct 9)
- * - Next Exam Urgency Highlighting
- * - Built-in Study Focus Sprint Timer (Pomodoro)
- * - Custom Checkpoint / Topic Insertion
- * - Live Search, Filters, Star Priority, Notes Modal
- * - Light / Dark Theme Sync
+ * Ultra-Responsive UI/UX with In-Place DOM Mutation & Zero Re-render Lag
  */
 
 const STORAGE_KEY = 'mid_sem_exam_tracker_v3';
 const THEME_KEY = 'mid_sem_exam_theme_pref';
+const SOUND_KEY = 'mid_sem_exam_sound_pref';
 
 // Main Application State
 let appState = {
@@ -1892,7 +1958,79 @@ let activeFilter = 'all';     // 'all' | 'pending' | 'in_progress' | 'done' | 's
 let searchQuery = '';
 let activeEditingTopicId = null;
 let currentTheme = 'light';
+let soundEnabled = true;
 let timerInterval = null;
+
+// ==========================================
+// Web Audio Synthesizer (Zero External Files)
+// ==========================================
+
+let audioCtx = null;
+
+function getAudioContext() {
+    if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) audioCtx = new AudioContext();
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    return audioCtx;
+}
+
+function playTickSound() {
+    if (!soundEnabled) return;
+    try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(580, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.08);
+    } catch (e) {}
+}
+
+function playChimeSound() {
+    if (!soundEnabled) return;
+    try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        [523.25, 659.25, 783.99].forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+            gain.gain.setValueAtTime(0.15, now + idx * 0.1);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.35);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now + idx * 0.1);
+            osc.stop(now + idx * 0.1 + 0.35);
+        });
+    } catch (e) {}
+}
+
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem(SOUND_KEY, soundEnabled ? '1' : '0');
+    updateSoundButton();
+    showToastNotification(soundEnabled ? 'Audio feedback ON 🔊' : 'Audio feedback MUTED 🔇');
+}
+
+function updateSoundButton() {
+    const btn = document.getElementById('soundToggleBtn');
+    if (btn) {
+        btn.innerHTML = soundEnabled ? '🔊 Sound' : '🔇 Mute';
+        btn.title = soundEnabled ? 'Mute audio feedback' : 'Enable audio feedback';
+    }
+}
 
 // ==========================================
 // Boot & Initialization
@@ -1900,6 +2038,7 @@ let timerInterval = null;
 
 function initApp() {
     loadThemePreference();
+    loadSoundPreference();
     loadPersistedState();
     renderTimelineStrip();
     renderSubjectMiniCards();
@@ -1913,6 +2052,12 @@ function initApp() {
 function loadThemePreference() {
     const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
     applyTheme(savedTheme);
+}
+
+function loadSoundPreference() {
+    const saved = localStorage.getItem(SOUND_KEY);
+    soundEnabled = saved !== '0';
+    updateSoundButton();
 }
 
 function applyTheme(theme) {
@@ -1979,7 +2124,7 @@ function showToastNotification(message) {
 }
 
 // ==========================================
-// Exam Timeline Ribbon & Live Countdowns
+// Exam Timeline Ribbon
 // ==========================================
 
 function renderTimelineStrip() {
@@ -1990,7 +2135,7 @@ function renderTimelineStrip() {
     const now = new Date().getTime();
     let nextExamFound = false;
 
-    EXAM_SCHEDULE.forEach((exam, idx) => {
+    EXAM_SCHEDULE.forEach(exam => {
         const examTargetTime = new Date(`${exam.date}T${exam.time}:00`).getTime();
         const diff = examTargetTime - now;
         const isPast = diff <= 0;
@@ -2007,7 +2152,7 @@ function renderTimelineStrip() {
                 <span class="timeline-date">${exam.dateDisplay}</span>
                 <span class="timeline-tag" style="color: ${exam.color};">${isNext ? '🚨 NEXT EXAM' : (isPast ? 'DONE' : 'UPCOMING')}</span>
             </div>
-            <div class="timeline-subject-name">${exam.name}</div>
+            <div class="timeline-subject-name" title="${exam.name}">${exam.name}</div>
             <div class="timeline-countdown" id="timeline-cd-${exam.id}">
                 ${formatCountdown(diff)}
             </div>
@@ -2018,16 +2163,15 @@ function renderTimelineStrip() {
 }
 
 function formatCountdown(diff) {
-    if (diff <= 0) return 'Exam Completed / Past';
+    if (diff <= 0) return 'Exam Done / Past';
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
     if (days > 0) {
         return `⏳ in ${days}d ${hours}h ${mins}m`;
     }
-    return `⚡ in ${hours}h ${mins}m ${secs}s`;
+    return `⚡ in ${hours}h ${mins}m`;
 }
 
 function initGlobalCountdowns() {
@@ -2045,7 +2189,7 @@ function initGlobalCountdowns() {
 }
 
 // ==========================================
-// Master Metrics
+// Master Metrics & Progress Calculations
 // ==========================================
 
 function updateMasterMetrics() {
@@ -2056,7 +2200,6 @@ function updateMasterMetrics() {
 
     SYLLABUS_DATA.forEach(sub => {
         sub.modules.forEach(mod => {
-            // Standard topics
             mod.topics.forEach(t => {
                 totalTopics++;
                 const s = appState.topics[t.id];
@@ -2067,7 +2210,6 @@ function updateMasterMetrics() {
                 }
             });
 
-            // Custom topics
             const customs = appState.customTopics[mod.name] || [];
             customs.forEach(ct => {
                 totalTopics++;
@@ -2088,7 +2230,7 @@ function updateMasterMetrics() {
 
     if (gaugeEl) gaugeEl.innerText = `${overallPercentage}%`;
     if (fillEl) fillEl.style.width = `${overallPercentage}%`;
-    if (countLabelEl) countLabelEl.innerText = `${completedTopics} of ${totalTopics} topics mastered`;
+    if (countLabelEl) countLabelEl.innerText = `${completedTopics} of ${totalTopics} checkpoints mastered`;
     if (inProgressLabelEl) inProgressLabelEl.innerText = `${inProgressTopics} in progress`;
 
     const setElemText = (id, text) => {
@@ -2103,10 +2245,11 @@ function updateMasterMetrics() {
     setElemText('statStarredNum', starredTopics);
 
     refreshSubjectCardsData();
+    refreshSubjectHeaderScores();
 }
 
 // ==========================================
-// Subject Mini Cards
+// Subject Overview Cards
 // ==========================================
 
 function renderSubjectMiniCards() {
@@ -2142,7 +2285,7 @@ function renderSubjectMiniCards() {
                 <div class="sub-card-title">${sub.icon} ${sub.name}</div>
                 <div class="sub-card-pct" id="mini-pct-${sub.id}">${pct}%</div>
             </div>
-            <div class="sub-exam-date-pill">🗓️ Exam: ${sub.examDateDisplay}</div>
+            <div class="sub-exam-date-pill">🗓️ ${sub.examDateDisplay}</div>
             <div class="sub-card-track">
                 <div class="sub-card-fill" id="mini-fill-${sub.id}" style="width: ${pct}%;"></div>
             </div>
@@ -2183,6 +2326,29 @@ function refreshSubjectCardsData() {
     });
 }
 
+function refreshSubjectHeaderScores() {
+    SYLLABUS_DATA.forEach(sub => {
+        let subTotal = 0;
+        let subDone = 0;
+        sub.modules.forEach(m => {
+            m.topics.forEach(t => {
+                subTotal++;
+                if (appState.topics[t.id]?.status === 'done') subDone++;
+            });
+            const customs = appState.customTopics[m.name] || [];
+            customs.forEach(ct => {
+                subTotal++;
+                if (ct.status === 'done') subDone++;
+            });
+        });
+        const subPct = subTotal === 0 ? 0 : Math.round((subDone / subTotal) * 100);
+        const scoreBadge = document.getElementById(`header-score-${sub.id}`);
+        if (scoreBadge) {
+            scoreBadge.innerText = `${subDone}/${subTotal} (${subPct}%)`;
+        }
+    });
+}
+
 // ==========================================
 // Subject Sections & Topic Accordions
 // ==========================================
@@ -2196,7 +2362,6 @@ function renderSubjectsAccordions() {
     const q = searchQuery.toLowerCase().trim();
 
     SYLLABUS_DATA.forEach(sub => {
-        // If next_exam filter is active, only show the first exam (LA&DE)
         if (activeFilter === 'next_exam' && sub.id !== 'lade') {
             return;
         }
@@ -2239,7 +2404,7 @@ function renderSubjectsAccordions() {
                 </div>
             </div>
             <div class="subject-header-meta">
-                <div class="subject-score-badge" style="color: ${sub.color};">
+                <div class="subject-score-badge" id="header-score-${sub.id}" style="color: ${sub.color};">
                     ${subDone}/${subTotal} (${subPct}%)
                 </div>
                 <svg class="chevron-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
@@ -2254,7 +2419,6 @@ function renderSubjectsAccordions() {
         let subjectHasMatches = false;
 
         sub.modules.forEach(mod => {
-            // Aggregate standard + custom topics
             const allModTopics = [
                 ...mod.topics.map(t => ({ ...t, isCustom: false })),
                 ...(appState.customTopics[mod.name] || []).map(ct => ({ ...ct, isCustom: true }))
@@ -2295,7 +2459,7 @@ function renderSubjectsAccordions() {
             modBox.innerHTML = `
                 <div class="module-box-header">
                     <h4>${mod.name}</h4>
-                    <span>${modDone}/${allModTopics.length} done</span>
+                    <span id="mod-done-${mod.name.replace(/[^a-zA-Z0-9]/g, '_')}">${modDone}/${allModTopics.length} done</span>
                 </div>
             `;
 
@@ -2319,7 +2483,10 @@ function renderSubjectsAccordions() {
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                         </div>
                         <div class="topic-texts">
-                            <div class="topic-heading">${topic.title} ${topic.isCustom ? '<span style="font-size: 0.68rem; color: #4f46e5; font-weight:700;">[CUSTOM]</span>' : ''}</div>
+                            <div class="topic-heading">
+                                ${topic.title}
+                                ${topic.isCustom ? '<span style="font-size: 0.68rem; color: #4f46e5; font-weight:700;">[CUSTOM]</span>' : ''}
+                            </div>
                             <div class="topic-desc">${topic.desc}</div>
                         </div>
                     </div>
@@ -2329,10 +2496,10 @@ function renderSubjectsAccordions() {
                             <option value="in_progress" ${isInProgress ? 'selected' : ''}>In Progress</option>
                             <option value="done" ${isDone ? 'selected' : ''}>Done ✓</option>
                         </select>
-                        <button class="icon-action-btn ${isStarred ? 'active-star' : ''}" onclick="toggleTopicStar('${topic.id}', ${topic.isCustom}, '${mod.name.replace(/'/g, "\\'")}')" title="Star as priority topic">
+                        <button class="icon-action-btn ${isStarred ? 'active-star' : ''}" id="star-btn-${topic.id}" onclick="toggleTopicStar('${topic.id}', ${topic.isCustom}, '${mod.name.replace(/'/g, "\\'")}')" title="Star as priority topic">
                             <svg width="17" height="17" fill="${isStarred ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                         </button>
-                        <button class="icon-action-btn ${hasNotes ? 'active-note' : ''}" onclick="openNotesModal('${topic.id}', '${topic.title.replace(/'/g, "\\'")}', ${topic.isCustom}, '${mod.name.replace(/'/g, "\\'")}')" title="Revision notes & formulas">
+                        <button class="icon-action-btn ${hasNotes ? 'active-note' : ''}" id="note-btn-${topic.id}" onclick="openNotesModal('${topic.id}', '${topic.title.replace(/'/g, "\\'")}', ${topic.isCustom}, '${mod.name.replace(/'/g, "\\'")}')" title="Revision notes & formulas">
                             <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                         </button>
                     </div>
@@ -2343,7 +2510,6 @@ function renderSubjectsAccordions() {
 
             modBox.appendChild(topicList);
 
-            // Add Custom Checkpoint Button
             const addBtn = document.createElement('button');
             addBtn.className = 'add-custom-topic-btn no-collapse';
             addBtn.innerHTML = `+ Add Custom Topic / Question to "${mod.name}"`;
@@ -2367,25 +2533,40 @@ function renderSubjectsAccordions() {
 }
 
 // ==========================================
-// User Interactions & Actions
+// Instant In-Place DOM Topic State Toggle
 // ==========================================
 
 function toggleTopicDoneState(topicId, isCustom = false, modName = '') {
+    let newStatus = 'done';
     if (isCustom && modName) {
         const list = appState.customTopics[modName] || [];
         const item = list.find(t => t.id === topicId);
         if (item) {
             item.status = item.status === 'done' ? 'not_started' : 'done';
+            newStatus = item.status;
         }
     } else {
         if (!appState.topics[topicId]) {
             appState.topics[topicId] = { status: 'done', starred: false, notes: '' };
         } else {
             appState.topics[topicId].status = (appState.topics[topicId].status === 'done') ? 'not_started' : 'done';
+            newStatus = appState.topics[topicId].status;
         }
     }
+
+    if (newStatus === 'done') {
+        playTickSound();
+    }
+
+    // In-place DOM update (zero scroll jump or screen flash)
+    const row = document.getElementById(`topic-${topicId}`);
+    if (row) {
+        row.className = `topic-row status-${newStatus}`;
+        const select = row.querySelector('.status-picker');
+        if (select) select.value = newStatus;
+    }
+
     persistState();
-    renderSubjectsAccordions();
 }
 
 function setTopicStatus(topicId, status, isCustom = false, modName = '') {
@@ -2402,8 +2583,17 @@ function setTopicStatus(topicId, status, isCustom = false, modName = '') {
             appState.topics[topicId].status = status;
         }
     }
+
+    if (status === 'done') {
+        playTickSound();
+    }
+
+    const row = document.getElementById(`topic-${topicId}`);
+    if (row) {
+        row.className = `topic-row status-${status}`;
+    }
+
     persistState();
-    renderSubjectsAccordions();
 }
 
 function toggleTopicStar(topicId, isCustom = false, modName = '') {
@@ -2424,9 +2614,16 @@ function toggleTopicStar(topicId, isCustom = false, modName = '') {
             nowStarred = appState.topics[topicId].starred;
         }
     }
+
+    const starBtn = document.getElementById(`star-btn-${topicId}`);
+    if (starBtn) {
+        starBtn.className = `icon-action-btn ${nowStarred ? 'active-star' : ''}`;
+        const svg = starBtn.querySelector('svg');
+        if (svg) svg.setAttribute('fill', nowStarred ? 'currentColor' : 'none');
+    }
+
     persistState();
-    renderSubjectsAccordions();
-    showToastNotification(nowStarred ? '⭐ Added to Starred priority' : 'Removed from Starred');
+    showToastNotification(nowStarred ? '⭐ Pinned to Priority Starred' : 'Removed from Starred');
 }
 
 function promptAddCustomTopic(modName) {
@@ -2451,7 +2648,7 @@ function promptAddCustomTopic(modName) {
     persistState();
     renderSubjectsAccordions();
     renderSubjectMiniCards();
-    showToastNotification('Custom topic added! 📝');
+    showToastNotification('Custom checkpoint added! 📝');
 }
 
 function toggleSubjectCollapse(subjectId) {
@@ -2475,10 +2672,35 @@ function scrollToSubjectSection(subjectId) {
     }
 }
 
+function toggleExpandAllSubjects() {
+    const allCollapsed = Object.values(appState.collapsedSubjects).every(v => v);
+    const newState = !allCollapsed;
+    SYLLABUS_DATA.forEach(sub => {
+        appState.collapsedSubjects[sub.id] = newState;
+    });
+    persistState();
+    renderSubjectsAccordions();
+    showToastNotification(newState ? 'Collapsed all subjects' : 'Expanded all subjects');
+}
+
 function handleFilterClick(filterType, element) {
     activeFilter = filterType;
     document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-    if (element) element.classList.add('active');
+    if (element) {
+        element.classList.add('active');
+    } else {
+        const match = document.querySelector(`.filter-chip[onclick*="'${filterType}'"]`);
+        if (match) match.classList.add('active');
+    }
+
+    if (filterType === 'next_exam') {
+        appState.collapsedSubjects['lade'] = false;
+        renderSubjectsAccordions();
+        scrollToSubjectSection('lade');
+        showToastNotification('Focusing on Next Exam: LA&DE (5 Oct) 🚨');
+        return;
+    }
+
     renderSubjectsAccordions();
 }
 
@@ -2493,11 +2715,14 @@ function markAllVisibleDone() {
         const id = row.id.replace('topic-', '');
         if (!appState.topics[id]) appState.topics[id] = {};
         appState.topics[id].status = 'done';
+        row.className = 'topic-row status-done';
+        const select = row.querySelector('.status-picker');
+        if (select) select.value = 'done';
         count++;
     });
+    playTickSound();
     persistState();
-    renderSubjectsAccordions();
-    showToastNotification(`Marked ${count} topics as Done! Keep going! 🚀`);
+    showToastNotification(`Marked ${count} checkpoints as Done! Keep going! 🚀`);
 }
 
 // ==========================================
@@ -2530,8 +2755,9 @@ function toggleTimer() {
                 clearInterval(timerInterval);
                 appState.pomodoro.isRunning = false;
                 appState.pomodoro.sessionsCompleted++;
-                showToastNotification('🔔 Focus sprint finished! Great job!');
-                resetTimer(5); // switch to 5 min break
+                playChimeSound();
+                showToastNotification('🔔 Focus sprint finished! Great job! Take 5m break.');
+                resetTimer(5);
             }
         }, 1000);
     }
@@ -2542,7 +2768,7 @@ function resetTimer(minutes = 25) {
     appState.pomodoro.isRunning = false;
     appState.pomodoro.timeLeft = minutes * 60;
     const btn = document.getElementById('timerToggleBtn');
-    if (btn) btn.innerText = "Start 25m Sprint";
+    if (btn) btn.innerText = `Start ${minutes}m`;
     updateTimerDisplay();
 }
 
@@ -2599,10 +2825,15 @@ function saveNotesFromModal() {
         }
     }
 
+    // In-place button highlight update
+    const noteBtn = document.getElementById(`note-btn-${activeEditingTopicId}`);
+    if (noteBtn) {
+        noteBtn.className = `icon-action-btn ${content.trim() ? 'active-note' : ''}`;
+    }
+
     persistState();
     closeNotesModal();
-    renderSubjectsAccordions();
-    showToastNotification('Note saved successfully! 📝');
+    showToastNotification('Revision note saved! 📝');
 }
 
 // ==========================================
@@ -2660,7 +2891,21 @@ function promptResetProgress() {
 
 function bindGlobalListeners() {
     window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeNotesModal();
+        if (e.key === 'Escape') {
+            closeNotesModal();
+            const searchInput = document.getElementById('liveSearchInput');
+            if (searchInput && document.activeElement === searchInput) {
+                searchInput.value = '';
+                handleLiveSearch('');
+                searchInput.blur();
+            }
+        }
+        // Press "/" to focus search immediately
+        if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            const searchInput = document.getElementById('liveSearchInput');
+            if (searchInput) searchInput.focus();
+        }
     });
 }
 

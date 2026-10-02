@@ -1,16 +1,11 @@
 /**
  * Mid-Sem Exam Prep Tracker - High Performance Exam Mastery Suite
- * Features:
- * - Live Chronological Exam Schedule Countdowns (Oct 5 - Oct 9)
- * - Next Exam Urgency Highlighting
- * - Built-in Study Focus Sprint Timer (Pomodoro)
- * - Custom Checkpoint / Topic Insertion
- * - Live Search, Filters, Star Priority, Notes Modal
- * - Light / Dark Theme Sync
+ * Ultra-Responsive UI/UX with In-Place DOM Mutation & Zero Re-render Lag
  */
 
 const STORAGE_KEY = 'mid_sem_exam_tracker_v3';
 const THEME_KEY = 'mid_sem_exam_theme_pref';
+const SOUND_KEY = 'mid_sem_exam_sound_pref';
 
 // Main Application State
 let appState = {
@@ -29,7 +24,79 @@ let activeFilter = 'all';     // 'all' | 'pending' | 'in_progress' | 'done' | 's
 let searchQuery = '';
 let activeEditingTopicId = null;
 let currentTheme = 'light';
+let soundEnabled = true;
 let timerInterval = null;
+
+// ==========================================
+// Web Audio Synthesizer (Zero External Files)
+// ==========================================
+
+let audioCtx = null;
+
+function getAudioContext() {
+    if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) audioCtx = new AudioContext();
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    return audioCtx;
+}
+
+function playTickSound() {
+    if (!soundEnabled) return;
+    try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(580, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.08);
+    } catch (e) {}
+}
+
+function playChimeSound() {
+    if (!soundEnabled) return;
+    try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+        [523.25, 659.25, 783.99].forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+            gain.gain.setValueAtTime(0.15, now + idx * 0.1);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.35);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now + idx * 0.1);
+            osc.stop(now + idx * 0.1 + 0.35);
+        });
+    } catch (e) {}
+}
+
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem(SOUND_KEY, soundEnabled ? '1' : '0');
+    updateSoundButton();
+    showToastNotification(soundEnabled ? 'Audio feedback ON 🔊' : 'Audio feedback MUTED 🔇');
+}
+
+function updateSoundButton() {
+    const btn = document.getElementById('soundToggleBtn');
+    if (btn) {
+        btn.innerHTML = soundEnabled ? '🔊 Sound' : '🔇 Mute';
+        btn.title = soundEnabled ? 'Mute audio feedback' : 'Enable audio feedback';
+    }
+}
 
 // ==========================================
 // Boot & Initialization
@@ -37,6 +104,7 @@ let timerInterval = null;
 
 function initApp() {
     loadThemePreference();
+    loadSoundPreference();
     loadPersistedState();
     renderTimelineStrip();
     renderSubjectMiniCards();
@@ -50,6 +118,12 @@ function initApp() {
 function loadThemePreference() {
     const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
     applyTheme(savedTheme);
+}
+
+function loadSoundPreference() {
+    const saved = localStorage.getItem(SOUND_KEY);
+    soundEnabled = saved !== '0';
+    updateSoundButton();
 }
 
 function applyTheme(theme) {
@@ -116,7 +190,7 @@ function showToastNotification(message) {
 }
 
 // ==========================================
-// Exam Timeline Ribbon & Live Countdowns
+// Exam Timeline Ribbon
 // ==========================================
 
 function renderTimelineStrip() {
@@ -127,7 +201,7 @@ function renderTimelineStrip() {
     const now = new Date().getTime();
     let nextExamFound = false;
 
-    EXAM_SCHEDULE.forEach((exam, idx) => {
+    EXAM_SCHEDULE.forEach(exam => {
         const examTargetTime = new Date(`${exam.date}T${exam.time}:00`).getTime();
         const diff = examTargetTime - now;
         const isPast = diff <= 0;
@@ -144,7 +218,7 @@ function renderTimelineStrip() {
                 <span class="timeline-date">${exam.dateDisplay}</span>
                 <span class="timeline-tag" style="color: ${exam.color};">${isNext ? '🚨 NEXT EXAM' : (isPast ? 'DONE' : 'UPCOMING')}</span>
             </div>
-            <div class="timeline-subject-name">${exam.name}</div>
+            <div class="timeline-subject-name" title="${exam.name}">${exam.name}</div>
             <div class="timeline-countdown" id="timeline-cd-${exam.id}">
                 ${formatCountdown(diff)}
             </div>
@@ -155,16 +229,15 @@ function renderTimelineStrip() {
 }
 
 function formatCountdown(diff) {
-    if (diff <= 0) return 'Exam Completed / Past';
+    if (diff <= 0) return 'Exam Done / Past';
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
     if (days > 0) {
         return `⏳ in ${days}d ${hours}h ${mins}m`;
     }
-    return `⚡ in ${hours}h ${mins}m ${secs}s`;
+    return `⚡ in ${hours}h ${mins}m`;
 }
 
 function initGlobalCountdowns() {
@@ -182,7 +255,7 @@ function initGlobalCountdowns() {
 }
 
 // ==========================================
-// Master Metrics
+// Master Metrics & Progress Calculations
 // ==========================================
 
 function updateMasterMetrics() {
@@ -193,7 +266,6 @@ function updateMasterMetrics() {
 
     SYLLABUS_DATA.forEach(sub => {
         sub.modules.forEach(mod => {
-            // Standard topics
             mod.topics.forEach(t => {
                 totalTopics++;
                 const s = appState.topics[t.id];
@@ -204,7 +276,6 @@ function updateMasterMetrics() {
                 }
             });
 
-            // Custom topics
             const customs = appState.customTopics[mod.name] || [];
             customs.forEach(ct => {
                 totalTopics++;
@@ -225,7 +296,7 @@ function updateMasterMetrics() {
 
     if (gaugeEl) gaugeEl.innerText = `${overallPercentage}%`;
     if (fillEl) fillEl.style.width = `${overallPercentage}%`;
-    if (countLabelEl) countLabelEl.innerText = `${completedTopics} of ${totalTopics} topics mastered`;
+    if (countLabelEl) countLabelEl.innerText = `${completedTopics} of ${totalTopics} checkpoints mastered`;
     if (inProgressLabelEl) inProgressLabelEl.innerText = `${inProgressTopics} in progress`;
 
     const setElemText = (id, text) => {
@@ -240,10 +311,11 @@ function updateMasterMetrics() {
     setElemText('statStarredNum', starredTopics);
 
     refreshSubjectCardsData();
+    refreshSubjectHeaderScores();
 }
 
 // ==========================================
-// Subject Mini Cards
+// Subject Overview Cards
 // ==========================================
 
 function renderSubjectMiniCards() {
@@ -279,7 +351,7 @@ function renderSubjectMiniCards() {
                 <div class="sub-card-title">${sub.icon} ${sub.name}</div>
                 <div class="sub-card-pct" id="mini-pct-${sub.id}">${pct}%</div>
             </div>
-            <div class="sub-exam-date-pill">🗓️ Exam: ${sub.examDateDisplay}</div>
+            <div class="sub-exam-date-pill">🗓️ ${sub.examDateDisplay}</div>
             <div class="sub-card-track">
                 <div class="sub-card-fill" id="mini-fill-${sub.id}" style="width: ${pct}%;"></div>
             </div>
@@ -320,6 +392,29 @@ function refreshSubjectCardsData() {
     });
 }
 
+function refreshSubjectHeaderScores() {
+    SYLLABUS_DATA.forEach(sub => {
+        let subTotal = 0;
+        let subDone = 0;
+        sub.modules.forEach(m => {
+            m.topics.forEach(t => {
+                subTotal++;
+                if (appState.topics[t.id]?.status === 'done') subDone++;
+            });
+            const customs = appState.customTopics[m.name] || [];
+            customs.forEach(ct => {
+                subTotal++;
+                if (ct.status === 'done') subDone++;
+            });
+        });
+        const subPct = subTotal === 0 ? 0 : Math.round((subDone / subTotal) * 100);
+        const scoreBadge = document.getElementById(`header-score-${sub.id}`);
+        if (scoreBadge) {
+            scoreBadge.innerText = `${subDone}/${subTotal} (${subPct}%)`;
+        }
+    });
+}
+
 // ==========================================
 // Subject Sections & Topic Accordions
 // ==========================================
@@ -333,7 +428,6 @@ function renderSubjectsAccordions() {
     const q = searchQuery.toLowerCase().trim();
 
     SYLLABUS_DATA.forEach(sub => {
-        // If next_exam filter is active, only show the first exam (LA&DE)
         if (activeFilter === 'next_exam' && sub.id !== 'lade') {
             return;
         }
@@ -376,7 +470,7 @@ function renderSubjectsAccordions() {
                 </div>
             </div>
             <div class="subject-header-meta">
-                <div class="subject-score-badge" style="color: ${sub.color};">
+                <div class="subject-score-badge" id="header-score-${sub.id}" style="color: ${sub.color};">
                     ${subDone}/${subTotal} (${subPct}%)
                 </div>
                 <svg class="chevron-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
@@ -391,7 +485,6 @@ function renderSubjectsAccordions() {
         let subjectHasMatches = false;
 
         sub.modules.forEach(mod => {
-            // Aggregate standard + custom topics
             const allModTopics = [
                 ...mod.topics.map(t => ({ ...t, isCustom: false })),
                 ...(appState.customTopics[mod.name] || []).map(ct => ({ ...ct, isCustom: true }))
@@ -432,7 +525,7 @@ function renderSubjectsAccordions() {
             modBox.innerHTML = `
                 <div class="module-box-header">
                     <h4>${mod.name}</h4>
-                    <span>${modDone}/${allModTopics.length} done</span>
+                    <span id="mod-done-${mod.name.replace(/[^a-zA-Z0-9]/g, '_')}">${modDone}/${allModTopics.length} done</span>
                 </div>
             `;
 
@@ -456,7 +549,10 @@ function renderSubjectsAccordions() {
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                         </div>
                         <div class="topic-texts">
-                            <div class="topic-heading">${topic.title} ${topic.isCustom ? '<span style="font-size: 0.68rem; color: #4f46e5; font-weight:700;">[CUSTOM]</span>' : ''}</div>
+                            <div class="topic-heading">
+                                ${topic.title}
+                                ${topic.isCustom ? '<span style="font-size: 0.68rem; color: #4f46e5; font-weight:700;">[CUSTOM]</span>' : ''}
+                            </div>
                             <div class="topic-desc">${topic.desc}</div>
                         </div>
                     </div>
@@ -466,10 +562,10 @@ function renderSubjectsAccordions() {
                             <option value="in_progress" ${isInProgress ? 'selected' : ''}>In Progress</option>
                             <option value="done" ${isDone ? 'selected' : ''}>Done ✓</option>
                         </select>
-                        <button class="icon-action-btn ${isStarred ? 'active-star' : ''}" onclick="toggleTopicStar('${topic.id}', ${topic.isCustom}, '${mod.name.replace(/'/g, "\\'")}')" title="Star as priority topic">
+                        <button class="icon-action-btn ${isStarred ? 'active-star' : ''}" id="star-btn-${topic.id}" onclick="toggleTopicStar('${topic.id}', ${topic.isCustom}, '${mod.name.replace(/'/g, "\\'")}')" title="Star as priority topic">
                             <svg width="17" height="17" fill="${isStarred ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                         </button>
-                        <button class="icon-action-btn ${hasNotes ? 'active-note' : ''}" onclick="openNotesModal('${topic.id}', '${topic.title.replace(/'/g, "\\'")}', ${topic.isCustom}, '${mod.name.replace(/'/g, "\\'")}')" title="Revision notes & formulas">
+                        <button class="icon-action-btn ${hasNotes ? 'active-note' : ''}" id="note-btn-${topic.id}" onclick="openNotesModal('${topic.id}', '${topic.title.replace(/'/g, "\\'")}', ${topic.isCustom}, '${mod.name.replace(/'/g, "\\'")}')" title="Revision notes & formulas">
                             <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                         </button>
                     </div>
@@ -480,7 +576,6 @@ function renderSubjectsAccordions() {
 
             modBox.appendChild(topicList);
 
-            // Add Custom Checkpoint Button
             const addBtn = document.createElement('button');
             addBtn.className = 'add-custom-topic-btn no-collapse';
             addBtn.innerHTML = `+ Add Custom Topic / Question to "${mod.name}"`;
@@ -504,25 +599,40 @@ function renderSubjectsAccordions() {
 }
 
 // ==========================================
-// User Interactions & Actions
+// Instant In-Place DOM Topic State Toggle
 // ==========================================
 
 function toggleTopicDoneState(topicId, isCustom = false, modName = '') {
+    let newStatus = 'done';
     if (isCustom && modName) {
         const list = appState.customTopics[modName] || [];
         const item = list.find(t => t.id === topicId);
         if (item) {
             item.status = item.status === 'done' ? 'not_started' : 'done';
+            newStatus = item.status;
         }
     } else {
         if (!appState.topics[topicId]) {
             appState.topics[topicId] = { status: 'done', starred: false, notes: '' };
         } else {
             appState.topics[topicId].status = (appState.topics[topicId].status === 'done') ? 'not_started' : 'done';
+            newStatus = appState.topics[topicId].status;
         }
     }
+
+    if (newStatus === 'done') {
+        playTickSound();
+    }
+
+    // In-place DOM update (zero scroll jump or screen flash)
+    const row = document.getElementById(`topic-${topicId}`);
+    if (row) {
+        row.className = `topic-row status-${newStatus}`;
+        const select = row.querySelector('.status-picker');
+        if (select) select.value = newStatus;
+    }
+
     persistState();
-    renderSubjectsAccordions();
 }
 
 function setTopicStatus(topicId, status, isCustom = false, modName = '') {
@@ -539,8 +649,17 @@ function setTopicStatus(topicId, status, isCustom = false, modName = '') {
             appState.topics[topicId].status = status;
         }
     }
+
+    if (status === 'done') {
+        playTickSound();
+    }
+
+    const row = document.getElementById(`topic-${topicId}`);
+    if (row) {
+        row.className = `topic-row status-${status}`;
+    }
+
     persistState();
-    renderSubjectsAccordions();
 }
 
 function toggleTopicStar(topicId, isCustom = false, modName = '') {
@@ -561,9 +680,16 @@ function toggleTopicStar(topicId, isCustom = false, modName = '') {
             nowStarred = appState.topics[topicId].starred;
         }
     }
+
+    const starBtn = document.getElementById(`star-btn-${topicId}`);
+    if (starBtn) {
+        starBtn.className = `icon-action-btn ${nowStarred ? 'active-star' : ''}`;
+        const svg = starBtn.querySelector('svg');
+        if (svg) svg.setAttribute('fill', nowStarred ? 'currentColor' : 'none');
+    }
+
     persistState();
-    renderSubjectsAccordions();
-    showToastNotification(nowStarred ? '⭐ Added to Starred priority' : 'Removed from Starred');
+    showToastNotification(nowStarred ? '⭐ Pinned to Priority Starred' : 'Removed from Starred');
 }
 
 function promptAddCustomTopic(modName) {
@@ -588,7 +714,7 @@ function promptAddCustomTopic(modName) {
     persistState();
     renderSubjectsAccordions();
     renderSubjectMiniCards();
-    showToastNotification('Custom topic added! 📝');
+    showToastNotification('Custom checkpoint added! 📝');
 }
 
 function toggleSubjectCollapse(subjectId) {
@@ -612,10 +738,35 @@ function scrollToSubjectSection(subjectId) {
     }
 }
 
+function toggleExpandAllSubjects() {
+    const allCollapsed = Object.values(appState.collapsedSubjects).every(v => v);
+    const newState = !allCollapsed;
+    SYLLABUS_DATA.forEach(sub => {
+        appState.collapsedSubjects[sub.id] = newState;
+    });
+    persistState();
+    renderSubjectsAccordions();
+    showToastNotification(newState ? 'Collapsed all subjects' : 'Expanded all subjects');
+}
+
 function handleFilterClick(filterType, element) {
     activeFilter = filterType;
     document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-    if (element) element.classList.add('active');
+    if (element) {
+        element.classList.add('active');
+    } else {
+        const match = document.querySelector(`.filter-chip[onclick*="'${filterType}'"]`);
+        if (match) match.classList.add('active');
+    }
+
+    if (filterType === 'next_exam') {
+        appState.collapsedSubjects['lade'] = false;
+        renderSubjectsAccordions();
+        scrollToSubjectSection('lade');
+        showToastNotification('Focusing on Next Exam: LA&DE (5 Oct) 🚨');
+        return;
+    }
+
     renderSubjectsAccordions();
 }
 
@@ -630,11 +781,14 @@ function markAllVisibleDone() {
         const id = row.id.replace('topic-', '');
         if (!appState.topics[id]) appState.topics[id] = {};
         appState.topics[id].status = 'done';
+        row.className = 'topic-row status-done';
+        const select = row.querySelector('.status-picker');
+        if (select) select.value = 'done';
         count++;
     });
+    playTickSound();
     persistState();
-    renderSubjectsAccordions();
-    showToastNotification(`Marked ${count} topics as Done! Keep going! 🚀`);
+    showToastNotification(`Marked ${count} checkpoints as Done! Keep going! 🚀`);
 }
 
 // ==========================================
@@ -667,8 +821,9 @@ function toggleTimer() {
                 clearInterval(timerInterval);
                 appState.pomodoro.isRunning = false;
                 appState.pomodoro.sessionsCompleted++;
-                showToastNotification('🔔 Focus sprint finished! Great job!');
-                resetTimer(5); // switch to 5 min break
+                playChimeSound();
+                showToastNotification('🔔 Focus sprint finished! Great job! Take 5m break.');
+                resetTimer(5);
             }
         }, 1000);
     }
@@ -679,7 +834,7 @@ function resetTimer(minutes = 25) {
     appState.pomodoro.isRunning = false;
     appState.pomodoro.timeLeft = minutes * 60;
     const btn = document.getElementById('timerToggleBtn');
-    if (btn) btn.innerText = "Start 25m Sprint";
+    if (btn) btn.innerText = `Start ${minutes}m`;
     updateTimerDisplay();
 }
 
@@ -736,10 +891,15 @@ function saveNotesFromModal() {
         }
     }
 
+    // In-place button highlight update
+    const noteBtn = document.getElementById(`note-btn-${activeEditingTopicId}`);
+    if (noteBtn) {
+        noteBtn.className = `icon-action-btn ${content.trim() ? 'active-note' : ''}`;
+    }
+
     persistState();
     closeNotesModal();
-    renderSubjectsAccordions();
-    showToastNotification('Note saved successfully! 📝');
+    showToastNotification('Revision note saved! 📝');
 }
 
 // ==========================================
@@ -797,7 +957,21 @@ function promptResetProgress() {
 
 function bindGlobalListeners() {
     window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeNotesModal();
+        if (e.key === 'Escape') {
+            closeNotesModal();
+            const searchInput = document.getElementById('liveSearchInput');
+            if (searchInput && document.activeElement === searchInput) {
+                searchInput.value = '';
+                handleLiveSearch('');
+                searchInput.blur();
+            }
+        }
+        // Press "/" to focus search immediately
+        if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            const searchInput = document.getElementById('liveSearchInput');
+            if (searchInput) searchInput.focus();
+        }
     });
 }
 
