@@ -2,7 +2,7 @@
 
 > **Exam Schedule (Oct 2026)**:
 > 1. 📐 **LA&DE** — **5 Oct** (Sunday/Monday - First Exam!)
-> 2. 🔢 **Discrete Mathematics** — **6 Oct**
+> 2. 🔢 **Discrete Mathematics** / ⚛️ **Quantum Mechanics (Electives)** — **6 Oct**
 > 3. 💻 **DSA** — **7 Oct**
 > 4. 📊 **DA (Data Analytics)** — **8 Oct**
 > 5. ☕ **Java (OOPs)** — **9 Oct (Morning)**
@@ -77,6 +77,29 @@
 - [ ] **Fermat's Little Theorem & Pseudoprimes** ($a^{p-1} \equiv 1 \pmod p$, pseudoprimes to base $b$) (Sec 4.4)
 - [ ] **Applications of Congruences** (Hashing functions, pseudorandom numbers, parity check bits, UPC, ISBN-10, USPS, ISSN) (Sec 4.5)
 - [ ] **Classical Cryptography** (Caesar cipher, Shift cipher, Affine cipher $f(p)=(ap+b)\bmod 26$, Transposition/Block cipher) (Sec 4.6)
+
+---
+
+## ⚛️ Exam 2 (Elective Track B): Quantum Mechanics & Computing (6 Oct)
+*(Elective paper on 6 Oct: for students taking Quantum Mechanics & Computing instead of or alongside Discrete Math)*
+
+### 1. Basic Concepts of Quantum Mechanics
+- [ ] **Particles and Waves & Wave-Particle Duality** (De Broglie hypothesis $\lambda = h/p$, photoelectric effect, Compton scattering, Davisson-Germer electron diffraction, dual nature of radiation and matter)
+- [ ] **Heisenberg Uncertainty Principle** (Position-momentum limit $\Delta x \cdot \Delta p \ge rac{\hbar}{2}$, energy-time limit $\Delta E \cdot \Delta t \ge rac{\hbar}{2}$, zero-point energy, non-existence of electrons in nucleus)
+- [ ] **Wavefunctions & Born's Probabilistic Interpretation** (Physical meaning of wavefunction $\psi(x,t)$, probability density $|\psi|^2$, normalization $\int_{-\infty}^\infty |\psi|^2 dx = 1$, continuity and single-valued boundary conditions)
+- [ ] **Superposition Principle & State Expansion** (Linear combination of stationary eigenstates, probability amplitudes, measurement postulate, state collapse from superposition to basis state)
+- [ ] **Schrödinger Equation (TDSE & TISE)** (Time-Dependent vs Time-Independent equations, Hamiltonian operator $\hat{H}\psi = E\psi$, particle in a 1D infinite potential well, energy quantization $E_n = rac{n^2 \pi^2 \hbar^2}{2mL^2}$)
+- [ ] **Quantum Operators & Expectation Values** (Hermitian operators: position $\hat{x}=x$, momentum $\hat{p} = -i\hbar rac{\partial}{\partial x}$, Hamiltonian $\hat{H}$, commutation relation $[\hat{x}, \hat{p}] = i\hbar$, expectation values $\langle A angle$)
+- [ ] **Quantum Tunneling & Potential Barriers** (Particle incident on finite barrier $E < V_0$, evanescent decay, transmission coefficient $T pprox e^{-2\kappa a}$, applications: alpha decay, scanning tunneling microscope STM)
+- [ ] **Quantum Entanglement & Bell States** (Composite quantum states, entangled vs separable systems, EPR paradox, Bell's theorem, 4 Bell basis states $|\Phi^\pmangle, |\Psi^\pmangle$, quantum teleportation)
+
+### 2. Classical vs Quantum Computing & Logic Gates
+- [ ] **Classical vs Quantum Computing Architecture** (Comparison of classical Turing machines and quantum processors, deterministic vs probabilistic computation, exponential state space $2^n$ amplitudes for $n$ qubits)
+- [ ] **Bits vs Qubits Representation** (Classical bit 0/1 vs quantum bit $|\psiangle = lpha|0angle + eta|1angle$, complex probability amplitudes $|lpha|^2 + |eta|^2 = 1$, Dirac bra-ket notation, measurement projection)
+- [ ] **Bloch Sphere Representation** (Geometric state mapping on unit sphere: $|\psiangle = \cos(	heta/2)|0angle + e^{i\phi}\sin(	heta/2)|1angle$, north pole $|0angle$, south pole $|1angle$, equator superposition states $|+angle, |-angle, |+iangle, |-iangle$)
+- [ ] **Single-Qubit Quantum Logic Gates** (Unitary matrices $U^\dagger U = I$: Pauli-X [NOT], Pauli-Y, Pauli-Z [phase flip], Hadamard $H$ [creates equal superposition], Phase gates $S$ and $T$)
+- [ ] **Multi-Qubit Gates & CNOT (Controlled-NOT)** (CNOT matrix and truth table, control and target qubit action, Toffoli [CCNOT] gate, reversible computing, tensor products)
+- [ ] **Quantum Circuits & Bell State Circuit** (Constructing quantum circuits: Hadamard on qubit 1 followed by CNOT targeting qubit 2 yields Bell state $|\Phi^+angle$, No-Cloning Theorem)
 
 ---
 

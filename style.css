@@ -1633,6 +1633,99 @@ header {
 }
 
 /* Print Styles */
+
+/* 6 Oct Elective Track Option Switcher */
+.elective-selector-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 0.65rem 1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+}
+
+.elective-prompt {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+.elective-badge {
+    background: #ede9fe;
+    color: #6d28d9;
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+}
+
+[data-theme="dark"] .elective-badge {
+    background: rgba(109, 40, 217, 0.25);
+    color: #c4b5fd;
+    border: 1px solid rgba(196, 181, 253, 0.2);
+}
+
+.elective-desc {
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+.elective-btn-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--bg-subtle);
+    padding: 0.25rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-subtle);
+}
+
+.elective-pill-btn {
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.elective-pill-btn:hover {
+    color: var(--text-main);
+    background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .elective-pill-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.elective-pill-btn.active {
+    background: #ffffff;
+    color: #4f46e5;
+    font-weight: 700;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] .elective-pill-btn.active {
+    background: #1e293b;
+    color: #a5b4fc;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
 @media print {
     header, .sticky-sub-nav, .header-toolbar, .filter-controls-bar, .timer-card, .timeline-cards-row, .icon-action-btn, .status-picker, .add-custom-topic-btn, .toast-notice {
         display: none !important;

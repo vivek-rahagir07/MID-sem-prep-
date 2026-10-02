@@ -12,12 +12,14 @@
 const STORAGE_KEY = 'mid_sem_exam_tracker_v3';
 const THEME_KEY = 'mid_sem_exam_theme_pref';
 const SOUND_KEY = 'mid_sem_exam_sound_pref';
+const ELECTIVE_KEY = 'mid_sem_elective_track_pref';
 
 // Application State
 let appState = {
     topics: {},              // id -> { status, starred, notes }
     customTopics: {},        // moduleId -> [ { id, title, desc, status, starred, notes } ]
     collapsedSubjects: {},   // subjectId -> bool
+    electiveTrack: 'discrete', // 'discrete' | 'quantum' | 'both'
     pomodoro: {
         timeLeft: 25 * 60,
         isRunning: false,
@@ -173,6 +175,59 @@ function fireConfetti() {
 // Boot & Initialization
 // ==========================================
 
+
+// ==========================================
+// Elective Track Filter Helpers (6 Oct: Discrete vs Quantum)
+// ==========================================
+
+function getActiveSyllabusData() {
+    const track = appState.electiveTrack || 'discrete';
+    return SYLLABUS_DATA.filter(sub => {
+        if (sub.id === 'quantum' && track === 'discrete') return false;
+        if (sub.id === 'discrete' && track === 'quantum') return false;
+        return true;
+    });
+}
+
+function getActiveExamSchedule() {
+    const track = appState.electiveTrack || 'discrete';
+    return EXAM_SCHEDULE.filter(exam => {
+        if (exam.id === 'quantum' && track === 'discrete') return false;
+        if (exam.id === 'discrete' && track === 'quantum') return false;
+        return true;
+    });
+}
+
+function setElectiveTrack(track) {
+    if (!['discrete', 'quantum', 'both'].includes(track)) return;
+    appState.electiveTrack = track;
+    localStorage.setItem(ELECTIVE_KEY, track);
+    persistState();
+    updateElectiveButtonsUI();
+    renderStickySubjectNav();
+    renderTimelineStrip();
+    renderSubjectMiniCards();
+    renderSubjectsAccordions();
+    updateMasterMetrics();
+
+    const trackNames = {
+        discrete: 'Discrete Mathematics 🔢',
+        quantum: 'Quantum Mechanics & Computing ⚛️',
+        both: 'Both Electives (Discrete + Quantum) ⚡'
+    };
+    showToastNotification(`Track switched: ${trackNames[track]}`);
+}
+
+function updateElectiveButtonsUI() {
+    const track = appState.electiveTrack || 'discrete';
+    ['discrete', 'quantum', 'both'].forEach(t => {
+        const btn = document.getElementById(`electiveBtn-${t}`);
+        if (btn) {
+            btn.classList.toggle('active', t === track);
+        }
+    });
+}
+
 function initApp() {
     loadThemePreference();
     loadSoundPreference();
@@ -269,13 +324,14 @@ function showToastNotification(message) {
 function renderStickySubjectNav() {
     const nav = document.getElementById('stickySubNav');
     if (!nav) return;
+    const activeSubs = getActiveSyllabusData();
     nav.innerHTML = `
         <button class="nav-pill-btn active-pill" id="nav-pill-all" onclick="handleFilterClick('all', null)">
-            ⚡ All (${SYLLABUS_DATA.length})
+            ⚡ All (${activeSubs.length})
         </button>
     `;
 
-    SYLLABUS_DATA.forEach(sub => {
+    activeSubs.forEach(sub => {
         const btn = document.createElement('button');
         btn.className = 'nav-pill-btn';
         btn.id = `nav-pill-${sub.id}`;
@@ -297,7 +353,7 @@ function initScrollSpy() {
         });
     }, { rootMargin: '-20% 0px -70% 0px' });
 
-    SYLLABUS_DATA.forEach(sub => {
+    getActiveSyllabusData().forEach(sub => {
         const el = document.getElementById(`section-${sub.id}`);
         if (el) observer.observe(el);
     });
@@ -315,7 +371,7 @@ function renderTimelineStrip() {
     const now = new Date().getTime();
     let nextExamFound = false;
 
-    EXAM_SCHEDULE.forEach(exam => {
+    getActiveExamSchedule().forEach(exam => {
         const examTargetTime = new Date(`${exam.date}T${exam.time}:00`).getTime();
         const diff = examTargetTime - now;
         const isPast = diff <= 0;
@@ -357,7 +413,7 @@ function formatCountdown(diff) {
 function initGlobalCountdowns() {
     setInterval(() => {
         const now = new Date().getTime();
-        EXAM_SCHEDULE.forEach(exam => {
+        getActiveExamSchedule().forEach(exam => {
             const el = document.getElementById(`timeline-cd-${exam.id}`);
             if (el) {
                 const examTargetTime = new Date(`${exam.date}T${exam.time}:00`).getTime();
@@ -384,7 +440,7 @@ function updateMasterMetrics() {
     let ladeTotal = 0;
     let ladeDone = 0;
 
-    SYLLABUS_DATA.forEach(sub => {
+    getActiveSyllabusData().forEach(sub => {
         sub.modules.forEach(mod => {
             mod.topics.forEach(t => {
                 totalTopics++;
@@ -476,7 +532,7 @@ function renderSubjectMiniCards() {
     if (!grid) return;
     grid.innerHTML = '';
 
-    SYLLABUS_DATA.forEach(sub => {
+    getActiveSyllabusData().forEach(sub => {
         let total = 0;
         let done = 0;
         sub.modules.forEach(m => {
@@ -519,7 +575,7 @@ function renderSubjectMiniCards() {
 }
 
 function refreshSubjectCardsData() {
-    SYLLABUS_DATA.forEach(sub => {
+    getActiveSyllabusData().forEach(sub => {
         let total = 0;
         let done = 0;
         sub.modules.forEach(m => {
@@ -546,7 +602,7 @@ function refreshSubjectCardsData() {
 }
 
 function refreshSubjectHeaderScores() {
-    SYLLABUS_DATA.forEach(sub => {
+    getActiveSyllabusData().forEach(sub => {
         let subTotal = 0;
         let subDone = 0;
         sub.modules.forEach(m => {

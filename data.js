@@ -11,7 +11,8 @@
 
 const EXAM_SCHEDULE = [
     { id: "lade", name: "Linear Algebra & Diff Eq", code: "LA&DE", date: "2026-10-05", dateDisplay: "5 Oct", time: "09:00", color: "#db2777" },
-    { id: "discrete", name: "Discrete Mathematics", code: "DM", date: "2026-10-06", dateDisplay: "6 Oct", time: "09:00", color: "#7c3aed" },
+    { id: "discrete", name: "Discrete Mathematics (Elective)", code: "DM", date: "2026-10-06", dateDisplay: "6 Oct", time: "09:00", color: "#7c3aed" },
+    { id: "quantum", name: "Quantum Mechanics & Computing (Elective)", code: "QM", date: "2026-10-06", dateDisplay: "6 Oct", time: "09:00", color: "#06b6d4" },
     { id: "dsa", name: "Data Structures & Algos", code: "DSA", date: "2026-10-07", dateDisplay: "7 Oct", time: "09:00", color: "#059669" },
     { id: "da", name: "Data Analytics (DA)", code: "DA", date: "2026-10-08", dateDisplay: "8 Oct", time: "09:00", color: "#2563eb" },
     { id: "java", name: "Java (OOPs)", code: "OOPS", date: "2026-10-09", dateDisplay: "9 Oct (Morning)", time: "09:00", color: "#d97706" },
@@ -33,7 +34,17 @@ const FORMULA_CHEATSHEETS = {
         { title: "Linear Recurrence (Repeated Roots)", formula: "a_n = (α1 + α2 * n) * (r)^n", desc: "When characteristic equation has repeated root r1 = r2 = r." },
         { title: "Properties of Relations", formula: "Reflexive: (a,a)∈R | Sym: (a,b)∈R => (b,a)∈R | Trans: (a,b),(b,c)∈R => (a,c)∈R", desc: "Equivalence = Reflexive + Symmetric + Transitive. Poset = Reflexive + Antisymmetric + Transitive." }
     ],
-    dsa: [
+        quantum: [
+        { title: "De Broglie Matter Wavelength", formula: "λ = h / p = h / (m * v)  |  p = ħ * k", desc: "Relates particle momentum to its quantum matter wave wavelength (h = 6.626e-34 J·s, ħ = h / 2π)." },
+        { title: "Heisenberg Uncertainty Principle", formula: "Δx * Δp ≥ ħ / 2   and   ΔE * Δt ≥ ħ / 2", desc: "Fundamental limit on simultaneous precision of position/momentum and energy/lifetime measurements." },
+        { title: "Time-Independent Schrödinger Equation (TISE)", formula: "-(ħ^2 / 2m) * (d^2ψ / dx^2) + V(x)ψ = Eψ   or   Ĥψ = Eψ", desc: "1D Infinite Potential Well (0 to L): En = (n^2 * π^2 * ħ^2) / (2 * m * L^2), ψn(x) = √(2/L) * sin(nπx/L)." },
+        { title: "Qubit State Vector & Normalization", formula: "|ψ⟩ = α|0⟩ + β|1⟩  with  |α|^2 + |β|^2 = 1", desc: "Superposition of computational basis states. Probability of measuring |0⟩ is |α|^2; |1⟩ is |β|^2." },
+        { title: "Bloch Sphere Coordinates", formula: "|ψ⟩ = cos(θ/2)|0⟩ + e^(iφ)sin(θ/2)|1⟩", desc: "θ ∈ [0, π] determines latitude; φ ∈ [0, 2π) determines longitude on unit Bloch sphere." },
+        { title: "Pauli Logic Gates & Hadamard", formula: "X = [[0,1],[1,0]] | Z = [[1,0],[0,-1]] | H = 1/√2 * [[1,1],[1,-1]]", desc: "Pauli-X is NOT/bit-flip; Pauli-Z is phase-flip; Hadamard creates equal superposition H|0⟩ = |+⟩, H|1⟩ = |-⟩." },
+        { title: "Controlled-NOT (CNOT) & Bell States", formula: "CNOT|c, t⟩ = |c, t ⊕ c⟩  |  |Φ+⟩ = (|00⟩ + |11⟩) / √2", desc: "CNOT flips target qubit iff control qubit is |1⟩. Combined with Hadamard, creates maximally entangled Bell pairs." },
+        { title: "Quantum Tunneling Transmission Coefficient", formula: "T ≈ e^(-2 * κ * a)  where  κ = √[2m(V0 - E)] / ħ", desc: "Exponential probability decay of a quantum particle penetrating a finite potential barrier of width a (E < V0)." }
+    ],
+dsa: [
         { title: "Array Address Formulas (1-Based/0-Based)", formula: "RMO: Base + [i * n + j] * w  |  CMO: Base + [j * m + i] * w", desc: "RMO stores row after row; CMO stores column after column. w is byte size of element." },
         { title: "Sorting Comparison & Bounds", formula: "Merge Sort: O(n log n) [Stable, O(n) space] | Quick Sort: O(n log n) avg, O(n^2) worst [In-place]", desc: "Decision tree lower bound for comparison sort is Ω(n log n). Insertion sort is O(n) best for nearly-sorted data." },
         { title: "Binary Search Recurrence", formula: "T(n) = T(n/2) + O(1) => O(log n)", desc: "Array must be sorted. Mid calculation: mid = low + (high - low) / 2 to prevent overflow." },
@@ -170,7 +181,43 @@ const SYLLABUS_DATA = [
             }
         ]
     },
-    {
+        {
+        id: "quantum",
+        name: "Quantum Mechanics & Computing",
+        shortName: "Quantum",
+        examDate: "2026-10-06",
+        examDateDisplay: "6 Oct 2026",
+        icon: "⚛️",
+        color: "#06b6d4",
+        glow: "rgba(6, 182, 212, 0.2)",
+        modules: [
+            {
+                name: "1. Basic Concepts of Quantum Mechanics",
+                topics: [
+                    { id: "qm-particles-waves", title: "Particles and Waves & Wave-Particle Duality", desc: "De Broglie hypothesis (λ = h/p), photoelectric effect, Compton scattering, Davisson-Germer electron diffraction, dual nature of radiation and matter.", minutes: 25, highYield: true },
+                    { id: "qm-uncertainty-principle", title: "Heisenberg Uncertainty Principle", desc: "Position-momentum (Δx·Δp ≥ ħ/2) and energy-time (ΔE·Δt ≥ ħ/2) limits, zero-point energy, non-existence of electrons in nucleus.", minutes: 30, highYield: true },
+                    { id: "qm-wavefunctions-born", title: "Wavefunctions & Born's Probabilistic Interpretation", desc: "Physical meaning of wave function ψ(x,t), probability density |ψ|^2, normalization condition, continuity and single-valued boundary conditions.", minutes: 25, highYield: true },
+                    { id: "qm-superposition-principle", title: "Superposition Principle & State Expansion", desc: "Linear combination of eigenstates, probability amplitudes, measurement postulate, state collapse from superposition to basis state.", minutes: 25, highYield: true },
+                    { id: "qm-schrodinger-equation", title: "Schrödinger Equation (TDSE & TISE)", desc: "Time-Dependent & Time-Independent equations, Hamiltonian Ĥψ = Eψ, 1D Infinite Potential Well (energies En = n^2 π^2 ħ^2 / 2mL^2).", minutes: 35, highYield: true },
+                    { id: "qm-quantum-operators", title: "Quantum Operators & Expectation Values", desc: "Hermitian operators: position x, momentum p = -iħ ∂/∂x, Hamiltonian Ĥ, commutation relations [x, p] = iħ, expectation values <A>.", minutes: 30, highYield: true },
+                    { id: "qm-quantum-tunneling", title: "Quantum Tunneling & Potential Barriers", desc: "Particle incident on finite barrier (E < V0), evanescent decay, transmission coefficient T ≈ exp(-2κa), applications: alpha decay, STM microscope.", minutes: 30, highYield: true },
+                    { id: "qm-quantum-entanglement", title: "Quantum Entanglement & Bell States", desc: "Composite states, entangled vs separable systems, EPR paradox, Bell's theorem, 4 Bell basis states (|Φ±⟩, |Ψ±⟩), quantum teleportation.", minutes: 30, highYield: true }
+                ]
+            },
+            {
+                name: "2. Classical vs Quantum Computing & Logic Gates",
+                topics: [
+                    { id: "qc-classical-vs-quantum", title: "Classical vs Quantum Computing", desc: "Comparison of classical Turing machines and quantum processors, deterministic vs probabilistic computation, exponential state space (2^n amplitudes).", minutes: 25, highYield: true },
+                    { id: "qc-bits-vs-qubits", title: "Bits vs Qubits Representation", desc: "Classical bit (0/1) vs quantum bit |ψ⟩ = α|0⟩ + β|1⟩, complex amplitudes (|α|^2 + |β|^2 = 1), Dirac bra-ket notation, measurement projection.", minutes: 25, highYield: true },
+                    { id: "qc-bloch-sphere", title: "Bloch Sphere Representation", desc: "Unit sphere geometric mapping: |ψ⟩ = cos(θ/2)|0⟩ + e^(iφ)sin(θ/2)|1⟩, poles (|0⟩, |1⟩), equator superpositions (|+⟩, |-⟩, |+i⟩, |-i⟩).", minutes: 30, highYield: true },
+                    { id: "qc-single-qubit-gates", title: "Single-Qubit Logic Gates (Pauli X, Y, Z, H, S, T)", desc: "Unitary matrices: Pauli-X (NOT), Pauli-Y, Pauli-Z (phase flip), Hadamard H (creates superposition), Phase gates S and T.", minutes: 35, highYield: true },
+                    { id: "qc-cnot-multi-qubit", title: "Multi-Qubit Gates & CNOT (Controlled-NOT)", desc: "CNOT matrix and truth table, control and target qubit action, Toffoli (CCNOT) gate, reversible computing, tensor products.", minutes: 35, highYield: true },
+                    { id: "qc-quantum-circuits", title: "Quantum Circuits & Bell State Circuit", desc: "Constructing circuits: Hadamard on qubit 1 followed by CNOT targeting qubit 2 yields Bell state |Φ+⟩, No-Cloning Theorem.", minutes: 30, highYield: true }
+                ]
+            }
+        ]
+    },
+{
         id: "dsa",
         name: "Data Structures & Algorithms",
         shortName: "DSA",
