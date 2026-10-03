@@ -21,6 +21,7 @@ const EXAM_SCHEDULE = [
 
 const FORMULA_CHEATSHEETS = {
     lade: [
+        { title: "Homogeneous Equations: Trivial vs Non-Trivial Solutions", formula: "Ax = 0  =>  Trivial: x = 0 (always). Non-Trivial iff Rank(A) < n (free variables, det(A) = 0 for n x n)", desc: "Ax = 0 is always consistent. Trivial solution is x = 0. Non-trivial (non-zero) solutions exist iff there is at least one free variable (i.e. Rank(A) < number of unknowns n). For a square n x n matrix, non-trivial solution exists iff det(A) = 0." },
         { title: "Characteristic Polynomial & Eigenvalues", formula: "det(A - λI) = 0", desc: "Eigenvectors satisfy (A - λI)v = 0. Trace(A) = sum of eigenvalues, Det(A) = product of eigenvalues." },
         { title: "Matrix Diagonalization", formula: "P^(-1) * A * P = D", desc: "Matrix A is diagonalizable iff A has n linearly independent eigenvectors. Columns of P are eigenvectors; D is diagonal." },
         { title: "Rank-Nullity Theorem", formula: "dim(Ker T) + dim(Range T) = dim(V)", desc: "Nullity(A) + Rank(A) = Number of columns in A." },
@@ -89,7 +90,8 @@ const SYLLABUS_DATA = [
                     { id: "la-matrix-rep", title: "Linear Systems & Matrix Representation", desc: "Coefficient matrix, augmented matrix [A|b], consistency conditions and solution types.", minutes: 20, highYield: true },
                     { id: "la-ref-gauss", title: "Row Echelon Form (REF), Rank & Gauss Elimination", desc: "Elementary row operations, leading entries (pivots), rank calculation, forward Gaussian elimination.", minutes: 25, highYield: true },
                     { id: "la-rref-gauss-jordan", title: "Reduced Row Echelon Form (RREF) & Gauss-Jordan", desc: "Unique RREF, Gauss-Jordan elimination, matrix inversion [A | I] -> [I | A^-1].", minutes: 30, highYield: true },
-                    { id: "la-homogeneous", title: "Homogeneous Systems of Linear Equations", desc: "Ax = 0, always consistent, trivial vs non-trivial solutions, free variables and nullity.", minutes: 20, highYield: true },
+                    { id: "la-homogeneous", title: "Homogeneous Systems of Linear Equations (Ax = 0)", desc: "Augmented matrix [A|0], guaranteed consistency, elementary row operations, null space Null(A) and nullity.", minutes: 20, highYield: true },
+                    { id: "la-trivial-nontrivial", title: "Trivial & Non-Trivial Solutions in Homogeneous Equations", desc: "Trivial zero solution (x = 0, always exists); conditions for non-trivial solutions (at least one free variable, Rank(A) < n, det(A) = 0 for square matrices), writing solutions in parametric vector form x = s*v1 + t*v2.", minutes: 25, highYield: true },
                     { id: "la-non-homogeneous", title: "Non-Homogeneous Systems & Solution Sets", desc: "General solution x = x_p + x_h (particular + null space solution), Rouché-Capelli rank theorem.", minutes: 20, highYield: false }
                 ]
             },
